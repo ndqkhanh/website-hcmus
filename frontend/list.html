@@ -13,6 +13,7 @@
       integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 
     <script
       src="https://kit.fontawesome.com/65e9bdd394.js"
@@ -70,7 +71,7 @@
       <nav aria-label="breadcrumb" class="bg-light rounded p-3">
         <ol class="breadcrumb mb-0">
           <li class="breadcrumb-item pb-0"><a href="#">Home</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Library</li>
+          <li class="breadcrumb-item active" aria-current="page">Bus ticket</li>
         </ol>
       </nav>
 
@@ -195,7 +196,7 @@
                     <div>
                       <button
                         type="button"
-                        class="btn btn-warning"
+                        class="btn btn-success"
                         data-bs-toggle="modal"
                         data-bs-target="#exampleModal"
                       >
@@ -264,7 +265,7 @@
                     <div>
                       <button
                         type="button"
-                        class="btn btn-warning"
+                        class="btn btn-success"
                         data-bs-toggle="modal"
                         data-bs-target="#exampleModal"
                       >
@@ -312,7 +313,16 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+            <h1 class="modal-title fs-5" id="exampleModalLabel">
+              <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link active" id="pills-bus-operator-tab" data-bs-toggle="pill" data-bs-target="#pills-bus-operator" type="button" role="tab" aria-controls="pills-bus-operator" aria-selected="true">Bus operator</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="pills-bus-information-tab" data-bs-toggle="pill" data-bs-target="#pills-bus-information" type="button" role="tab" aria-controls="pills-bus-information" aria-selected="false">Bus information</button>
+                </li>                 
+              </ul>
+            </h1>
             <button
               type="button"
               class="btn-close"
@@ -320,16 +330,172 @@
               aria-label="Close"
             ></button>
           </div>
-          <div class="modal-body">...</div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Close
-            </button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+          <div class="modal-body">
+            <div class="tab-content" id="pills-tabContent">
+              <div class="tab-pane fade show active" id="pills-bus-operator" role="tabpanel" aria-labelledby="pills-bus-operator-tab" tabindex="0">
+                  
+                      <div class="p-4 col">
+                          <div class=" h3 text-center mw-50">Nhà xe Phương Trang</div>
+
+                          <div>
+                              <img class="img-fluid" src="https://canthoplus.com/wp-content/uploads/2021/12/nha-xe-phuong-trang-mui-ne-phan-thiet-binh-thuan.jpg" 
+                              alt="Nhà xe"> 
+                          </div>
+                          <div>
+                              <span class="fst-italic fw-lighter ">
+                                  Phone number: 
+                              </span>
+                              <span class="fw-bolder ">
+                                  0888.888.888
+                              </span>
+                              <span class="float-end">
+                                  <span class="badge rounded-pill bg-warning text-dark">
+                                      <i class="bi bi-star-fill"></i>
+                                      4.1
+                                  </span>
+                              </span>
+                          </div>
+                          <hr>
+                          <div class="clearfix">
+                              <i class="float-start fs-1 bi bi-person-fill fa-5x me-1"></i>
+                              <div class="float-start">
+                                  <div class="fw-bolder">
+                                      Nguyễn Đinh Quang Khánh
+                                  </div>
+                                  <div >
+                                      <i class="text-warning bi bi-star-fill"></i>
+                                      <i class="text-warning bi bi-star-fill"></i>
+                                      <i class="text-warning bi bi-star-fill"></i>
+                                      <i class="text-warning bi bi-star-fill"></i>
+                                      <i class="text-warning bi bi-star-fill"></i>
+                                  </div>
+                                  <p class="fw-light fst-italic">Xe đi rất high !!!</p>
+                              </div>
+                          </div>
+                          <hr>
+                          <div class="clearfix">
+                              <i class="float-start fs-1 bi bi-person-fill fa-5x me-1"></i>
+                              <div class="float-start">
+                                  <div class="fw-bolder">
+                                      Nguyễn Đinh Quang Khánh
+                                  </div>
+                                  <div >
+                                      <i class="text-warning bi bi-star-fill"></i>
+                                      <i class="text-warning bi bi-star-fill"></i>
+                                      <i class="text-warning bi bi-star-fill"></i>
+                                      <i class="text-warning bi bi-star-fill"></i>
+                                      <i class="text-warning bi bi-star-fill"></i>
+                                  </div>
+                                  <p class="fw-light fst-italic">Xe đi rất high !!!</p>
+                              </div>
+                          </div>
+
+                          <nav class="mt-5" aria-label="Page navigation example">
+                              <ul class="pagination justify-content-center">
+                                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                              </ul>
+                          </nav>
+                          <hr>
+                          <form class="row g-3">
+                              <div class="form-floating">
+                                  <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 150px; resize:none"></textarea>
+                                  <label class="text-muted" for="floatingTextarea2">Your Comments.</label>
+                              </div>
+                              <div>
+                                  <span class="float-start">
+                                      <i class="text-warning bi bi-star"></i>
+                                      <i class="text-warning bi bi-star"></i>
+                                      <i class="text-warning bi bi-star"></i>
+                                      <i class="text-warning bi bi-star"></i>
+                                      <i class="text-warning bi bi-star"></i>
+                                  </span>
+                                  <span class="float-end ">
+                                      <button type="submit" class="btn btn-primary mb-3">Submit</button>
+                                  </span>
+                              </div>
+                          </form>
+                      </div>
+              </div>
+              <div class="tab-pane fade" id="pills-bus-information" role="tabpanel" aria-labelledby="pills-bus-information-tab" tabindex="0">
+                  
+                      <div class="p-4 col">
+                          <table class="table table-borderless">
+                              <tr>
+                                  <td class="fst-italic" style="width: 60%">Bus operator</td>
+                                  <td class="text-primary">Phương Trang</td>
+                              </tr>
+                              <tr>
+                                  <td class="fst-italic">Start point</td>
+                                  <td class="text-primary">Miền Nam bus station</td>
+                              </tr>
+                              <tr>
+                                  <td class="fst-italic">End point</td>
+                                  <td class="text-primary">Miền Hoa bus station</td>
+                              </tr>
+                              <tr>
+                                  <td class="fst-italic">Start time</td>
+                                  <td class="text-primary">12/11/2022 15:00</td>
+                              </tr>
+                              <tr>
+                                  <td class="fst-italic">End time</td>
+                                  <td class="text-primary">13/11/2022 03:00</td>
+                              </tr>
+                              <tr>
+                                  <td class="fst-italic">Duration</td>
+                                  <td class="text-primary">12 hours</td>
+                              </tr>
+                              <tr>
+                                  <td class="fst-italic">Policy</td>
+                                  <td class="text-primary">
+                                      <ul class="ps-0" style="list-style-type:none">
+                                          <li>
+                                              <b>WHILE ON BOARD</b>
+                                              <ul style="list-style-type:disc">
+                                                  <li>
+                                                      Be  silent
+                                                  </li>
+                                                  <li>
+                                                      Holding your ticket
+                                                  </li>
+                                              </ul>
+                                          </li>
+                                          <li>
+                                              <b>YOUR PACKAGE</b>
+                                              <ul style="list-style-type:disc">
+                                                  <li>
+                                                      Not over 10kg
+                                                  </li>
+                                              </ul>
+                                          </li>
+
+                                      </ul>
+                                  </td>
+                              </tr>
+                              <tr>
+                                  <td class="fst-italic">Number of seats</td>
+                                  <td class="text-primary">50</td>
+                              </tr>
+                              <tr>
+                                  <td class="fst-italic">Type of bus</td>
+                                  <td class="text-primary">Vilahouse</td>
+                              </tr>
+                              <tr>
+                                  <td class="fst-italic">Cost</td>
+                                  <td class="text-primary">100.000 vnđ</td>
+                              </tr>
+                          </table>
+                          <hr>
+                          <div>
+                              <img class="img-fluid" src="https://cdn1.nhatrangtoday.vn/images/photos/xe-phuong-trang-top.jpg" alt="Xe">
+                          </div>
+                      </div>
+                  
+              </div>
+            </div>
           </div>
         </div>
       </div>
