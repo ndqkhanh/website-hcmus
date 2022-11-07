@@ -19,9 +19,9 @@ services:
     container_name: postgres
     image: postgres:9.6-alpine
     environment:
-      - POSTGRES_DB=q2aforum
+      - POSTGRES_DB=ticketbooking
       - POSTGRES_PASSWORD=localdb
-      - PGDATA=/var/lib/postgresql/data/q2aforum/
+      - PGDATA=/var/lib/postgresql/data/ticketbooking/
     volumes:
       - data:/var/lib/postgresql/data
     expose:
