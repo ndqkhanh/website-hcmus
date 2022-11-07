@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  # q2aforum:
+  #   build: .
+  #   image: q2aforum
+  #   environment:
+  #     - POSTGRESQL_URL=postgres:localdb@postgres:5432/q2aforum
+  #   ports:
+  #     - '3000:3000'
+  #   depends_on:
+  #     - postgres
+  #   volumes:
+  #     - .:/usr/src/q2aforum
+  #   # networks:
+  #   #   - node-network
+
+  postgres:
+    container_name: postgres
+    image: postgres:9.6-alpine
+    environment:
+      - POSTGRES_DB=q2aforum
+      - POSTGRES_PASSWORD=localdb
+      - PGDATA=/var/lib/postgresql/data/q2aforum/
+    volumes:
+      - data:/var/lib/postgresql/data
+    expose:
+      - '8080'
+      - '5432'
+    ports:
+      - '5432:5432'
+      - '8080:8080'
+
+volumes:
+  data:
