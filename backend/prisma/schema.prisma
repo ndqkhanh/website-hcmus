@@ -8,58 +8,78 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model answers {
-  id         String    @id(map: "answer_pk") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  qid        String    @db.Uuid
-  uid        String    @db.Uuid
-  content    String?
-  correct    Boolean?
-  created_at DateTime? @default(now()) @db.Date
-  updated_at DateTime? @default(now()) @db.Date
-  questions  questions @relation(fields: [qid], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "answer_fk_1")
-  users      users     @relation(fields: [uid], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "answer_fk")
-  voting     voting[]
-}
-
-model configuration {
-  slug  String  @id(map: "configuration_pk")
-  value String?
-}
-
-model questions {
-  id         String    @id(map: "question_pk") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  uid        String    @db.Uuid
-  content    String?
-  status     Int?      @default(0) @db.SmallInt
-  created_at DateTime? @default(now()) @db.Date
-  updated_at DateTime? @default(now()) @updatedAt @db.Date
-  title      String
-  users      users     @relation(fields: [uid], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "question_fk")
-  answers    answers[]
-
-  @@index([title])
-}
-
 model users {
-  id                String      @id(map: "user_pk") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  username          String      @unique(map: "users_un") @db.VarChar
-  password          String
-  profilepictureurl String?
-  role              Int?        @default(2) @db.SmallInt
-  name              String?
-  disabled          Boolean?    @default(false)
-  answers           answers[]
-  questions         questions[]
-  voting            voting[]
-
-  @@index([username], map: "user_username_idx")
+  id          String        @id(map: "users_pk") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  role        Int           @default(1) @db.SmallInt
+  email       String        @unique(map: "users_un") @db.VarChar(255)
+  password    Bytes[]
+  create_time DateTime?     @default(now()) @db.Timestamptz(6)
+  update_time DateTime?     @default(now()) @db.Timestamptz(6)
+  bus_tickets bus_tickets[]
+  reviews     reviews[]
 }
 
-model voting {
-  id      String   @id(map: "voting_pk") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  aid     String   @db.Uuid
-  uid     String   @db.Uuid
-  status  Boolean?
-  answers answers  @relation(fields: [aid], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "voting_fk_1")
-  users   users    @relation(fields: [uid], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "voting_fk")
+model bus_operators {
+  id        String    @id(map: "bus_operators_pk") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  image_url String?
+  phone     String?
+  name      String
+  buses     buses[]
+  reviews   reviews[]
+
+  @@index([name])
+}
+
+model bus_stations {
+  id                                    String  @id(map: "bus_stations_pk") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name                                  String
+  location                              String
+  buses_bus_stationsTobuses_end_point   buses[] @relation("bus_stationsTobuses_end_point")
+  buses_bus_stationsTobuses_start_point buses[] @relation("bus_stationsTobuses_start_point")
+
+  @@index([location])
+}
+
+model bus_tickets {
+  id      String @id(map: "bus_tickets_pk") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  bus_id  String @db.Uuid
+  user_id String @db.Uuid
+  phone   String
+  seat    String
+  status  Int    @default(0) @db.SmallInt
+  buses   buses  @relation(fields: [bus_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "bus_tickets_fk")
+  users   users  @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "bus_tickets_fk_2")
+}
+
+model buses {
+  id                                           String        @id(map: "buses_pk") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  bo_id                                        String        @db.Uuid
+  start_point                                  String        @db.Uuid
+  end_point                                    String        @db.Uuid
+  type                                         String
+  start_time                                   DateTime      @db.Timestamptz(6)
+  end_time                                     DateTime      @db.Timestamptz(6)
+  duration                                     DateTime      @db.Time(6)
+  image_url                                    String
+  policy                                       String?
+  num_of_seats                                 Int           @db.SmallInt
+  type_of_seat                                 String
+  price                                        BigInt
+  bus_operators                                bus_operators @relation(fields: [bo_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "buses_fk")
+  bus_stations_bus_stationsTobuses_end_point   bus_stations  @relation("bus_stationsTobuses_end_point", fields: [end_point], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "buses_fk_3")
+  bus_stations_bus_stationsTobuses_start_point bus_stations  @relation("bus_stationsTobuses_start_point", fields: [start_point], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "buses_fk_2")
+  bus_tickets                                  bus_tickets[]
+
+  @@index([price])
+  @@index([type_of_seat])
+}
+
+model reviews {
+  id            String        @id(map: "reviews_pk") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  comment       String
+  rate          Int           @db.SmallInt
+  user_id       String        @db.Uuid
+  bo_id         String        @db.Uuid
+  bus_operators bus_operators @relation(fields: [bo_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "reviews_fk_2")
+  users         users         @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "reviews_fk")
 }
