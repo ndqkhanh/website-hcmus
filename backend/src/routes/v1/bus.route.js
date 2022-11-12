@@ -6,7 +6,7 @@ const busController = require('../../controllers/bus.controller');
 
 const router = express.Router();
 
-// router.route('/search').post(auth('searchBus'), validate(busValidation.searchBus), busController.searchBus);
+router.route('/search').post(validate(busValidation.searchBus), busController.searchBus);
 
 router.route('/:busId').get(validate(busValidation.getBusInformation), busController.getBusInformation);
 

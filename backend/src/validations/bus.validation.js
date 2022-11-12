@@ -2,7 +2,13 @@ const Joi = require('joi');
 
 const searchBus = {
   body: Joi.object().keys({
-    status: Joi.boolean().required(),
+    startPoint: Joi.string().uuid().required(),
+    endPoint: Joi.string().uuid().required(),
+    page: Joi.number().required(),
+    limit: Joi.number().required(),
+    boId: Joi.string().uuid(),
+    price: Joi.number(),
+    type: Joi.number(),
   }),
 };
 
