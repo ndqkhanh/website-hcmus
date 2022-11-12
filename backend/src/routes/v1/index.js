@@ -17,7 +17,6 @@ const defaultRoutes = [
     route: userRoute,
   },
   { path: '/admin', route: adminRoute },
-  // { path: '/ticket', route: ticketRoute },
 ];
 
 const devRoutes = [

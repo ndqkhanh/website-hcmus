@@ -1,12 +1,11 @@
+const { PrismaClient } = require('@prisma/client');
 const httpStatus = require('http-status');
 const bcrypt = require('bcrypt');
 const { User } = require('../models');
-const { PrismaClient, Prisma } = require('@prisma/client');
 
 const prisma = new PrismaClient();
 
 const ApiError = require('../utils/ApiError');
-const { use } = require('passport');
 
 /**
  * Create a user
@@ -22,6 +21,7 @@ const createUser = async (userBody) => {
 
   // eslint-disable-next-line no-param-reassign
   userBody.password = await bcrypt.hash(userBody.password, saltRounds);
+
   userBody.password = Buffer.from(userBody.password);
 
   const checkEmail = await prisma.users.findUnique({
@@ -58,22 +58,11 @@ const queryUsers = async (filter, options) => {
 };
 
 const getUserById = async (id) => {
-  const user = await prisma.users.findUnique({
+  return prisma.users.findUnique({
     where: {
       id,
     },
   });
-  user.numOfQuestions = await prisma.questions.count({
-    where: {
-      uid: id,
-    },
-  });
-  user.numOfAnswers = await prisma.answers.count({
-    where: {
-      uid: id,
-    },
-  });
-  return user;
 };
 
 /**
@@ -105,8 +94,7 @@ const updateUserById = async (userId, updateBody) => {
       id: userId,
     },
     data: {
-      name: updateBody.name,
-      profilepictureurl: updateBody.profilepictureurl,
+      password: updateBody.password,
     },
   });
   return user;

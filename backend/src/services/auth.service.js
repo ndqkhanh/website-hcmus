@@ -66,15 +66,17 @@ const refreshAuth = async (refreshToken) => {
  * @param {string} newPassword
  * @returns {Promise}
  */
-const resetPassword = async (resetPasswordToken, newPassword) => {
+const resetPassword = async (email, newPassword, repassword) => {
   try {
-    const resetPasswordTokenDoc = await tokenService.verifyToken(resetPasswordToken, tokenTypes.RESET_PASSWORD);
-    const user = await userService.getUserById(resetPasswordTokenDoc.user);
-    if (!user) {
-      throw new Error();
+    if (newPassword !== repassword) {
+      throw new ApiError(httpStatus.BAD_REQUEST, 'Password is not matched with repassword');
     }
+    const user = await userService.getUserByEmail(email);
+    if (!user) {
+      throw new ApiError(httpStatus.NOT_FOUND, 'Can not find this email!');
+    }
+    console.log('user: ', user);
     await userService.updateUserById(user.id, { password: newPassword });
-    await Token.deleteMany({ user: user.id, type: tokenTypes.RESET_PASSWORD });
   } catch (error) {
     throw new ApiError(httpStatus.UNAUTHORIZED, 'Password reset failed');
   }
