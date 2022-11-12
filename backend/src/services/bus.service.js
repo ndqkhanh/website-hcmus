@@ -8,10 +8,13 @@ const searchBus = async (req, res) => {
   return {};
 };
 
-const getBusInformation = async (req, res) => {
-  return {
-    bao: 'vui',
-  };
+const getBusInformation = async (busId) => {
+  const data = await prisma.buses.findUnique({
+    where: {
+      id: busId,
+    },
+  });
+  return data;
 };
 
 module.exports = {

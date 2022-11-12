@@ -11,7 +11,8 @@ const searchBus = catchAsync(async (req, res) => {
 const getBusInformation = catchAsync(async (req, res) => {
   // const countQuestions = await userService.countMyQuestions(req);
   // const myQuestions = await userService.getMyQuestionsPagination(req);
-  const busInformation = await busService.getBusInformation(req);
+  const busInformation = await busService.getBusInformation(req.params.busId);
+  console.log('busInformation', busInformation);
   res.send({ data: busInformation });
 });
 
