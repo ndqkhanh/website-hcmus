@@ -1,11 +1,10 @@
 const Joi = require('joi');
 
 const resetPassword = {
- 
-    body: Joi.object().keys({
-      id: Joi.string().required(),
-      name: Joi.string().required(),
-    }),
-  };
+  body: Joi.object().keys({
+    id: Joi.string().required(),
+    name: Joi.string().required(),
+  }),
+};
 
-module.exports ={ resetPassword};
+module.exports = { resetPassword };

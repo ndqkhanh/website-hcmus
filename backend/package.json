@@ -21,8 +21,7 @@
     "coverage:coveralls": "jest -i --coverage --coverageReporters=text-lcov | coveralls",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "prettier": "prettier --check **/*.js",
-    "prettier:fix": "prettier --write **/*.js",
+    "format": "prettier --write \"./**/*.{ts,tsx,js,jsx,json}\" --end-of-line lf",
     "docker": "docker-compose -f docker-compose.yml up"
   },
   "keywords": [
