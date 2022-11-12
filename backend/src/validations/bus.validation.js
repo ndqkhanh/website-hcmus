@@ -7,8 +7,8 @@ const searchBus = {
 };
 
 const getBusInformation = {
-  query: Joi.object().keys({
-    busId: Joi.string().uuid().required(),
+  params: Joi.object().keys({
+    busId: Joi.string().required(),
     // role: Joi.string(),
     // sortBy: Joi.string(),
     // limit: Joi.number().integer(),
