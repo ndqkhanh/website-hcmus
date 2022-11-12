@@ -1,9 +1,9 @@
 const allRoles = {
-  user: ['createTicket'],
+  user: ['createTicket', 'createReview'],
 
   bus_operator: [],
 
-  admin: [],
+  admin: ['cloneBus'],
 };
 
 allRoles.bus_operator = [...allRoles.bus_operator, ...allRoles.user];

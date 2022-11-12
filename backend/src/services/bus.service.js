@@ -1,6 +1,9 @@
 /* eslint-disable no-await-in-loop */
 /* eslint-disable no-restricted-syntax */
 const { PrismaClient } = require('@prisma/client');
+const httpStatus = require('http-status');
+const ApiError = require('../utils/ApiError');
+
 const prisma = new PrismaClient();
 
 const searchBus = async (body) => {
@@ -81,7 +84,34 @@ const getBusInformation = async (busId) => {
   return data;
 };
 
+const cloneBus = async (id, startTime, endTime) => {
+  const busTemplate = await prisma.buses.findUnique({
+    where: { id },
+  });
+
+  if (startTime.getTime() > endTime.getTime()) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Start time and end time is invalidate');
+  }
+
+  const newBus = await prisma.buses.create({
+    data: {
+      bo_id: busTemplate.bo_id,
+      start_point: busTemplate.start_point,
+      end_point: busTemplate.end_point,
+      type: busTemplate.type,
+      start_time: startTime,
+      end_time: endTime,
+      image_url: busTemplate.image_url,
+      policy: busTemplate.policy,
+      num_of_seats: busTemplate.num_of_seats,
+      price: busTemplate.price,
+    },
+  });
+
+  return newBus;
+};
 module.exports = {
   searchBus,
   getBusInformation,
+  cloneBus,
 };
