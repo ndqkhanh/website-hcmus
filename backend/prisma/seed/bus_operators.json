@@ -1,14 +1,14 @@
 [
-    {
-        "id": "b2bd2154-69f6-4602-a3df-daed6cd7bca3",
-        "image_url": "https://picsum.photos/536/354",
-        "phone": "0283838685",
-        "name": "Phương Trang"
-    },
-    {
-        "id": "b2bd2154-69f6-4602-a3df-daed6cd7b3ac",
-        "image_url": "https://picsum.photos/536/354",
-        "phone": "0944274107",
-        "name": "Thành Bưởi"
-    }
+  {
+    "id": "b2bd2154-69f6-4602-a3df-daed6cd7bca3",
+    "image_url": "https://picsum.photos/536/354",
+    "phone": "0283838685",
+    "name": "Phương Trang"
+  },
+  {
+    "id": "b2bd2154-69f6-4602-a3df-daed6cd7b3ac",
+    "image_url": "https://picsum.photos/536/354",
+    "phone": "0944274107",
+    "name": "Thành Bưởi"
+  }
 ]

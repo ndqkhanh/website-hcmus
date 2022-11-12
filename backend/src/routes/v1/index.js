@@ -22,10 +22,6 @@ const defaultRoutes = [
     route: busRoute,
   },
   { path: '/admin', route: adminRoute },
-<<<<<<< HEAD
-  // { path: '/ticket', route: ticketRoute },
-=======
->>>>>>> cc08fc0f15196429c5d864c6a4ef063742f651c4
 ];
 
 const devRoutes = [
