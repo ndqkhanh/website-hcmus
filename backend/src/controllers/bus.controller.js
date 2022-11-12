@@ -13,7 +13,12 @@ const getBusInformation = catchAsync(async (req, res) => {
   res.send(busInformation);
 });
 
+const cloneBus = catchAsync(async (req, res) => {
+  const newBus = await busService.cloneBus(req.body.id, req.body.start_time, req.body.end_time);
+  res.send(newBus);
+});
 module.exports = {
   searchBus,
   getBusInformation,
+  cloneBus,
 };
