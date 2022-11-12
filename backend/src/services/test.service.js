@@ -9,13 +9,10 @@ const { model } = require('mongoose');
 const { PrismaClient, Prisma } = require('@prisma/client');
 const prisma = new PrismaClient();
 
-const resetPassword = async(id, name)=>{
+const resetPassword = async()=>{
 
     return prisma.bus_stations.findFirst(
-        {where:{
-            id: id,
-            name: name,
-        }}
+        {}
     ) 
 }
 

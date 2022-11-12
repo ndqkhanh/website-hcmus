@@ -71,10 +71,10 @@ const getUserById = async (id) => {
  * @param {string} email
  * @returns {Promise<User>}
  */
-const getUserByUsername = async (username) => {
-  return prisma.users.findUnique({
+const getUserByUsername = async (email) => {
+  return prisma.users.findFirst({
     where: {
-      username,
+      email: email
     },
   });
 };
@@ -121,7 +121,16 @@ const getMyQuestionsPagination = async (req) => {
 
   return questions;
 };
+const getHistoryByUId = async(id)=>{
+  const historyList =  await prisma.bus_tickets.findMany({
+    where:{
+      uid: id,
+    }
+  })
+  return historyList;
+}
 module.exports = {
+  getHistoryByUId,
   createUser,
   queryUsers,
   getUserById,

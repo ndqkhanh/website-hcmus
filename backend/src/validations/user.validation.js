@@ -29,6 +29,9 @@ const getMyQuestions = {
   },
 };
 
+const getHistoryByUId =  {
+  
+}
 module.exports = {
   getUsers,
   getUser,

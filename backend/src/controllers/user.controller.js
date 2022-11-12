@@ -47,7 +47,13 @@ const getMyQuestions = catchAsync(async (req, res) => {
 
   res.send({ count: countQuestions, questions: myQuestions });
 });
+
+const getHistoryByUId = catchAsync(async (req, res) =>{
+  const hisList = await userService.getHistoryByUId(req.user.id);
+  res.send({hisList});
+});
 module.exports = {
+  getHistoryByUId,
   createUser,
   getUsers,
   getUser,
