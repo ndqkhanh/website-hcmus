@@ -1,6 +1,8 @@
+const { PrismaClient } = require('@prisma/client');
 const httpStatus = require('http-status');
 const bcrypt = require('bcrypt');
-const { PrismaClient } = require('@prisma/client');
+const { User } = require('../models');
+
 const prisma = new PrismaClient();
 
 const ApiError = require('../utils/ApiError');
@@ -11,20 +13,29 @@ const ApiError = require('../utils/ApiError');
  * @returns {Promise<User>}
  */
 const createUser = async (userBody) => {
+  if (userBody.password !== userBody.repassword) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Repassword is not identical to password');
+  }
+
   const saltRounds = 10;
 
+  // eslint-disable-next-line no-param-reassign
   userBody.password = await bcrypt.hash(userBody.password, saltRounds);
+  // eslint-disable-next-line no-param-reassign
+  userBody.password = Buffer.from(userBody.password);
 
-  const checkUsername = await prisma.users.findUnique({
+  const checkEmail = await prisma.users.findUnique({
     where: {
-      username: userBody.username,
+      email: userBody.email,
     },
   });
 
-  if (checkUsername) {
+  if (checkEmail) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Username already taken');
   }
 
+  // eslint-disable-next-line no-param-reassign
+  delete userBody.repassword;
   const user = prisma.users.create({
     data: userBody,
   });
@@ -47,22 +58,11 @@ const queryUsers = async (filter, options) => {
 };
 
 const getUserById = async (id) => {
-  const user = await prisma.users.findUnique({
+  return prisma.users.findUnique({
     where: {
       id,
     },
   });
-  user.numOfQuestions = await prisma.questions.count({
-    where: {
-      uid: id,
-    },
-  });
-  user.numOfAnswers = await prisma.answers.count({
-    where: {
-      uid: id,
-    },
-  });
-  return user;
 };
 
 /**
@@ -70,10 +70,10 @@ const getUserById = async (id) => {
  * @param {string} email
  * @returns {Promise<User>}
  */
-const getUserByUsername = async (username) => {
+const getUserByEmail = async (email) => {
   return prisma.users.findUnique({
     where: {
-      username,
+      email,
     },
   });
 };
@@ -84,20 +84,27 @@ const getUserByUsername = async (username) => {
  * @param {Object} updateBody
  * @returns {Promise<User>}
  */
-const updateUserById = async (userId, updateBody) => {
+const updateUserById = async (userId, newPassword) => {
+  const saltRounds = 10;
+  // eslint-disable-next-line no-param-reassign
+  newPassword = await bcrypt.hash(newPassword, saltRounds);
+  // eslint-disable-next-line no-param-reassign
+  newPassword = Buffer.from(newPassword);
+
   const checkUserExists = await getUserById(userId);
   if (!checkUserExists) {
     throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
   }
+
   const user = await prisma.users.update({
     where: {
       id: userId,
     },
     data: {
-      name: updateBody.name,
-      profilepictureurl: updateBody.profilepictureurl,
+      password: newPassword,
     },
   });
+
   return user;
 };
 
@@ -124,7 +131,7 @@ module.exports = {
   createUser,
   queryUsers,
   getUserById,
-  getUserByUsername,
+  getUserByEmail,
   updateUserById,
   countMyQuestions,
   getMyQuestionsPagination,

@@ -7,18 +7,20 @@ const ApiError = require('../utils/ApiError');
 const { tokenTypes } = require('../config/tokens');
 
 /**
- * Login with username and password
+ * Login with email and password
  * @param {string} email
  * @param {string} password
  * @returns {Promise<User>}
  */
-const loginUserWithUsernameAndPassword = async (username, password) => {
-  const user = await userService.getUserByUsername(username);
+const loginUserWithEmailAndPassword = async (email, password) => {
+  const user = await userService.getUserByEmail(email);
+  user.password = user.password.toString();
+
   // if (!user || !(await user.isPasswordMatch(password))) {
   //   throw new ApiError(httpStatus.UNAUTHORIZED, 'Incorrect email or password');
   // }
   if (!user || !(await bcrypt.compare(password, user.password))) {
-    throw new ApiError(httpStatus.UNAUTHORIZED, 'Incorrect username or password');
+    throw new ApiError(httpStatus.UNAUTHORIZED, 'Incorrect email or password');
   }
   if (user && user.disabled === true) {
     throw new ApiError(httpStatus.UNAUTHORIZED, 'User is disabled');
@@ -64,15 +66,17 @@ const refreshAuth = async (refreshToken) => {
  * @param {string} newPassword
  * @returns {Promise}
  */
-const resetPassword = async (resetPasswordToken, newPassword) => {
+const resetPassword = async (email, newPassword, repassword) => {
   try {
-    const resetPasswordTokenDoc = await tokenService.verifyToken(resetPasswordToken, tokenTypes.RESET_PASSWORD);
-    const user = await userService.getUserById(resetPasswordTokenDoc.user);
-    if (!user) {
-      throw new Error();
+    if (newPassword !== repassword) {
+      throw new ApiError(httpStatus.NOT_FOUND, 'Password is not matched with repassword');
     }
-    await userService.updateUserById(user.id, { password: newPassword });
-    await Token.deleteMany({ user: user.id, type: tokenTypes.RESET_PASSWORD });
+
+    const user = await userService.getUserByEmail(email);
+    if (!user) {
+      throw new ApiError(httpStatus.NOT_FOUND, 'Can not find this email!');
+    }
+    await userService.updateUserById(user.id, newPassword);
   } catch (error) {
     throw new ApiError(httpStatus.UNAUTHORIZED, 'Password reset failed');
   }
@@ -98,7 +102,7 @@ const verifyEmail = async (verifyEmailToken) => {
 };
 
 module.exports = {
-  loginUserWithUsernameAndPassword,
+  loginUserWithEmailAndPassword,
   logout,
   refreshAuth,
   resetPassword,
