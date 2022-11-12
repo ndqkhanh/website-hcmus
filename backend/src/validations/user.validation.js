@@ -30,6 +30,15 @@ const getMyQuestions = {
 };
 
 const getHistoryByUId =  {
+  params: {
+    page: Joi.number().required(),
+    limit: Joi.number().required(),
+  },
+  body: Joi.object().keys(
+    {
+      uid: Joi.string().uuid().required(),
+    }
+  )
   
 }
 module.exports = {
@@ -37,4 +46,5 @@ module.exports = {
   getUser,
   updateUser,
   getMyQuestions,
+  getHistoryByUId
 };

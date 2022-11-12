@@ -6,6 +6,7 @@ const { User } = require('../models');
 const prisma = new PrismaClient();
 
 const ApiError = require('../utils/ApiError');
+const { transformDocument } = require('@prisma/client/runtime');
 
 /**
  * Create a user
@@ -127,10 +128,22 @@ const getMyQuestionsPagination = async (req) => {
 
   return questions;
 };
-const getHistoryByUId = async(id)=>{
+const getHistoryByUId = async(req)=>{
   const historyList =  await prisma.bus_tickets.findMany({
+    skip: req.params.page * req.params.limit,
+    take: req.params.limit,
     where:{
-      uid: id,
+      user_id: req.body.id,
+    },
+    include:{
+      buses:{
+        include:{
+          bus_stations_bus_stationsTobuses_end_point:true,
+          bus_stations_bus_stationsTobuses_start_point: true,
+          bus_operators:true,
+        }
+      },
+      
     }
   })
   return historyList;
