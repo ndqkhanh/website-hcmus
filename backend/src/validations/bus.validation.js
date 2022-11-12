@@ -22,7 +22,15 @@ const getBusInformation = {
   }),
 };
 
+const cloneBus = {
+  body: Joi.object().keys({
+    id: Joi.string().uuid().required(),
+    start_time: Joi.date().required(),
+    end_time: Joi.date().required(),
+  }),
+};
 module.exports = {
   searchBus,
   getBusInformation,
+  cloneBus,
 };
