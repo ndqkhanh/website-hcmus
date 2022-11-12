@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 /* eslint-disable no-plusplus */
 /* eslint-disable no-await-in-loop */
 const httpStatus = require('http-status');

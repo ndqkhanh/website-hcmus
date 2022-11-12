@@ -12,6 +12,7 @@ const getAllMetrics = async () => {
 };
 
 const disableUser = async (req) => {
+  console.log('Hello');
   const checkUserExists = await userService.getUserById(req.params.userId);
   if (!checkUserExists) {
     throw new ApiError(httpStatus.NOT_FOUND, 'User not found');

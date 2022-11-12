@@ -1,28 +1,41 @@
 [
-    {
-        "id": "5941438f-3627-4a35-9c15-3723c15d07ff",
-        "bo_id": "b2bd2154-69f6-4602-a3df-daed6cd7bca3",
-        "start_point": "08b4b02a-7fad-49f3-baba-df61c8f8240c",
-        "end_point": "08b4b02a-7fad-49f3-baba-df61c8f8240c",
-        "type": 1,
-        "start_time": "2022-03-17T07:50:26.046Z",
-        "end_time": "2022-03-17T09:50:26.046Z",
-        "image_url": "https://static.vexere.com/production/images/1592301219051.jpeg",
-        "policy": "<ul><li>WHILE ON BOARD<ul><li>Holding your ticket</li><li>Be silent</li></ul></li><li>YOUR PACKAGE<ul><li>Not over 10kg</li></ul></li></ul>",
-        "num_of_seats": 50,
-        "price": 50000
-    },
-    {
-        "id": "2c3ad9b1-db11-4367-8945-48dbbe8706cb",
-        "bo_id": "b2bd2154-69f6-4602-a3df-daed6cd7b3ac",
-        "start_point": "2d23bc71-19c7-4948-a0a8-f249e86ee472",
-        "end_point": "08b4b02a-7fad-49f3-baba-df61c8f8240c",
-        "type": 0,
-        "start_time": "2022-03-17T07:50:26.046Z",
-        "end_time": "2022-03-17T09:50:26.046Z",
-        "image_url": "https://static.vexere.com/production/images/1592301219051.jpeg",
-        "policy": "<ul><li>WHILE ON BOARD<ul><li>Holding your ticket</li><li>Be silent</li></ul></li><li>YOUR PACKAGE<ul><li>Not over 10kg</li></ul></li></ul>",
-        "num_of_seats": 25,
-        "price": 100000
-    }
+  {
+    "id": "5941438f-3627-4a35-9c15-3723c15d07ff",
+    "bo_id": "b2bd2154-69f6-4602-a3df-daed6cd7bca3",
+    "start_point": "08b4b02a-7fad-49f3-baba-df61c8f8240c",
+    "end_point": "08b4b02a-7fad-49f3-baba-df61c8f8240c",
+    "type": 1,
+    "start_time": "2022-03-17T07:50:26.046Z",
+    "end_time": "2022-03-17T09:50:26.046Z",
+    "image_url": "https://static.vexere.com/production/images/1592301219051.jpeg",
+    "policy": "<ul><li>WHILE ON BOARD<ul><li>Holding your ticket</li><li>Be silent</li></ul></li><li>YOUR PACKAGE<ul><li>Not over 10kg</li></ul></li></ul>",
+    "num_of_seats": 50,
+    "price": 50000
+  },
+  {
+    "id": "5941438f-3627-4a35-9c15-3723c15d07aa",
+    "bo_id": "b2bd2154-69f6-4602-a3df-daed6cd7b3ac",
+    "start_point": "08b4b02a-7fad-49f3-baba-df61c8f8240c",
+    "end_point": "08b4b02a-7fad-49f3-baba-df61c8f8240c",
+    "type": 0,
+    "start_time": "2022-03-17T07:50:26.046Z",
+    "end_time": "2022-03-17T09:50:26.046Z",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/LT_471_%28LTZ_1471%29_Arriva_London_New_Routemaster_%2819522859218%29.jpg/1200px-LT_471_%28LTZ_1471%29_Arriva_London_New_Routemaster_%2819522859218%29.jpg",
+    "policy": "<ul><li>WHILE ON BOARD<ul><li>Holding your ticket</li><li>Be silent</li></ul></li><li>YOUR PACKAGE<ul><li>Not over 10kg</li></ul></li></ul>",
+    "num_of_seats": 25,
+    "price": 100000
+  },
+  {
+    "id": "2c3ad9b1-db11-4367-8945-48dbbe8706cb",
+    "bo_id": "b2bd2154-69f6-4602-a3df-daed6cd7b3ac",
+    "start_point": "2d23bc71-19c7-4948-a0a8-f249e86ee472",
+    "end_point": "08b4b02a-7fad-49f3-baba-df61c8f8240c",
+    "type": 0,
+    "start_time": "2022-03-17T07:50:26.046Z",
+    "end_time": "2022-03-17T09:50:26.046Z",
+    "image_url": "https://static.vexere.com/production/images/1592301219051.jpeg",
+    "policy": "<ul><li>WHILE ON BOARD<ul><li>Holding your ticket</li><li>Be silent</li></ul></li><li>YOUR PACKAGE<ul><li>Not over 10kg</li></ul></li></ul>",
+    "num_of_seats": 25,
+    "price": 100000
+  }
 ]
