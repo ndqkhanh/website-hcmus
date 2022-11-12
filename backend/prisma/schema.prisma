@@ -44,6 +44,7 @@ model bus_tickets {
   id      String @id(map: "bus_tickets_pk") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   bus_id  String @db.Uuid
   user_id String @db.Uuid
+  name    String
   phone   String
   seat    String
   status  Int    @default(0) @db.SmallInt
