@@ -15,7 +15,7 @@ router
 router
   .route('/questions/:page/:limit')
   .get(auth('getMyQuestions'), validate(userValidation.getMyQuestions), userController.getMyQuestions);
-  
+
 router.route('/:userId').get(auth('getUser'), validate(userValidation.getUser), userController.getUser);
 
 module.exports = router;
