@@ -130,6 +130,11 @@ const getMyQuestionsPagination = async (req) => {
 };
 const getHistoryByUId = async(req)=>{
   const historyList =  await prisma.bus_tickets.findMany({
+    orderBy:{
+      buses: {
+        start_point: 'desc',
+      },
+    },
     skip: req.params.page * req.params.limit,
     take: req.params.limit,
     where:{

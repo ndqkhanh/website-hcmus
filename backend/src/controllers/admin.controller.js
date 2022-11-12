@@ -37,7 +37,12 @@ const listConfigurations = catchAsync(async (req, res) => {
   res.send(configuration);
 });
 
+const listBusOperator = catchAsync(async (req,res)=>{
+  const BOList = await adminService.listBusOperator(req);
+  res.send(BOList);
+});
 module.exports = {
+  listBusOperator,
   getMetrics,
   banUser,
   getPendingQuestions,

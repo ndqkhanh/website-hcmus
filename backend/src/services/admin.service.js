@@ -129,8 +129,19 @@ const listConfigurations = async () => {
   });
   return Configurations;
 };
+const listBusOperator = async(req) =>{
+  const listBO = await prisma.bus_operators.findMany({
+    orderBy:{
+      name: 'asc',
+    },
+    skip: req.params.page * req.params.limit,
+    take: req.params.limit
+  })
+  return listBO;
+}
 
 module.exports = {
+  listBusOperator,
   getAllMetrics,
   disableUser,
   getPendingQuestions,

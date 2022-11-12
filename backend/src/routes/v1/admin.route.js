@@ -31,4 +31,6 @@ router.route('/list-users/:page/:limit').get(auth('getUsers'), validate(adminVal
 
 router.route('/list-configuration').get(auth('listConfigurations'), adminController.listConfigurations);
 
+router.route('/bus-operator/list/:page/:limit').get(auth('viewBO'), validate(adminValidation.getBO), adminController.listBusOperator);
+
 module.exports = router;
