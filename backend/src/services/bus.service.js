@@ -1,6 +1,7 @@
 /* eslint-disable no-await-in-loop */
 /* eslint-disable no-restricted-syntax */
 const { PrismaClient } = require('@prisma/client');
+
 const prisma = new PrismaClient();
 
 const searchBus = async (body) => {

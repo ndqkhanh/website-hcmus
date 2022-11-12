@@ -13,6 +13,11 @@ const createTicketByNumOfSeats = async (userId, busId, name, phone, numOfSeats) 
     where: {
       id: busId,
     },
+    include: {
+      bus_stations_bus_stationsTobuses_end_point: true,
+      bus_stations_bus_stationsTobuses_start_point: true,
+      bus_operators: true,
+    },
   });
 
   if (!checkBusIDExist) {
@@ -71,11 +76,30 @@ const createTicketByNumOfSeats = async (userId, busId, name, phone, numOfSeats) 
     });
   }
 
-  const busTickets = await prisma.bus_tickets.createMany({
-    data: availableSeatPosArr,
-  });
+  const result = { seat_positions: [], ticket_ids: [] };
 
-  return busTickets;
+  for (let i = 0; i < availableSeatPosArr.length; ++i) {
+    const createTicket = await prisma.bus_tickets.create({
+      data: availableSeatPosArr[i],
+    });
+    result.name = name;
+    result.seat_positions.push(createTicket.seat);
+    result.ticket_ids.push(createTicket.id);
+    result.bo_name = checkBusIDExist.bus_operators.name;
+    result.start_point = checkBusIDExist.bus_stations_bus_stationsTobuses_start_point.name;
+    result.end_point = checkBusIDExist.bus_stations_bus_stationsTobuses_end_point.name;
+    result.start_time = checkBusIDExist.start_time;
+    result.end_time = checkBusIDExist.end_time;
+    result.duration = Math.abs(checkBusIDExist.end_time.getTime() - checkBusIDExist.start_time.getTime());
+    result.policy = checkBusIDExist.policy;
+    result.num_of_seats = numOfSeats;
+    result.type = checkBusIDExist.type;
+    result.ticket_cost = checkBusIDExist.price;
+    result.total_cost = checkBusIDExist.price * numOfSeats;
+    result.status = 0;
+  }
+
+  return result;
 };
 
 module.exports = {
