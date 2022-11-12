@@ -2,9 +2,11 @@ const httpStatus = require('http-status');
 const bcrypt = require('bcrypt');
 const { User } = require('../models');
 const { PrismaClient, Prisma } = require('@prisma/client');
+
 const prisma = new PrismaClient();
 
 const ApiError = require('../utils/ApiError');
+const { use } = require('passport');
 
 /**
  * Create a user
@@ -12,20 +14,28 @@ const ApiError = require('../utils/ApiError');
  * @returns {Promise<User>}
  */
 const createUser = async (userBody) => {
+  if (userBody.password !== userBody.repassword) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Repassword is not identical to password');
+  }
+
   const saltRounds = 10;
 
+  // eslint-disable-next-line no-param-reassign
   userBody.password = await bcrypt.hash(userBody.password, saltRounds);
+  userBody.password = Buffer.from(userBody.password);
 
-  const checkUsername = await prisma.users.findUnique({
+  const checkEmail = await prisma.users.findUnique({
     where: {
-      username: userBody.username,
+      email: userBody.email,
     },
   });
 
-  if (checkUsername) {
+  if (checkEmail) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Username already taken');
   }
 
+  // eslint-disable-next-line no-param-reassign
+  delete userBody.repassword;
   const user = prisma.users.create({
     data: userBody,
   });
@@ -71,10 +81,10 @@ const getUserById = async (id) => {
  * @param {string} email
  * @returns {Promise<User>}
  */
-const getUserByUsername = async (username) => {
+const getUserByEmail = async (email) => {
   return prisma.users.findUnique({
     where: {
-      username,
+      email,
     },
   });
 };
@@ -125,7 +135,7 @@ module.exports = {
   createUser,
   queryUsers,
   getUserById,
-  getUserByUsername,
+  getUserByEmail,
   updateUserById,
   countMyQuestions,
   getMyQuestionsPagination,
