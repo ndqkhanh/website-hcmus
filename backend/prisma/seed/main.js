@@ -15,6 +15,7 @@ async function main() {
         update_time: '2022-08-27T14:43:55.772Z',
       },
     ],
+
     // leaderboard_record,
   };
 
