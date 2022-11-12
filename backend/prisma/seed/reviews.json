@@ -1,0 +1,16 @@
+[
+    {
+        "id": "bd2605c6-59d1-40c4-8943-38be942bb8b7",
+        "comment": "quá là high",
+        "rate": 4,
+        "user_id": "c118f693-8722-4461-a79d-d76991b96bcd",
+        "bo_id": "b2bd2154-69f6-4602-a3df-daed6cd7bca3"
+    },
+    {
+        "id": "bd2605c6-59d1-40c4-8943-38be942bb7c8",
+        "comment": "quá là 2",
+        "rate": 5,
+        "user_id": "c118f693-8722-4461-a79d-d76991b96a9e",
+        "bo_id": "b2bd2154-69f6-4602-a3df-daed6cd7b3ac"
+    }
+]
