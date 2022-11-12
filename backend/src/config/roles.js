@@ -6,8 +6,8 @@ const allRoles = {
   admin: [],
 };
 
-allRoles.moderator = [...allRoles.moderator, ...allRoles.user];
-allRoles.admin = [...allRoles.admin, ...allRoles.moderator];
+allRoles.bus_operator = [...allRoles.bus_operator, ...allRoles.user];
+allRoles.admin = [...allRoles.admin, ...allRoles.bus_operator];
 
 const roles = Object.keys(allRoles);
 const roleRights = new Map(Object.entries(allRoles));
