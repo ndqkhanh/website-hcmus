@@ -9,6 +9,8 @@ const router = express.Router();
 
 router.route('/review/:boId/:page/:limit').get(validate(boValidation.getReviews), boController.getReviews);
 
-router.route('/create/:boId').post(auth('createReview'), validate(boValidation.createReview), boController.createReview);
+router
+  .route('/review/create/:boId')
+  .post(auth('createReview'), validate(boValidation.createReview), boController.createReview);
 
 module.exports = router;
