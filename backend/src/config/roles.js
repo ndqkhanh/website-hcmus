@@ -1,22 +1,13 @@
 const allRoles = {
-  user: [
-    'getProfile',
-    'getUser',
-    'updateUser',
-    'searchQuestion',
-    'getLatestFeed',
-    'getMyQuestions',
-    'getAllAnswersAndVotings',
-    'listConfigurations',
-  ],
+  user: ['createTicket'],
 
-  moderator: ['approveDeclineQuestion', 'getPendingQuestions', 'banUser', 'getMetrics', 'getUsers'],
+  bus_operator: [],
 
-  admin: ['setConfiguration'],
+  admin: [],
 };
 
-allRoles.moderator = [...allRoles.moderator, ...allRoles.user];
-allRoles.admin = [...allRoles.admin, ...allRoles.moderator];
+allRoles.bus_operator = [...allRoles.bus_operator, ...allRoles.user];
+allRoles.admin = [...allRoles.admin, ...allRoles.bus_operator];
 
 const roles = Object.keys(allRoles);
 const roleRights = new Map(Object.entries(allRoles));
