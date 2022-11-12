@@ -21,7 +21,7 @@ const createUser = async (userBody) => {
 
   // eslint-disable-next-line no-param-reassign
   userBody.password = await bcrypt.hash(userBody.password, saltRounds);
-
+  // eslint-disable-next-line no-param-reassign
   userBody.password = Buffer.from(userBody.password);
 
   const checkEmail = await prisma.users.findUnique({
@@ -84,19 +84,27 @@ const getUserByEmail = async (email) => {
  * @param {Object} updateBody
  * @returns {Promise<User>}
  */
-const updateUserById = async (userId, updateBody) => {
+const updateUserById = async (userId, newPassword) => {
+  const saltRounds = 10;
+  // eslint-disable-next-line no-param-reassign
+  newPassword = await bcrypt.hash(newPassword, saltRounds);
+  // eslint-disable-next-line no-param-reassign
+  newPassword = Buffer.from(newPassword);
+
   const checkUserExists = await getUserById(userId);
   if (!checkUserExists) {
     throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
   }
+
   const user = await prisma.users.update({
     where: {
       id: userId,
     },
     data: {
-      password: updateBody.password,
+      password: newPassword,
     },
   });
+
   return user;
 };
 

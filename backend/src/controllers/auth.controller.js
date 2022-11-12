@@ -33,8 +33,8 @@ const forgotPassword = catchAsync(async (req, res) => {
 });
 
 const resetPassword = catchAsync(async (req, res) => {
-  await authService.resetPassword(req.body.email, req.body.password, req.body.repassword);
-  res.send(true);
+  await authService.resetPassword(req.body.email, req.body.newPassword, req.body.repassword);
+  res.send({ success: true });
 });
 
 const sendVerificationEmail = catchAsync(async (req, res) => {

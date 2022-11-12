@@ -22,9 +22,9 @@ const loginUserWithEmailAndPassword = async (email, password) => {
   if (!user || !(await bcrypt.compare(password, user.password))) {
     throw new ApiError(httpStatus.UNAUTHORIZED, 'Incorrect email or password');
   }
-  // if (user && user.disabled === true) {
-  //   throw new ApiError(httpStatus.UNAUTHORIZED, 'User is disabled');
-  // }
+  if (user && user.disabled === true) {
+    throw new ApiError(httpStatus.UNAUTHORIZED, 'User is disabled');
+  }
   return user;
 };
 
@@ -69,14 +69,14 @@ const refreshAuth = async (refreshToken) => {
 const resetPassword = async (email, newPassword, repassword) => {
   try {
     if (newPassword !== repassword) {
-      throw new ApiError(httpStatus.BAD_REQUEST, 'Password is not matched with repassword');
+      throw new ApiError(httpStatus.NOT_FOUND, 'Password is not matched with repassword');
     }
+
     const user = await userService.getUserByEmail(email);
     if (!user) {
       throw new ApiError(httpStatus.NOT_FOUND, 'Can not find this email!');
     }
-    console.log('user: ', user);
-    await userService.updateUserById(user.id, { password: newPassword });
+    await userService.updateUserById(user.id, newPassword);
   } catch (error) {
     throw new ApiError(httpStatus.UNAUTHORIZED, 'Password reset failed');
   }
