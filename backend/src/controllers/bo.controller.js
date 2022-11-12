@@ -3,7 +3,7 @@ const catchAsync = require('../utils/catchAsync');
 const { boService } = require('../services');
 
 const getReviews = catchAsync(async (req, res) => {
-  const result = await boService.getReviewsById(req.params.boId, req.params.page, req.params.limit);
+  const result = await boService.getReviews(req.params.boId, req.params.page, req.params.limit);
   res.send(result);
 });
 
