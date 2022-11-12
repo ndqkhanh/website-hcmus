@@ -1,11 +1,11 @@
 /* eslint-disable camelcase */
 /* eslint-disable no-console */
-import { PrismaClient } from '@prisma/client';
-import bo_record from './bus_operators.json';
-import bs_record from './bus_stations.json';
-import buses_record from './buses.json';
-import reviews_record from './reviews.json';
-import bt_record from './bus_tickets.json';
+const { PrismaClient } = require('@prisma/client');
+const bus_stations = require('./bus_stations.json');
+const buses = require('./buses.json');
+const reviews = require('./reviews.json');
+const bus_tickets = require('./bus_tickets.json');
+const bus_operators = require('./bus_operators.json');
 
 const prisma = new PrismaClient();
 
@@ -29,7 +29,7 @@ async function main() {
         update_time: '2022-08-27T14:43:55.772Z',
       },
       {
-        id: 'c118f693-8722-4461-a79d-d76991b96sfs',
+        id: 'c118f693-8722-4461-a79d-d76991b96fdf',
         email: 'user1@gmail.com',
         role: 1,
         password: Buffer.from('$2a$10$uR5S.P86tXoBfCHl0a03bePKyN/1yE/1oCW5oRNs/IYfbDeL.WY9O'),
@@ -37,7 +37,7 @@ async function main() {
         update_time: '2022-08-27T14:43:55.772Z',
       },
       {
-        id: 'c118f693-8722-4461-a79d-d76991b96hgf',
+        id: 'c118f693-8722-4461-a79d-d76991b96abf',
         email: 'user2@gmail.com',
         role: 1,
         password: Buffer.from('$2a$10$uR5S.P86tXoBfCHl0a03bePKyN/1yE/1oCW5oRNs/IYfbDeL.WY9O'),
@@ -45,11 +45,11 @@ async function main() {
         update_time: '2022-08-27T14:43:55.772Z',
       },
     ],
-    bo_record,
-    bs_record,
-    buses_record,
-    reviews_record,
-    bt_record,
+    bus_operators,
+    bus_stations,
+    buses,
+    reviews,
+    bus_tickets,
   };
 
   // eslint-disable-next-line no-restricted-syntax

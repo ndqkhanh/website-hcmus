@@ -12,7 +12,7 @@ model users {
   id          String        @id(map: "users_pk") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   role        Int           @default(1) @db.SmallInt
   email       String        @unique(map: "users_un") @db.VarChar(255)
-  password    Bytes[]
+  password    Bytes
   create_time DateTime?     @default(now()) @db.Timestamptz(6)
   update_time DateTime?     @default(now()) @db.Timestamptz(6)
   bus_tickets bus_tickets[]
@@ -59,7 +59,6 @@ model buses {
   type                                         Int           @db.SmallInt
   start_time                                   DateTime      @db.Timestamptz(6)
   end_time                                     DateTime      @db.Timestamptz(6)
-  duration                                     DateTime      @db.Time(6)
   image_url                                    String
   policy                                       String?
   num_of_seats                                 Int           @db.SmallInt
