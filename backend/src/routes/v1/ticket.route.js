@@ -8,5 +8,6 @@ const ticketController = require('../../controllers/ticket.controller');
 const router = express.Router();
 
 router.route('/create').post(auth('createTicket'), validate(ticketValidation.createTicket), ticketController.createTicket);
+router.route('/print').post(auth('printTicket'), validate(ticketValidation.printTicket), ticketController.createTicket);
 
 module.exports = router;
