@@ -59,7 +59,6 @@ model buses {
   type                                         Int           @db.SmallInt
   start_time                                   DateTime      @db.Timestamptz(6)
   end_time                                     DateTime      @db.Timestamptz(6)
-  duration                                     DateTime      @db.Time(6)
   image_url                                    String
   policy                                       String?
   num_of_seats                                 Int           @db.SmallInt
