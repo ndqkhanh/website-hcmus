@@ -36,6 +36,10 @@ const printTicket = catchAsync(async (req, res) => {
 
   const startPoint = await busStationService.getBusStationById(bus.start_point);
   const endPoint = await busStationService.getBusStationById(bus.end_point);
+  const seats = [];
+  tickets.forEach((ticket) => {
+    seats.push(ticket.seat);
+  });
   const ticketInfo = {
     fullName: tickets[0].name,
     ticketId: tickets,
@@ -46,6 +50,7 @@ const printTicket = catchAsync(async (req, res) => {
     status: 2,
     busOperator: busOperator.name,
     endPoint,
+    seats,
     endTime: bus.end_time,
     policy: bus.policy,
     type: bus.type,
