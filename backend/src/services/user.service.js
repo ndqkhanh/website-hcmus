@@ -1,7 +1,6 @@
 const httpStatus = require('http-status');
 const bcrypt = require('bcrypt');
-const { User } = require('../models');
-const { PrismaClient, Prisma } = require('@prisma/client');
+const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 const ApiError = require('../utils/ApiError');
