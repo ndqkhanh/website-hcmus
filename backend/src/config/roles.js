@@ -1,18 +1,9 @@
 const allRoles = {
-  user: [
-    'getProfile',
-    'getUser',
-    'updateUser',
-    'searchQuestion',
-    'getLatestFeed',
-    'getMyQuestions',
-    'getAllAnswersAndVotings',
-    'listConfigurations',
-  ],
+  user: ['createTicket'],
 
-  moderator: ['approveDeclineQuestion', 'getPendingQuestions', 'banUser', 'getMetrics', 'getUsers'],
+  bus_operator: [],
 
-  admin: ['setConfiguration'],
+  admin: [],
 };
 
 allRoles.moderator = [...allRoles.moderator, ...allRoles.user];
