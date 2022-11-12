@@ -1,15 +1,12 @@
-<script src='/js/list.js'></script>
+
 
 {{> header}}
 
 <main class='container'>
-  <nav aria-label='breadcrumb' class='bg-light rounded p-3'>
-    <ol class='breadcrumb mb-0'>
-      <li class='breadcrumb-item pb-0'><a href='#'>Home</a></li>
-      <li class='breadcrumb-item active' aria-current='page'>Bus ticket</li>
-    </ol>
-  </nav>
-
+  {{> breadcrumb}}
+  <div class='card p-2 mt-4'>
+  {{> search}}
+  </div>
   <div class='mt-5 row'>
     <div class='col-md-3'>
       <div class='card'>
@@ -18,11 +15,10 @@
           <div class='mb-3'>
             <label for='exampleFormControlInput1' class='form-label fw-bold'>Bus
               Operator</label>
-            <select class='form-select' aria-label='Default select example'>
-              <option selected>Open this select menu</option>
-              <option value='1'>One</option>
-              <option value='2'>Two</option>
-              <option value='3'>Three</option>
+            <select class='form-select' aria-label='Default select example' id="filter-bus-operator">
+              <option value="" selected>Open this select menu</option>
+              <option value='b2bd2154-69f6-4602-a3df-daed6cd7bca3'>Phương Trang</option>
+              <option value='b2bd2154-69f6-4602-a3df-daed6cd7b3ac'>Thành Bưởi</option>
             </select>
           </div>
           <div class='mb-3'>
@@ -33,9 +29,9 @@
             <div class='form-check'>
               <input
                 class='form-check-input'
-                type='checkbox'
-                value=''
-                id='flexCheckDefault'
+                type='radio'
+                value='0'
+                name="typeOfSeat"
               />
               <label class='form-check-label' for='flexCheckDefault'>
                 Limousine
@@ -44,10 +40,10 @@
             <div class='form-check'>
               <input
                 class='form-check-input'
-                type='checkbox'
-                value=''
-                id='flexCheckChecked'
+                type='radio'
+                value='1'
                 checked
+                name="typeOfSeat"
               />
               <label class='form-check-label' for='flexCheckChecked'>
                 Normal Seat
@@ -57,9 +53,9 @@
             <div class='form-check'>
               <input
                 class='form-check-input'
-                type='checkbox'
-                value=''
-                id='flexCheckDefault'
+                type='radio'
+                value='2'
+                name="typeOfSeat"
               />
               <label class='form-check-label' for='flexCheckDefault'>
                 Sleeper Bus
@@ -70,162 +66,27 @@
             <label
               for='exampleFormControlInput1'
               class='form-label fw-bold'
-            >Pricing (50$)</label>
+            >Pricing (<span id="current-pricing">0</span>)</label>
 
-            <input type='range' class='form-range' id='customRange1' />
+            <input type='range' min="0" max="5000000" value="0" step="100000" class='form-range' id='filter-pricing' />
 
             <div class='d-flex justify-content-between'>
-              <span class='fw-bold text-black-50'>0$</span>
-              <span class='fw-bold text-black-50'>150$</span>
+              <span class='fw-bold text-black-50'>0đ</span>
+              <span class='fw-bold text-black-50'>5.000.000đ</span>
             </div>
           </div>
           <div class='d-grid gap-2 col-6 mx-auto'>
-            <a href='#' class='btn btn-primary float-center'>Submit</a>
+            <a id="filter" class='btn btn-primary float-center'>Submit</a>
           </div>
         </div>
       </div>
     </div>
     <div class='col-md-9'>
-      <div class='mb-4 card bus-ticket'>
-        <div class='card-body'>
-          <div class='row'>
-            <div class='col-md-3'>
-              <img
-                src='https://img.freepik.com/free-vector/isometric-vehicle_24877-50903.jpg?w=2000'
-                class='img-fluid rounded'
-                alt='...'
-              />
-            </div>
-            <div class='col-md-9'>
-              <div class='row'>
-                <div class='col-md-9'>
-                  <h5 class='card-title fw-bold text-black-40'>
-                    Đồng nai
-                    <span class='ml-2 badge text-bg-warning'>4.5*</span>
-                  </h5>
-
-                  <div class='row'>
-                    <div class='col-md-6'>
-                      <h5 class='text-success'>23:30</h5>
-                      <p class='text-black-50 mb-0'>30 Oct</p>
-                      <p class='text-black-50 fw-bold'>Hồ Chí Minh</p>
-                    </div>
-                    <div class='col-md-6'>
-                      <h5 class='text-success'>23:30</h5>
-                      <p class='text-black-50 mb-0'>30 Oct</p>
-                      <p class='text-black-50 fw-bold'>Hồ Chí Minh</p>
-                    </div>
-                  </div>
-                </div>
-                <div class='col-md-3 text-end'>
-                  <h3 class='fw-bold text-primary'>15$</h3>
-                  <p class='mb-0'>
-                    <small class='text-muted'>28 seats available</small>
-                  </p>
-                  <p><small class='text-muted'>8 single</small></p>
-                </div>
-              </div>
-
-              <div
-                class='mt-3 d-flex align-items-center justify-content-between'
-              >
-                <div>
-                  <button
-                    type='button'
-                    class='btn btn-success'
-                    data-bs-toggle='modal'
-                    data-bs-target='#exampleModal'
-                  >
-                    Details
-                  </button>
-                </div>
-                <div>
-                  <span class='text-primary fw-bold'>15h30m</span><span
-                    class='text-black-50'
-                  > | </span><span class='text-primary fw-bold'>Normal Seat</span>
-                </div>
-                <div>
-                  <button type='button' class='btn btn-primary'>
-                    Book
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class='mb-4 card bus-ticket'>
-        <div class='card-body'>
-          <div class='row'>
-            <div class='col-md-3'>
-              <img
-                src='https://img.freepik.com/free-vector/isometric-vehicle_24877-50903.jpg?w=2000'
-                class='img-fluid rounded'
-                alt='...'
-              />
-            </div>
-            <div class='col-md-9'>
-              <div class='row'>
-                <div class='col-md-9'>
-                  <h5 class='card-title fw-bold text-black-40'>
-                    Đồng nai
-                    <span class='ml-2 badge text-bg-warning'>4.5*</span>
-                  </h5>
-
-                  <div class='row'>
-                    <div class='col-md-6'>
-                      <h5 class='text-success'>23:30</h5>
-                      <p class='text-black-50 mb-0'>30 Oct</p>
-                      <p class='text-black-50 fw-bold'>Hồ Chí Minh</p>
-                    </div>
-                    <div class='col-md-6'>
-                      <h5 class='text-success'>23:30</h5>
-                      <p class='text-black-50 mb-0'>30 Oct</p>
-                      <p class='text-black-50 fw-bold'>Hồ Chí Minh</p>
-                    </div>
-                  </div>
-                </div>
-                <div class='col-md-3 text-end'>
-                  <h3 class='fw-bold text-primary'>15$</h3>
-                  <p class='mb-0'>
-                    <small class='text-muted'>28 seats available</small>
-                  </p>
-                  <p><small class='text-muted'>8 single</small></p>
-                </div>
-              </div>
-
-              <div
-                class='mt-3 d-flex align-items-center justify-content-between'
-              >
-                <div>
-                  <button
-                    type='button'
-                    class='btn btn-success'
-                    data-bs-toggle='modal'
-                    data-bs-target='#exampleModal'
-                  >
-                    Details
-                  </button>
-                </div>
-                <div>
-                  <span class='text-primary fw-bold'>15h30m</span><span
-                    class='text-black-50'
-                  > | </span><span class='text-primary fw-bold'>Normal Seat</span>
-                </div>
-                <div>
-                  <button type='button' class='btn btn-primary'>
-                    Book
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+        <div id="list-of-buses-div">
+         </div>
 
       <div class='d-grid gap-2 col-3 mx-auto'>
-        <a href='#' class='btn btn-outline-primary float-center'>Load more</a>
+        <a class='btn btn-outline-primary float-center' id="load-more">Load more</a>
       </div>
     </div>
   </div>
@@ -477,3 +338,5 @@
 <style>
   .container { width: 80%; }
 </style>
+
+<script src='./js/list.js'></script>
