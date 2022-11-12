@@ -1,5 +1,5 @@
 const allRoles = {
-  user: ['createTicket', 'printTicket'],
+  user: ['createTicket', 'createReview', 'printTicket'],
 
   bus_operator: [],
 
