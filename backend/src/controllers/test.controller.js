@@ -10,6 +10,5 @@ const resetPassword = catchAsync(async (req, res) => {
   });
 
 module.exports = {
-    resetPassword,
- 
-  };
+  resetPassword,
+};

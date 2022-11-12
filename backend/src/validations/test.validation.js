@@ -8,4 +8,4 @@ const resetPassword = {
     // }),
   };
 
-module.exports ={ resetPassword};
+module.exports = { resetPassword };

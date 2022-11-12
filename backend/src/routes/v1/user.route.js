@@ -9,12 +9,7 @@ const router = express.Router();
 router
   .route('/')
   .get(auth('getProfile'), userController.getProfile)
-  .get(auth('getUsers'), validate(userValidation.getUsers), userController.getUsers)
-  .post(auth('updateUser'), validate(userValidation.updateUser), userController.updateUser);
-
-router
-  .route('/questions/:page/:limit')
-  .get(auth('getMyQuestions'), validate(userValidation.getMyQuestions), userController.getMyQuestions);
+  .get(auth('getUsers'), validate(userValidation.getUsers), userController.getUsers);
 
 router.route('/:userId').get(auth('getUser'), validate(userValidation.getUser), userController.getUser);
 

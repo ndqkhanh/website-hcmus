@@ -10,7 +10,7 @@ const register = catchAsync(async (req, res) => {
 });
 
 const login = catchAsync(async (req, res) => {
-  const user = await authService.loginUserWithUsernameAndPassword(req.body.email, req.body.password);
+  const user = await authService.loginUserWithEmailAndPassword(req.body.email, req.body.password);
   const tokens = await tokenService.generateAuthTokens(user);
   delete user.password;
   res.send({ tokens });
@@ -33,8 +33,8 @@ const forgotPassword = catchAsync(async (req, res) => {
 });
 
 const resetPassword = catchAsync(async (req, res) => {
-  await authService.resetPassword(req.query.token, req.body.password);
-  res.status(httpStatus.NO_CONTENT).send();
+  await authService.resetPassword(req.body.email, req.body.newPassword, req.body.repassword);
+  res.send({ success: true });
 });
 
 const sendVerificationEmail = catchAsync(async (req, res) => {
