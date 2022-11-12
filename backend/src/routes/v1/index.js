@@ -2,7 +2,9 @@ const express = require('express');
 const authRoute = require('./auth.route');
 const userRoute = require('./user.route');
 const adminRoute = require('./admin.route');
+const ticketRoute = require('./ticket.route');
 const config = require('../../config/config');
+
 const router = express.Router();
 
 const defaultRoutes = [
@@ -15,6 +17,7 @@ const defaultRoutes = [
     route: userRoute,
   },
   { path: '/admin', route: adminRoute },
+  { path: '/ticket', route: ticketRoute },
 ];
 
 const devRoutes = [
