@@ -8,5 +8,15 @@
     "id": "2d23bc71-19c7-4948-a0a8-f249e86ee472",
     "name": "Bến xe miền Đông",
     "location": "Bình Thạnh"
+  },
+  {
+    "id": "2d23bc71-19c7-4948-a0a8-f249e86ee483",
+    "name": "Bến xe miền Đông Mới",
+    "location": "9"
+  },
+  {
+    "id": "2d23bc71-19c7-4948-a0a8-f249e86ee555",
+    "name": "Bến xe Mỹ Đình",
+    "location": "Nam Từ Liêm"
   }
 ]
