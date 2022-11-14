@@ -68,7 +68,11 @@ const createReview = async (userId, boId, rate, comment) => {
   return data;
 };
 
+const getBusOperatorById = async (id) => {
+  return prisma.bus_operators.findUnique({ where: { id } });
+};
 module.exports = {
   getReviews,
   createReview,
+  getBusOperatorById,
 };
