@@ -30,14 +30,9 @@ const updateTicket = {
     status: Joi.number().required(),
   }),
 };
-const getBO = {
-  params: Joi.object().keys({
-    page: Joi.number().required(),
-    limit: Joi.number().required(),
-  })
-};
+
 module.exports = {
-  getBO,
+ 
   createBusTicket,
   deleteBusTicket,
   updateTicket,

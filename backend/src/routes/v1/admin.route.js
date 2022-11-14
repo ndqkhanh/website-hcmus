@@ -17,5 +17,5 @@ router
 router
   .route('/bus-ticket/update/:ticketId')
   .post(auth('updateTicket'), validate(adminValidation.updateTicket), adminController.updateTicket);
-  router.route('/bus-operator/list/:page/:limit').get(auth('viewBO'), validate(adminValidation.getBO), adminController.listBusOperator);
+
 module.exports = router;

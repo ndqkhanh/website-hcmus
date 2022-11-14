@@ -66,16 +66,7 @@ const deleteBusTicketById = async (ticketId) => {
     },
   });
 };
-const listBusOperator = async(req) =>{
-  const listBO = await prisma.bus_operators.findMany({
-    orderBy:{
-      name: 'asc',
-    },
-    skip: req.params.page * req.params.limit,
-    take: req.params.limit
-  })
-  return listBO;
-}
+
 
 const updateTicket = async (req) => {
   const checkTicketExist = await prisma.bus_tickets.findUnique({
@@ -105,7 +96,7 @@ const updateTicket = async (req) => {
   return ticketUpdated;
 };
 module.exports = {
-  listBusOperator,
+  
   createBusTicket,
   deleteBusTicketById,
   updateTicket,

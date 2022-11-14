@@ -19,7 +19,37 @@ const createReview = {
   }),
 };
 
+const getBO = {
+  params: Joi.object().keys({
+    page: Joi.number().required(),
+    limit: Joi.number().required(),
+  }),
+};
+const createBO = {
+  body: Joi.object().keys({
+    image_url: Joi.string().required(),
+    phone: Joi.string().required(),
+    name: Joi.string().required(),
+  }),
+};
+const updateBO = {
+  body: Joi.object().keys({
+    id: Joi.string().required(),
+    image_url: Joi.string().required(),
+    phone: Joi.string().required(),
+    name: Joi.string().required(),
+  }),
+};
+const deleteBO = {
+  body: Joi.object().keys({
+    id: Joi.string().required(),
+  })
+}
 module.exports = {
+  deleteBO,
+  updateBO,
+  createBO,
+  getBO,
   getReviews,
   createReview,
 };

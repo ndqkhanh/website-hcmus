@@ -153,6 +153,7 @@ const getHistoryByUId = async(req)=>{
   })
   return historyList;
 }
+
 module.exports = {
   getHistoryByUId,
   createUser,
