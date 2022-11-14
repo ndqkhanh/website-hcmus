@@ -11,6 +11,13 @@ const createBusTicket = {
   }),
 };
 
+const deleteBusTicket = {
+  params: Joi.object().keys({
+    ticketId: Joi.string().uuid().required(),
+  }),
+};
+
 module.exports = {
   createBusTicket,
+  deleteBusTicket,
 };

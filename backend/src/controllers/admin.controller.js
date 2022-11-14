@@ -7,6 +7,11 @@ const createBusTicket = catchAsync(async (req, res) => {
   res.send(ticket);
 });
 
+const deleteBusTicket = catchAsync(async (req, res) => {
+  await adminService.deleteBusTicketById(req.params.ticketId);
+  res.send({ success: true });
+});
 module.exports = {
   createBusTicket,
+  deleteBusTicket,
 };

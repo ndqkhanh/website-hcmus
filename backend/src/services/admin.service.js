@@ -49,6 +49,24 @@ const createBusTicket = async (req) => {
   });
 };
 
+const deleteBusTicketById = async (ticketId) => {
+  const ticket = await prisma.bus_tickets.findUnique({
+    where: {
+      id: ticketId,
+    },
+  });
+
+  if (!ticket) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'This ticket does not exist');
+  }
+
+  return prisma.bus_tickets.delete({
+    where: {
+      id: ticketId,
+    },
+  });
+};
 module.exports = {
   createBusTicket,
+  deleteBusTicketById,
 };

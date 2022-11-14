@@ -10,4 +10,7 @@ router
   .route('/bus-ticket/create')
   .post(auth('createTicket'), validate(adminValidation.createBusTicket), adminController.createBusTicket);
 
+router
+  .route('/bus-ticket/delete/:ticketId')
+  .post(auth('deleteTicket'), validate(adminValidation.deleteBusTicket), adminController.deleteBusTicket);
 module.exports = router;
