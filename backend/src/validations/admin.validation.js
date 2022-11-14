@@ -1,42 +1,33 @@
 const Joi = require('joi');
-const { status } = require('./custom.validation');
 
-const banUser = {
+const createBusTicket = {
+  body: Joi.object().keys({
+    bus_id: Joi.string().uuid().required(),
+    user_id: Joi.string().uuid().required(),
+    name: Joi.string().required(),
+    phone: Joi.string().required(),
+    seat: Joi.string().required(),
+    status: Joi.number().required(),
+  }),
+};
+
+const deleteBusTicket = {
   params: Joi.object().keys({
-    userId: Joi.string().uuid().required(),
+    ticketId: Joi.string().uuid().required(),
+  }),
+};
+
+const updateTicket = {
+  params: Joi.object().keys({
+    ticketId: Joi.string().uuid().required(),
   }),
   body: Joi.object().keys({
-    status: Joi.boolean().required(),
-  }),
-};
-
-const setConfiguration = {
-  params: Joi.object().keys({
-    slug: Joi.string().required(),
-  }),
-  body: Joi.object().keys({
-    value: Joi.string(),
-  }),
-};
-
-const getPendingQuestions = {
-  params: Joi.object().keys({
-    page: Joi.number().required(),
-    limit: Joi.number().required(),
-  }),
-};
-
-const approveDeclineQuestion = {
-  body: Joi.object().keys({
-    questionId: Joi.string().uuid().required(),
-    status: Joi.number().required().custom(status),
-  }),
-};
-
-const getUsers = {
-  params: Joi.object().keys({
-    page: Joi.number().required(),
-    limit: Joi.number().required(),
+    bus_id: Joi.string().uuid().required(),
+    user_id: Joi.string().uuid().required(),
+    name: Joi.string().required(),
+    phone: Joi.string().required(),
+    seat: Joi.string().required(),
+    status: Joi.number().required(),
   }),
 };
 const getBO = {
@@ -45,12 +36,9 @@ const getBO = {
     limit: Joi.number().required(),
   })
 };
-
 module.exports = {
   getBO,
-  banUser,
-  setConfiguration,
-  getPendingQuestions,
-  approveDeclineQuestion,
-  getUsers,
+  createBusTicket,
+  deleteBusTicket,
+  updateTicket,
 };

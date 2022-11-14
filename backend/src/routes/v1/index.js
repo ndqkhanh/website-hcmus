@@ -5,7 +5,8 @@ const adminRoute = require('./admin.route');
 const testRoute = require('./test.route')
 const ticketRoute = require('./ticket.route');
 const busRoute = require('./bus.route');
-const reviewRoute = require('./review.route');
+const boRoute = require('./bo.route');
+const bsRoute = require('./bs.route');
 const config = require('../../config/config');
 
 const router = express.Router();
@@ -29,7 +30,8 @@ const defaultRoutes = [
   },
   { path: '/admin', route: adminRoute },
   { path: '/ticket', route: ticketRoute },
-  { path: '/bus-operator', route: reviewRoute },
+  { path: '/bus-operator', route: boRoute },
+  { path: '/bus-station', route: bsRoute },
 ];
 
 const devRoutes = [
