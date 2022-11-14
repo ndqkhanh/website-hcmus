@@ -11,7 +11,13 @@ const deleteBusTicket = catchAsync(async (req, res) => {
   await adminService.deleteBusTicketById(req.params.ticketId);
   res.send({ success: true });
 });
+
+const updateTicket = catchAsync(async (req, res) => {
+  const ticketUpdated = await adminService.updateTicket(req);
+  res.send(ticketUpdated);
+});
 module.exports = {
   createBusTicket,
   deleteBusTicket,
+  updateTicket,
 };
