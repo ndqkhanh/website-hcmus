@@ -30,7 +30,9 @@ const updateTicket = {
     status: Joi.number().required(),
   }),
 };
+
 module.exports = {
+ 
   createBusTicket,
   deleteBusTicket,
   updateTicket,

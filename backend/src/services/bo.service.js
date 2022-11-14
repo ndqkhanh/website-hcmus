@@ -71,7 +71,69 @@ const createReview = async (userId, boId, rate, comment) => {
 const getBusOperatorById = async (id) => {
   return prisma.bus_operators.findUnique({ where: { id } });
 };
+
+const listBusOperator = async (req) => {
+  const listBO = await prisma.bus_operators.findMany({
+    orderBy: {
+      name: 'asc',
+    },
+    skip: req.params.page * req.params.limit,
+    take: req.params.limit,
+  });
+  return listBO;
+};
+const createBO = async (req) => {
+  const message = await prisma.bus_operators.create({
+    data: {
+      image_url: req.body.image_url,
+      phone: req.body.phone,
+      name: req.body.name,
+    },
+  });
+  return message;
+};
+const updateBO = async (req) => {
+  const checkBO = await prisma.bus_operators.findUnique({
+    where: {
+      id: req.body.id,
+    },
+  });
+  if (!checkBO) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Bus operator not found');
+  }
+  const message = await prisma.bus_operators.update({
+    where: {
+      id: req.body.id,
+    },
+    data: {
+      image_url: req.body.image_url,
+      phone: req.body.phone,
+      name: req.body.name,
+    },
+  });
+  return message;
+};
+const deleteBO = async (req) => {
+  const checkBO = await prisma.bus_operators.findUnique({
+    where: {
+      id: req.body.id,
+    },
+  });
+  if (!checkBO) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Bus operator not found');
+  }
+  const message = await prisma.bus_operators.delete({
+    where: {
+      id: req.body.id,
+    },
+  });
+  return message;
+};
 module.exports = {
+  deleteBO,
+  updateBO,
+  createBO,
+  listBusOperator,
   getReviews,
   createReview,
   getBusOperatorById,

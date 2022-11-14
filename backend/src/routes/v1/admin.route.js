@@ -17,4 +17,5 @@ router
 router
   .route('/bus-ticket/update/:ticketId')
   .post(auth('updateTicket'), validate(adminValidation.updateTicket), adminController.updateTicket);
+
 module.exports = router;

@@ -67,6 +67,7 @@ const deleteBusTicketById = async (ticketId) => {
   });
 };
 
+
 const updateTicket = async (req) => {
   const checkTicketExist = await prisma.bus_tickets.findUnique({
     where: {
@@ -95,6 +96,7 @@ const updateTicket = async (req) => {
   return ticketUpdated;
 };
 module.exports = {
+  
   createBusTicket,
   deleteBusTicketById,
   updateTicket,
