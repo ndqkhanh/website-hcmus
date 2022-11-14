@@ -54,10 +54,9 @@
 >
   <div class='modal-dialog'>
     <div class='modal-content'>
-      <div
-        class='modal-header d-flex justify-content-center align-items-center text-bg-primary'
-      >
-        <h1 class='modal-title fs-5' id='exampleModalLabel'>Login</h1>
+      <div class="modal-header">
+        <h5 class="modal-title">Login</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class='modal-body'>
         <form>
@@ -83,7 +82,7 @@
       </div>
 
       <div class='modal-footer d-flex justify-content-center flex-column'>
-        <button type='button' class='btn btn-primary'>Done</button>
+        <button type='button' class='btn btn-primary'data-bs-dismiss="modal" aria-label="Close">Continue</button>
         <div class='register'>
           <i>Haven't got an account?</i>
           <b data-bs-toggle='modal' data-bs-target='#register'>Register</b>
@@ -102,15 +101,12 @@
   class='modal fade'
   id='register'
   tabindex='-1'
-  aria-labelledby='exampleModalLabel'
-  aria-hidden='true'
 >
   <div class='modal-dialog'>
     <div class='modal-content'>
-      <div
-        class='modal-header d-flex justify-content-center align-items-center text-bg-primary'
-      >
-        <h1 class='modal-title fs-5' id='exampleModalLabel'>Register</h1>
+      <div class="modal-header">
+        <h5 class="modal-title">Register</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class='modal-body'>
         <form>
@@ -162,7 +158,7 @@
           data-bs-toggle='modal'
           data-bs-target='#doneRegister'
         >
-          Done
+          Continue
         </button>
       </div>
     </div>
@@ -179,16 +175,15 @@
 >
   <div class='modal-dialog'>
     <div class='modal-content'>
-      <div
-        class='modal-header d-flex justify-content-center align-items-center text-bg-primary'
-      >
-        <h1 class='modal-title fs-5' id='exampleModalLabel'>Alert</h1>
+      <div class="modal-header">
+        <h5 class="modal-title">Alert</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class='modal-body text-center'>
         <b> You have succesfully registered an account </b>
       </div>
       <div class='modal-footer d-flex justify-content-center flex-column'>
-        <button type='button' class='btn btn-primary'>Done</button>
+        <button type='button' class='btn btn-primary'data-bs-dismiss="modal" aria-label="Close">Done</button>
       </div>
     </div>
   </div>
@@ -204,12 +199,9 @@
 >
   <div class='modal-dialog'>
     <div class='modal-content'>
-      <div
-        class='modal-header d-flex justify-content-center align-items-center text-bg-primary'
-      >
-        <h1 class='modal-title fs-5' id='exampleModalLabel'>
-          Restore password
-        </h1>
+      <div class="modal-header">
+        <h5 class="modal-title">Restore password</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class='modal-body'>
         <form>
@@ -233,12 +225,13 @@
           data-bs-toggle='modal'
           data-bs-target='#enterEmail'
         >
-          Done
+          Continue
         </button>
       </div>
     </div>
   </div>
 </div>
+
 <!--New password restore Modal-->
 <div
   class='modal fade'
@@ -249,12 +242,9 @@
 >
   <div class='modal-dialog'>
     <div class='modal-content'>
-      <div
-        class='modal-header d-flex justify-content-center align-items-center text-bg-primary'
-      >
-        <h1 class='modal-title fs-5' id='exampleModalLabel'>
-          Restore password
-        </h1>
+      <div class="modal-header">
+        <h5 class="modal-title">Restore password</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class='modal-body'>
         <form>
@@ -291,7 +281,7 @@
           data-bs-toggle='modal'
           data-bs-target='#doneRestore'
         >
-          Done
+          Continue
         </button>
       </div>
     </div>
@@ -308,16 +298,15 @@
 >
   <div class='modal-dialog'>
     <div class='modal-content'>
-      <div
-        class='modal-header d-flex justify-content-center align-items-center text-bg-primary'
-      >
-        <h1 class='modal-title fs-5' id='exampleModalLabel'>Alert</h1>
+      <div class="modal-header">
+        <h5 class="modal-title">Alert</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class='modal-body text-center'>
         <b>You have successfully restore your account</b>
       </div>
       <div class='modal-footer d-flex justify-content-center flex-column'>
-        <button type='button' class='btn btn-primary'>Done</button>
+        <button type='button' class='btn btn-primary'data-bs-dismiss="modal" aria-label="Close">Done</button>
       </div>
     </div>
   </div>
