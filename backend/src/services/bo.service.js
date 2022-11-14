@@ -7,7 +7,7 @@ const ApiError = require('../utils/ApiError');
 
 const prisma = new PrismaClient();
 
-const getReviewsById = async (boId, page, limit) => {
+const getReviews = async (boId, page, limit) => {
   const checkBoIdExist = await prisma.bus_operators.findUnique({
     where: {
       id: boId,
@@ -68,7 +68,11 @@ const createReview = async (userId, boId, rate, comment) => {
   return data;
 };
 
+const getBusOperatorById = async (id) => {
+  return prisma.bus_operators.findUnique({ where: { id } });
+};
 module.exports = {
-  getReviewsById,
+  getReviews,
   createReview,
+  getBusOperatorById,
 };
