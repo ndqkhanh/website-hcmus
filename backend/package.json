@@ -13,7 +13,7 @@
   "scripts": {
     "db:schema": "npx prisma db push --accept-data-loss",
     "seed": "node prisma/seed/main.js",
-    "start": "npm run db:schema && pm2 start ecosystem.config.json --no-daemon",
+    "start": "pm2 start ecosystem.config.json --no-daemon",
     "dev": "cross-env NODE_ENV=development nodemon src/index.js",
     "test": "jest -i --colors --verbose --detectOpenHandles",
     "test:watch": "jest -i --watchAll",
