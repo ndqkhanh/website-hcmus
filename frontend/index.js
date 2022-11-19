@@ -3,14 +3,14 @@ const { create } = require('express-handlebars');
 
 const app = express();
 const port = 4000;
-
+const path = require('path');
 const hbs = create({
   partialsDir: ['views/partials'],
 });
 
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
-app.set('views', './views');
+app.set('views', path.join(__dirname, './views'));
 app.use(express.static('assets'));
 
 app.get('/', (req, res) => {
