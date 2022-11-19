@@ -102,6 +102,15 @@ const createTicketByNumOfSeats = async (userId, busId, name, phone, numOfSeats) 
   return result;
 };
 
+const getTicketByBusIdAndUserId = async (busId, userId) => {
+  return prisma.bus_tickets.findMany({
+    where: {
+      bus_id: busId,
+      user_id: userId,
+    },
+  });
+};
 module.exports = {
   createTicketByNumOfSeats,
+  getTicketByBusIdAndUserId,
 };

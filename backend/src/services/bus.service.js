@@ -110,8 +110,13 @@ const cloneBus = async (id, startTime, endTime) => {
 
   return newBus;
 };
+
+const getBusById = async (id) => {
+  return prisma.buses.findUnique({ where: { id } });
+};
 module.exports = {
   searchBus,
   getBusInformation,
   cloneBus,
+  getBusById,
 };

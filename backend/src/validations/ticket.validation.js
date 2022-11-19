@@ -12,6 +12,14 @@ const createTicket = {
   }),
 };
 
+const printTicket = {
+  body: Joi.object().keys({
+    bus_id: Joi.string().uuid().required(),
+    user_id: Joi.string().uuid().required(),
+  }),
+};
+
 module.exports = {
   createTicket,
+  printTicket,
 };
