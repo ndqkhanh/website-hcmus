@@ -25,7 +25,7 @@ app.get('/list', (req, res) => {
   });
 });
 
-app.get('/fill-form/:busid', (req, res) => {
+app.get('/fill-form/:busId', (req, res) => {
   res.render('fill-form', {
     title: 'Fill form',
   });
