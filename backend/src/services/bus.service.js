@@ -7,11 +7,17 @@ const ApiError = require('../utils/ApiError');
 const prisma = new PrismaClient();
 
 const searchBus = async (body) => {
-  const { startPoint, endPoint, page, limit, boId, price, type } = body;
+  const { startPoint, endPoint, page, limit, boId, price, type, startTime } = body;
   const query = {
     start_point: startPoint,
     end_point: endPoint,
   };
+
+  if (startTime) {
+    query.start_time = {
+      gte: startTime,
+    };
+  }
 
   if (boId) {
     query.bo_id = boId;
@@ -23,7 +29,7 @@ const searchBus = async (body) => {
 
   if (typeof price === 'number') {
     query.price = {
-      gt: price,
+      gte: price,
     };
   }
   const data = await prisma.buses.findMany({
@@ -43,7 +49,7 @@ const searchBus = async (body) => {
     delete bus.bus_stations_bus_stationsTobuses_start_point;
     delete bus.bus_stations_bus_stationsTobuses_end_point;
 
-    bus.leftSeats =
+    bus.left_seats =
       bus.num_of_seats -
       (await prisma.bus_tickets.count({
         where: {
