@@ -6,7 +6,7 @@ $(document).ready(function () {
     let email = $("#inputEmail").val();
     let password = $("#inputPassword").val();
 
-    let response = await fetch("http://localhost:3000/v1/auth/signin", {
+    let response = await fetch(`${BACKEND_URL}/auth/signin`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json;charset=utf-8",
@@ -72,7 +72,7 @@ $(document).ready(function () {
     console.log("email", email);
     console.log("newPassword", newPassword);
     console.log("repassword", repassword);
-    let response = await fetch("http://localhost:3000/v1/auth/reset-password", {
+    let response = await fetch(`${BACKEND_URL}/auth/reset-password`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json;charset=utf-8",
@@ -95,7 +95,7 @@ $(document).ready(function () {
       /**
        * After successfully reset password, fetch signin to get user token
        */
-      response = await fetch("http://localhost:3000/v1/auth/signin", {
+      response = await fetch(`${BACKEND_URL}/auth/signin`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json;charset=utf-8",
