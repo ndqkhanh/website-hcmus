@@ -14,11 +14,9 @@ app.set('views', path.join(__dirname, './views'));
 app.use(express.static('assets'));
 
 app.get('/', (req, res) => {
-  // res.render('home', {
-  //   title: 'Home',
-  // });
-
-  res.end('Hello World');
+  res.render('home', {
+    title: 'Home',
+  });
 });
 
 app.get('/list', (req, res) => {
