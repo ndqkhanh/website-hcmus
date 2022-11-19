@@ -9,7 +9,7 @@ $(document).ready(function () {
   function numberWithThoundsand(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
   }
-  function loadMore(page = 0, reset = false) {
+  function loadMore(reset = false) {
     const template = `<div class='mb-4 card bus-ticket'>
     <div class='card-body'>
       <div class='row'>
@@ -68,7 +68,7 @@ $(document).ready(function () {
               > | </span><span class='text-primary fw-bold'>{{type}}</span>
             </div>
             <div>
-              <button type='button' class='btn btn-primary'>
+              <button type='button' class='btn btn-primary book-bus' bid='{{id}}'>
                 Book
               </button>
             </div>
@@ -84,7 +84,11 @@ $(document).ready(function () {
     const busOperator = $('#filter-bus-operator').val();
     const busType = $('[name="typeOfSeat"]:checked').val();
     const price = $('#filter-pricing').val();
-    console.log('price', price);
+
+    if (page == 0) {
+      $('#load-more').show();
+    }
+
     $.post(
       'http://localhost:3000/v1/bus/search',
       {
@@ -92,7 +96,7 @@ $(document).ready(function () {
         endPoint: '08b4b02a-7fad-49f3-baba-df61c8f8240c',
         page,
         limit: 1,
-        boId: busOperator || undefined,
+        boId: busOperator === '' ? undefined : busOperator,
         type: parseInt(busType),
         price: parseInt(price),
       },
@@ -104,8 +108,8 @@ $(document).ready(function () {
         for (const item of data.data) {
           let duration =
             (new Date(item.end_time) - new Date(item.start_time)) / 1000;
-          console.log('duration', duration);
           html += templateScript({
+            id: item.id,
             image_url: item.image_url,
             bus_operator_name: item.bus_operators.name,
             bus_operator_rating: item.averageReviews,
@@ -130,7 +134,7 @@ $(document).ready(function () {
           });
         }
 
-        if (reset) {
+        if (page === 0) {
           $('#list-of-buses-div').html(html);
         } else {
           $('#list-of-buses-div').append(html);
@@ -139,15 +143,36 @@ $(document).ready(function () {
     );
   }
 
-  loadMore(page);
+  loadMore();
+
+  $('#list-of-buses-div').on('click', '.book-bus', function () {
+    console.log('tests');
+    const bid = $(this).attr('bid');
+    console.log('id', bid);
+    window.location.href = '/fill-form/' + bid;
+  });
 
   $('#load-more').click(function () {
-    loadMore(++page);
+    page++;
+    loadMore();
   });
 
   $('#filter').click(function () {
-    loadMore(0, true);
+    page = 0;
+    loadMore(true);
   });
+  loadFilter();
+  function loadFilter() {
+    $.get('http://localhost:3000/v1/bus-operator/list/0/1000', function (data) {
+      if (data.data.length > 0) {
+        data.data.forEach((item) => {
+          $('#filter-bus-operator').append(
+            $('<option></option>').attr('value', item.id).text(item.name)
+          );
+        });
+      }
+    });
+  }
 
   function secondsToHms(d) {
     d = Number(d);
