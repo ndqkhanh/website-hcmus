@@ -11,7 +11,7 @@ const hbs = create({
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 app.set('views', path.join(__dirname, './views'));
-app.use(express.static('assets'));
+app.use(express.static(path.join(__dirname, './assets')));
 const BACKEND_URL = process.env.BACKEND_URL || 'http://localhost:3000/v1';
 app.get('/', (req, res) => {
   res.render('home', {
