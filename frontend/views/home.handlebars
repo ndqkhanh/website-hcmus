@@ -13,14 +13,14 @@
           type='button'
           class='btn btn-primary'
           data-bs-toggle='modal'
-          data-bs-target='#exampleModal'
+          data-bs-target='#loginModal'
+          id="loginBtn"
         >
           Login
         </button>
       </div>
     </div>
   </header>
-  <!--BAO DID THIS NO NEED TO DO-->
   <div
     class='bg-image position-relative'
     style="
@@ -47,7 +47,7 @@
 <!--Login Modal-->
 <div
   class='modal fade'
-  id='exampleModal'
+  id='loginModal'
   tabindex='-1'
   aria-labelledby='exampleModalLabel'
   aria-hidden='true'
@@ -66,7 +66,7 @@
               class='col-sm-2 col-form-label'
             >Email</label>
             <div class='col-sm-10'>
-              <input type='password' class='form-control' id='inputEmail' />
+              <input type='email' class='form-control' id='inputEmail' />
             </div>
           </div>
           <div class='form-group row py-2'>
@@ -82,14 +82,14 @@
       </div>
 
       <div class='modal-footer d-flex justify-content-center flex-column'>
-        <button type='button' class='btn btn-primary'data-bs-dismiss="modal" aria-label="Close">Continue</button>
+        <button type='button' class='btn btn-primary' id="btnContinueLogin">Continue</button>
         <div class='register'>
           <i>Haven't got an account?</i>
-          <b data-bs-toggle='modal' data-bs-target='#register'>Register</b>
+          <b data-bs-toggle='modal' data-bs-target='#registerModal'>Register</b>
         </div>
         <div class='restore'>
           <i>Forgot password?</i>
-          <b data-bs-toggle='modal' data-bs-target='#restore'>Restore</b>
+          <b data-bs-toggle='modal' data-bs-target='#restoreModal'>Restore</b>
         </div>
       </div>
     </div>
@@ -99,7 +99,7 @@
 <!--Register Modal-->
 <div
   class='modal fade'
-  id='register'
+  id='registerModal'
   tabindex='-1'
 >
   <div class='modal-dialog'>
@@ -117,7 +117,7 @@
             >Email</label>
             <div class='col-sm-9'>
               <input
-                type='password'
+                type='email'
                 class='form-control'
                 id='inputEmailRegister'
               />
@@ -155,8 +155,7 @@
         <button
           type='button'
           class='btn btn-primary'
-          data-bs-toggle='modal'
-          data-bs-target='#doneRegister'
+          id="btnContinueRegister"
         >
           Continue
         </button>
@@ -165,34 +164,12 @@
   </div>
 </div>
 
-<!--Alert when successfully Register Modal-->
-<div
-  class='modal fade'
-  id='doneRegister'
-  tabindex='-1'
-  aria-labelledby='exampleModalLabel'
-  aria-hidden='true'
->
-  <div class='modal-dialog'>
-    <div class='modal-content'>
-      <div class="modal-header">
-        <h5 class="modal-title">Alert</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class='modal-body text-center'>
-        <b> You have succesfully registered an account </b>
-      </div>
-      <div class='modal-footer d-flex justify-content-center flex-column'>
-        <button type='button' class='btn btn-primary'data-bs-dismiss="modal" aria-label="Close">Done</button>
-      </div>
-    </div>
-  </div>
-</div>
+
 
 <!--Enter email to restore account-->
 <div
   class='modal fade'
-  id='restore'
+  id='restoreModal'
   tabindex='-1'
   aria-labelledby='exampleModalLabel'
   aria-hidden='true'
@@ -210,7 +187,7 @@
               Enter email</label>
             <div class='col-sm-9'>
               <input
-                type='password'
+                type='email'
                 class='form-control'
                 id='inputEmailRestore'
               />
@@ -278,8 +255,7 @@
         <button
           type='button'
           class='btn btn-primary'
-          data-bs-toggle='modal'
-          data-bs-target='#doneRestore'
+          id = "btnContinueReset"
         >
           Continue
         </button>
@@ -288,26 +264,4 @@
   </div>
 </div>
 
-<!--Done Restore-->
-<div
-  class='modal fade'
-  id='doneRestore'
-  tabindex='-1'
-  aria-labelledby='exampleModalLabel'
-  aria-hidden='true'
->
-  <div class='modal-dialog'>
-    <div class='modal-content'>
-      <div class="modal-header">
-        <h5 class="modal-title">Alert</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class='modal-body text-center'>
-        <b>You have successfully restore your account</b>
-      </div>
-      <div class='modal-footer d-flex justify-content-center flex-column'>
-        <button type='button' class='btn btn-primary'data-bs-dismiss="modal" aria-label="Close">Done</button>
-      </div>
-    </div>
-  </div>
-</div>
+<script src='./js/homepage.js'></script>

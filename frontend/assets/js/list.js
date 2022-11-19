@@ -1,13 +1,13 @@
 $(document).ready(function () {
   let page = 0;
 
-  $('#filter-pricing').on('input', function () {
-    const price = $('#filter-pricing').val();
-    $('#current-pricing').text(numberWithThoundsand(price));
+  $("#filter-pricing").on("input", function () {
+    const price = $("#filter-pricing").val();
+    $("#current-pricing").text(numberWithThoundsand(price));
   });
 
   function numberWithThoundsand(x) {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   }
   function loadMore(page = 0, reset = false) {
     const template = `<div class='mb-4 card bus-ticket'>
@@ -78,18 +78,18 @@ $(document).ready(function () {
     </div>
   </div>`;
     const templateScript = Handlebars.compile(template);
-    let html = '';
+    let html = "";
     //  (0 - Limousine, 1 - Normal Seat, 2 - Sleeper Bus)
-    const busTypeText = ['Limousine', 'Normal Seat', 'Sleeper Bus'];
-    const busOperator = $('#filter-bus-operator').val();
+    const busTypeText = ["Limousine", "Normal Seat", "Sleeper Bus"];
+    const busOperator = $("#filter-bus-operator").val();
     const busType = $('[name="typeOfSeat"]:checked').val();
-    const price = $('#filter-pricing').val();
-    console.log('price', price);
+    const price = $("#filter-pricing").val();
+    console.log("price", price);
     $.post(
-      'http://localhost:3000/v1/bus/search',
+      "http://localhost:3000/v1/bus/search",
       {
-        startPoint: '08b4b02a-7fad-49f3-baba-df61c8f8240c',
-        endPoint: '08b4b02a-7fad-49f3-baba-df61c8f8240c',
+        startPoint: "08b4b02a-7fad-49f3-baba-df61c8f8240c",
+        endPoint: "08b4b02a-7fad-49f3-baba-df61c8f8240c",
         page,
         limit: 1,
         boId: busOperator || undefined,
@@ -98,30 +98,30 @@ $(document).ready(function () {
       },
       function (data) {
         if (data.data.length === 0 && reset === false) {
-          $('#load-more').hide();
+          $("#load-more").hide();
           return;
         }
         for (const item of data.data) {
           let duration =
             (new Date(item.end_time) - new Date(item.start_time)) / 1000;
-          console.log('duration', duration);
+          console.log("duration", duration);
           html += templateScript({
             image_url: item.image_url,
             bus_operator_name: item.bus_operators.name,
             bus_operator_rating: item.averageReviews,
             start_point_time:
               new Date(item.start_time).getHours() +
-              ':' +
+              ":" +
               new Date(item.start_time).getSeconds(),
             start_point_date: new Date(item.start_time)
               .toISOString()
-              .split('T')[0],
+              .split("T")[0],
             start_point_name: item.start_point.name,
             end_point_time:
               new Date(item.end_time).getHours() +
-              ':' +
+              ":" +
               new Date(item.end_time).getSeconds(),
-            end_point_date: new Date(item.end_time).toISOString().split('T')[0],
+            end_point_date: new Date(item.end_time).toISOString().split("T")[0],
             end_point_name: item.start_point.name,
             left_seats: item.left_seats,
             price: numberWithThoundsand(item.price),
@@ -131,9 +131,9 @@ $(document).ready(function () {
         }
 
         if (reset) {
-          $('#list-of-buses-div').html(html);
+          $("#list-of-buses-div").html(html);
         } else {
-          $('#list-of-buses-div').append(html);
+          $("#list-of-buses-div").append(html);
         }
       }
     );
@@ -141,11 +141,11 @@ $(document).ready(function () {
 
   loadMore(page);
 
-  $('#load-more').click(function () {
+  $("#load-more").click(function () {
     loadMore(++page);
   });
 
-  $('#filter').click(function () {
+  $("#filter").click(function () {
     loadMore(0, true);
   });
 
@@ -155,9 +155,9 @@ $(document).ready(function () {
     var m = Math.floor((d % 3600) / 60);
     var s = Math.floor((d % 3600) % 60);
 
-    var hDisplay = h > 0 ? h + (h == 1 ? ' hour, ' : 'h') : '';
-    var mDisplay = m > 0 ? m + (m == 1 ? ' minute, ' : 'm') : '';
-    var sDisplay = s > 0 ? s + (s == 1 ? ' second' : 's') : '';
+    var hDisplay = h > 0 ? h + (h == 1 ? " hour, " : "h") : "";
+    var mDisplay = m > 0 ? m + (m == 1 ? " minute, " : "m") : "";
+    var sDisplay = s > 0 ? s + (s == 1 ? " second" : "s") : "";
     return hDisplay + mDisplay + sDisplay;
   }
 });
