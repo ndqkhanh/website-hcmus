@@ -161,7 +161,7 @@ $(document).ready(function () {
   });
   loadFilter();
   function loadFilter() {
-    $.get('http://localhost:3000/v1/bus-operator/list/0/1000', function (data) {
+    $.get(`${BACKEND_URL}/bus-operator/list/0/1000`, function (data) {
       if (data.data.length > 0) {
         data.data.forEach((item) => {
           $('#filter-bus-operator').append(
