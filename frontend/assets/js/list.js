@@ -1,4 +1,16 @@
 $(document).ready(function () {
+  /**
+   * Get parameter from URL
+   */
+  function getUrlParameter(name) {
+    let results = new RegExp("[?&]" + name + "=([^&#]*)").exec(
+      window.location.href
+    );
+    if (results == null) {
+      return null;
+    }
+    return decodeURI(results[1]) || 0;
+  }
   let page = 0;
 
   $("#filter-pricing").on("input", function () {
@@ -84,6 +96,9 @@ $(document).ready(function () {
     const busOperator = $("#filter-bus-operator").val();
     const busType = $('[name="typeOfSeat"]:checked').val();
     const price = $("#filter-pricing").val();
+    const deparature = getUrlParameter("startPoint");
+    const destination = getUrlParameter("endPoint");
+    const date = getUrlParameter("startTime");
 
     if (page == 0) {
       $("#load-more").show();
@@ -92,13 +107,14 @@ $(document).ready(function () {
     $.post(
       `${BACKEND_URL}/bus/search`,
       {
-        startPoint: "08b4b02a-7fad-49f3-baba-df61c8f8240c",
-        endPoint: "08b4b02a-7fad-49f3-baba-df61c8f8240c",
+        startPoint: deparature,
+        endPoint: destination,
         page,
         limit: 1,
         boId: busOperator === "" ? undefined : busOperator,
         type: parseInt(busType),
         price: parseInt(price),
+        startTime: date,
       },
       function (data) {
         if (data.data.length === 0 && reset === false) {
