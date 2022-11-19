@@ -1,11 +1,9 @@
-
-
 {{> header}}
 
 <main class='container'>
   {{> breadcrumb}}
   <div class='card p-2 mt-4'>
-  {{> search}}
+    {{> search}}
   </div>
   <div class='mt-5 row'>
     <div class='col-md-3'>
@@ -20,51 +18,30 @@
             </select>
           </div>
           <div class='mb-3'>
-            <label
-              for='exampleFormControlInput1'
-              class='form-label fw-bold'
-            >Types of seat</label>
+            <label for='exampleFormControlInput1' class='form-label fw-bold'>Types of seat</label>
             <div class='form-check'>
-              <input
-                class='form-check-input'
-                type='radio'
-                value='0'
-                name="typeOfSeat"
-              />
+              <input class='form-check-input' type='radio' value='0' name="typeOfSeat" />
               <label class='form-check-label' for='flexCheckDefault'>
                 Limousine
               </label>
             </div>
             <div class='form-check'>
-              <input
-                class='form-check-input'
-                type='radio'
-                value='1'
-                checked
-                name="typeOfSeat"
-              />
+              <input class='form-check-input' type='radio' value='1' checked name="typeOfSeat" />
               <label class='form-check-label' for='flexCheckChecked'>
                 Normal Seat
               </label>
             </div>
 
             <div class='form-check'>
-              <input
-                class='form-check-input'
-                type='radio'
-                value='2'
-                name="typeOfSeat"
-              />
+              <input class='form-check-input' type='radio' value='2' name="typeOfSeat" />
               <label class='form-check-label' for='flexCheckDefault'>
                 Sleeper Bus
               </label>
             </div>
           </div>
           <div class='mb-3'>
-            <label
-              for='exampleFormControlInput1'
-              class='form-label fw-bold'
-            >Pricing (<span id="current-pricing">0</span>)</label>
+            <label for='exampleFormControlInput1' class='form-label fw-bold'>Pricing (<span
+                id="current-pricing">0</span>)</label>
 
             <input type='range' min="0" max="5000000" value="0" step="100000" class='form-range' id='filter-pricing' />
 
@@ -80,8 +57,8 @@
       </div>
     </div>
     <div class='col-md-9'>
-        <div id="list-of-buses-div">
-         </div>
+      <div id="list-of-buses-div">
+      </div>
 
       <div class='d-grid gap-2 col-3 mx-auto'>
         <a class='btn btn-outline-primary float-center' id="load-more">Load more</a>
@@ -92,73 +69,41 @@
 
 {{> footer }}
 
-<div
-  class='modal fade'
-  id='exampleModal'
-  tabindex='-1'
-  aria-labelledby='exampleModalLabel'
-  aria-hidden='true'
->
+<div class='modal fade' id='exampleModal' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>
   <div class='modal-dialog'>
     <div class='modal-content'>
       <div class='modal-header'>
         <h1 class='modal-title fs-6' id='exampleModalLabel'>
           <ul class='nav nav-pills mb-3' id='pills-tab' role='tablist'>
             <li class='nav-item' role='presentation'>
-              <button
-                class='nav-link active'
-                id='pills-bus-operator-tab'
-                data-bs-toggle='pill'
-                data-bs-target='#pills-bus-operator'
-                type='button'
-                role='tab'
-                aria-controls='pills-bus-operator'
-                aria-selected='true'
-              >
+              <button class='nav-link active' id='pills-bus-operator-tab' data-bs-toggle='pill'
+                data-bs-target='#pills-bus-operator' type='button' role='tab' aria-controls='pills-bus-operator'
+                aria-selected='true'>
                 Bus operator
               </button>
             </li>
             <li class='nav-item' role='presentation'>
-              <button
-                class='nav-link'
-                id='pills-bus-information-tab'
-                data-bs-toggle='pill'
-                data-bs-target='#pills-bus-information'
-                type='button'
-                role='tab'
-                aria-controls='pills-bus-information'
-                aria-selected='false'
-              >
+              <button class='nav-link' id='pills-bus-information-tab' data-bs-toggle='pill'
+                data-bs-target='#pills-bus-information' type='button' role='tab' aria-controls='pills-bus-information'
+                aria-selected='false'>
                 Bus information
               </button>
             </li>
           </ul>
         </h1>
-        <button
-          type='button'
-          class='btn-close'
-          data-bs-dismiss='modal'
-          aria-label='Close'
-        ></button>
+        <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
       </div>
       <div class='modal-body'>
         <div class='tab-content' id='pills-tabContent'>
-          <div
-            class='tab-pane fade show active'
-            id='pills-bus-operator'
-            role='tabpanel'
-            aria-labelledby='pills-bus-operator-tab'
-            tabindex='0'
-          >
+          <div class='tab-pane fade show active' id='pills-bus-operator' role='tabpanel'
+            aria-labelledby='pills-bus-operator-tab' tabindex='0'>
             <div class='p-4 col'>
               <div class='h3 text-center mw-50'>Nhà xe Phương Trang</div>
 
               <div>
-                <img
-                  class='img-fluid'
+                <img class='img-fluid'
                   src='https://canthoplus.com/wp-content/uploads/2021/12/nha-xe-phuong-trang-mui-ne-phan-thiet-binh-thuan.jpg'
-                  alt='Nhà xe'
-                />
+                  alt='Nhà xe' />
               </div>
               <div>
                 <span class='fst-italic fw-lighter'> Phone number: </span>
@@ -223,12 +168,8 @@
               <hr />
               <form class='row g-3'>
                 <div class='form-floating'>
-                  <textarea
-                    class='form-control'
-                    placeholder='Leave a comment here'
-                    id='floatingTextarea2'
-                    style='height: 150px; resize: none'
-                  ></textarea>
+                  <textarea class='form-control' placeholder='Leave a comment here' id='floatingTextarea2'
+                    style='height: 150px; resize: none'></textarea>
                   <label class='text-muted' for='floatingTextarea2'>Your
                     Comments.</label>
                 </div>
@@ -249,13 +190,8 @@
               </form>
             </div>
           </div>
-          <div
-            class='tab-pane fade'
-            id='pills-bus-information'
-            role='tabpanel'
-            aria-labelledby='pills-bus-information-tab'
-            tabindex='0'
-          >
+          <div class='tab-pane fade' id='pills-bus-information' role='tabpanel'
+            aria-labelledby='pills-bus-information-tab' tabindex='0'>
             <div class='p-4 col'>
               <table class='table table-borderless'>
                 <tr>
@@ -319,11 +255,8 @@
               </table>
               <hr />
               <div>
-                <img
-                  class='img-fluid'
-                  src='https://cdn1.nhatrangtoday.vn/images/photos/xe-phuong-trang-top.jpg'
-                  alt='Xe'
-                />
+                <img class='img-fluid' src='https://cdn1.nhatrangtoday.vn/images/photos/xe-phuong-trang-top.jpg'
+                  alt='Xe' />
               </div>
             </div>
           </div>
@@ -334,7 +267,9 @@
 </div>
 
 <style>
-  .container { width: 80%; }
+  .container {
+    width: 80%;
+  }
 </style>
 
-<script src='./js/list.js'></script>
+<script src='/js/list.js'></script>

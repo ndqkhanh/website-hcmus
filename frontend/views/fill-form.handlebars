@@ -1,25 +1,27 @@
 {{> header }}
 
 <main class='container'>
-  <nav aria-label='breadcrumb' class='bg-light rounded p-3'>
+  {{!-- <nav aria-label='breadcrumb' class='bg-light rounded p-3'>
     <ol class='breadcrumb mb-0'>
       <li class='breadcrumb-item pb-0'><a href='#'>Home</a></li>
       <li class='breadcrumb-item pb-0'><a href='#'>Bus Ticket</a></li>
       <li class='breadcrumb-item active' aria-current='page'>Fill in booking form</li>
     </ol>
-  </nav>
-  <div class='mt-5 mb-5 card bg-light' style='height: 150px'>
+  </nav> --}}
+  {{> breadcrumb}}
+  <div id="title" class='mt-5 mb-5 card bg-light' style='height: 150px'>
     <div class='card-body d-flex justify-content-center align-items-center'>
       <h3>Fill in booking form</h3>
     </div>
   </div>
 
-  <div>
-    <form>
+  <div id="form-container">
+    <form id="form">
       <div class='form-group row mb-4'>
-        <label for='inputFullName' class='col-sm-2 col-form-label'>Name</label>
+        <label for='inputFullName' class='col-sm-2 col-form-label'>Full Name</label>
         <div class='col-sm-10 d-flex'>
-          <input required type='text' class='form-control' id='inputFullName' placeholder='Full Name' />
+          <input required type='text' class='form-control' id='inputFullName' name='inputFullName'
+            placeholder='Full Name' autofocus="autofocus" />
         </div>
       </div>
       <hr class='my-4' />
@@ -27,15 +29,15 @@
         <label for='disabledEmail' class='col-sm-2 col-form-label'>Email</label>
         <div class='col-sm-10'>
           <input readonly type='text' class='form-control bg-secondary text-light' id='disabledEmail'
-            value='example@gmail.com' />
+            name='disabledEmail' value='example@gmail.com' />
         </div>
       </div>
       <hr class='my-4' />
       <div class='form-group row mb-4'>
         <label for='inputPhone' class='col-sm-2 col-form-label'>Phone</label>
         <div class='col-sm-10'>
-          <input required type='text' class='form-control' id='inputPhone' placeholder='Phone Number'
-            pattern='(84|0[3|5|7|8|9])+([0-9]{8})\b' />
+          <input required type='text' class='form-control' id='inputPhone' placeholder='Phone Number' name='inputPhone'
+            pattern="\d+" />
         </div>
       </div>
       <hr class='my-4' />
@@ -44,7 +46,7 @@
           Time</label>
         <div class='col-sm-10'>
           <input type='text' readonly class='form-control bg-secondary text-light' id='disabledStartTime'
-            value='February 11th, 2022 15:00' />
+            name='disabledStartTime' value='February 11th, 2022 15:00' />
         </div>
       </div>
       <hr class='my-4' />
@@ -52,14 +54,15 @@
         <label for='disabledEndTime' class='col-sm-2 col-form-label'>End Time</label>
         <div class='col-sm-10'>
           <input type='text' readonly class='form-control bg-secondary text-light' id='disabledEndTime'
-            value='February 11th, 2022 20:00' />
+            name='disabledEndTime' value='February 11th, 2022 20:00' />
         </div>
       </div>
       <hr class='my-4' />
       <div class='form-group row'>
         <label for='destination' class='col-sm-2 col-form-label'>Destination</label>
         <div class='col-sm-10'>
-          <input type='text' readonly class='form-control bg-secondary text-light' id='destination' value='Hà Nội' />
+          <input type='text' readonly class='form-control bg-secondary text-light' id='destination' name="destination"
+            value='Hà Nội' />
         </div>
       </div>
       <hr class='my-4' />
@@ -73,10 +76,11 @@
       </div>
       <hr class='my-4' />
       <div class='mt-5 d-flex justify-content-center align-items-center'>
-        <button type='button' class='btn btn-primary py-3 px-4' style='margin-right: 300px;width: 110px'>
+        <button id="cancel-btn" type='button' class='btn btn-primary py-3 px-4'
+          style='margin-right: 300px;width: 110px'>
           Cancel
         </button>
-        <button type='submit' class='btn btn-primary py-3 px-4' style='width: 110px'>
+        <button id="submit-btn" type='submit' class='btn btn-primary py-3 px-4' style='width: 110px'>
           Submit
         </button>
       </div>
@@ -86,8 +90,42 @@
 
 {{> footer }}
 
+<div class='modal fade' id='exampleModal' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'
+  data-bs-backdrop='static' data-bs-keyboard='false'>
+  <div class='modal-dialog'>
+    <div class='modal-content'>
+      <div class='modal-header bg-primary text-light d-flex justify-content-center align-items-center'>
+        <h1 class='modal-title fs-5' id='exampleModalLabel'>Alert</h1>
+      </div>
+      <div class='modal-body text-center fs-5'>
+        Your payment is successful
+      </div>
+      <div class='modal-footer d-flex justify-content-center align-items-center'>
+        <button type='button' class='home-btn btn btn-primary' style='margin-right: 50px'>
+          Home
+        </button>
+        <button type='button' class='btn btn-primary'>Prind PDF</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <style>
   .container {
     width: 80%;
   }
+
+  .quarter-width {
+    width: 25%;
+  }
+
+  .none-list-style-type {
+    list-style-type: none;
+  }
+
+  .disc-list-style-type {
+    list-style-type: disc;
+  }
 </style>
+
+<script src='/js/fill_form.js'></script>
