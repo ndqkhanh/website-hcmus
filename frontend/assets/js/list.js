@@ -146,9 +146,7 @@ $(document).ready(function () {
   loadMore();
 
   $('#list-of-buses-div').on('click', '.book-bus', function () {
-    console.log('tests');
     const bid = $(this).attr('bid');
-    console.log('id', bid);
     window.location.href = '/fill-form/' + bid;
   });
 
