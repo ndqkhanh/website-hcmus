@@ -5,7 +5,7 @@ const app = express();
 const port = 4000;
 const path = require('path');
 const hbs = create({
-  partialsDir: ['views/partials'],
+  partialsDir: [path.join(__dirname, './views/partials')],
 });
 
 app.engine('handlebars', hbs.engine);
