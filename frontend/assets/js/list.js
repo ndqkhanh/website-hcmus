@@ -90,7 +90,7 @@ $(document).ready(function () {
     }
 
     $.post(
-      'http://localhost:3000/v1/bus/search',
+      `${BACKEND_URL}/bus/search`,
       {
         startPoint: '08b4b02a-7fad-49f3-baba-df61c8f8240c',
         endPoint: '08b4b02a-7fad-49f3-baba-df61c8f8240c',
@@ -161,7 +161,7 @@ $(document).ready(function () {
   });
   loadFilter();
   function loadFilter() {
-    $.get('http://localhost:3000/v1/bus-operator/list/0/1000', function (data) {
+    $.get(`${BACKEND_URL}/bus-operator/list/0/1000`, function (data) {
       if (data.data.length > 0) {
         data.data.forEach((item) => {
           $('#filter-bus-operator').append(
