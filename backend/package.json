@@ -11,7 +11,7 @@
     "node": ">=12.0.0"
   },
   "scripts": {
-    "db:schema": "npx prisma db push",
+    "db:schema": "npx prisma db push --accept-data-loss",
     "seed": "node prisma/seed/main.js",
     "start": "pm2 start ecosystem.config.json --no-daemon",
     "dev": "cross-env NODE_ENV=development nodemon src/index.js",
