@@ -80,7 +80,7 @@ const listBusOperator = async (req) => {
     skip: req.params.page * req.params.limit,
     take: req.params.limit,
   });
-  return listBO;
+  return { data: listBO };
 };
 const createBO = async (req) => {
   const message = await prisma.bus_operators.create({
