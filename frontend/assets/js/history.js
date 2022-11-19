@@ -4,11 +4,11 @@ var limit = 1;
 var typeOfBus = ["Limousine", "Normal Seat", "Sleeper Bus"];
 var statusBook = ["Just booked", "Booked", "Canceled payment"];
 var token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjMTE4ZjY5My04NzIyLTQ0NjEtYTc5ZC1kNzY5OTFiOTZhOWUiLCJpYXQiOjE2Njg4NDExNzEsImV4cCI6MTY2ODg0Mjk3MSwidHlwZSI6ImFjY2VzcyJ9.9_fuu2tGF4Bjs2p0qUQlKdiGYeseSMEXzP7h1rjYPMc";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjMTE4ZjY5My04NzIyLTQ0NjEtYTc5ZC1kNzY5OTFiOTZhOWUiLCJpYXQiOjE2Njg4NDI5OTcsImV4cCI6MTY2ODg0NDc5NywidHlwZSI6ImFjY2VzcyJ9.tORAHt2kfE5rWdTvOm4EU-awWTJe00uLukgGhN5LBu8";
 var currentHistoryData = [];
 function loadMore() {
   $.ajax({
-    url: `http://localhost:3000/v1/user/history/${page}/${limit}`,
+    url: `${BACKEND_URL}/user/history/${page}/${limit}`,
     type: "POST",
 
     data: JSON.stringify({
@@ -98,9 +98,10 @@ function viewDetail(id) {
     <tr style='min-height: 50px'>
       <th class='quarter-width align-middle'>Duration</th>
       <td class='quarter-width align-middle'>${
-        Date.parse(detailTicket.buses.end_time) -
-        Date.parse(detailTicket.buses.start_time)
-      }</td>
+        (Date.parse(detailTicket.buses.end_time) -
+          Date.parse(detailTicket.buses.start_time)) /
+        (1000 * 60 * 60)
+      } hours</td>
       <th class='quarter-width align-middle'>Policy</th>
       <td class='quarter-width align-middle'>
         ${detailTicket.buses.policy}
