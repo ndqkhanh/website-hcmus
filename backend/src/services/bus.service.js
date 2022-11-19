@@ -43,7 +43,7 @@ const searchBus = async (body) => {
     delete bus.bus_stations_bus_stationsTobuses_start_point;
     delete bus.bus_stations_bus_stationsTobuses_end_point;
 
-    bus.leftSeats =
+    bus.left_seats =
       bus.num_of_seats -
       (await prisma.bus_tickets.count({
         where: {
