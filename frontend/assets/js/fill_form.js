@@ -1,180 +1,131 @@
 $(document).ready(function () {
-  const windowSplit = window.location.href.split("/");
-  const busId = windowSplit[windowSplit.length - 1].split("[?#]")[0];
-  const email = "khanhndq2002@gmail.com";
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjMTE4ZjY5My04NzIyLTQ0NjEtYTc5ZC1kNzY5OTFiOTZiY2QiLCJpYXQiOjE2Njg4NDI3MzksImV4cCI6MTY2ODg0NDUzOSwidHlwZSI6ImFjY2VzcyJ9.wIrDw6UUayFCMDVEHvUXSaoUpFG14Av5E4ZDAYwc0AE";
+  // const windowSplit = window.location.href.split("/");
+  // const busId = windowSplit[windowSplit.length - 1].split("[?#]")[0];
+  // const email = "khanhndq2002@gmail.com";
+  // const token =
+  //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjMTE4ZjY5My04NzIyLTQ0NjEtYTc5ZC1kNzY5OTFiOTZiY2QiLCJpYXQiOjE2Njg4NDI3MzksImV4cCI6MTY2ODg0NDUzOSwidHlwZSI6ImFjY2VzcyJ9.wIrDw6UUayFCMDVEHvUXSaoUpFG14Av5E4ZDAYwc0AE";
 
-  $.ajax({
-    url: `${BACKEND_URL}/bus/${busId}`,
-    type: "GET",
-    success: function (response) {
-      if (typeof response === undefined || response === null) {
-        alert("[ERROR]: Cannot get response from server");
-      } else if (response.error) {
-        alert("[ERROR]: " + response.error);
-      } else {
-        $("#disabledEmail").val(email);
-        $("#disabledStartTime").val(
-          new Date(response.start_time).toLocaleDateString(undefined, {
-            weekday: "long",
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-          })
-        );
-        $("#disabledStartTime").val(
-          new Date(response.end_time).toLocaleDateString(undefined, {
-            weekday: "long",
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-          })
-        );
-        $("#destination").val(
-          response.bus_stations_bus_stationsTobuses_end_point.location
-        );
-      }
-    },
-    error: function (error) {
-      console.log("[ERROR]", error);
-    },
-  });
+  // $.ajax({
+  //   url: `${BACKEND_URL}/bus/${busId}`,
+  //   type: "GET",
+  //   success: function (response) {
+  //     if (typeof response === undefined || response === null) {
+  //       alert("[ERROR]: Cannot get response from server");
+  //     } else if (response.error) {
+  //       alert("[ERROR]: " + response.error);
+  //     } else {
+  //       $("#disabledEmail").val(email);
+  //       $("#disabledStartTime").val(
+  //         new Date(response.start_time).toLocaleDateString(undefined, {
+  //           weekday: "long",
+  //           year: "numeric",
+  //           month: "long",
+  //           day: "numeric",
+  //         })
+  //       );
+  //       $("#disabledStartTime").val(
+  //         new Date(response.end_time).toLocaleDateString(undefined, {
+  //           weekday: "long",
+  //           year: "numeric",
+  //           month: "long",
+  //           day: "numeric",
+  //         })
+  //       );
+  //       $("#destination").val(
+  //         response.bus_stations_bus_stationsTobuses_end_point.location
+  //       );
+  //     }
+  //   },
+  //   error: function (error) {
+  //     console.log("[ERROR]", error);
+  //   },
+  // });
 
   $("#cancel-btn").click(function () {
     $(location).attr("href", "/list");
   });
 
-  $("#submit-btn").click(async function (e) {
-    e.preventDefault();
-    const name = $("#inputFullName").val();
-    const phone = $("#inputPhone").val();
-    const numOfSeats = Number($("#inputNumberOfSeat").val());
-    $.ajax({
-      url: `${BACKEND_URL}/ticket/create/${busId}`,
-      type: "POST",
-      dataType: "json",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      data: JSON.stringify({
-        name,
-        phone,
-        numOfSeats,
-      }),
-      success: function (response) {
-        if (typeof response === undefined || response === null) {
-          alert("[ERROR]: Cannot get response from server");
-        } else if (response.error) {
-          alert(
-            "The number of seats you booked exceed the maximum number of seats\nPlease try again!!!"
-          );
-        } else {
-          console.log(JSON.stringify(response));
-          $("#title div h3").text("Booking details");
-          const msToTime = (ms) => {
-            let seconds = (ms / 1000).toFixed(1);
-            let minutes = (ms / (1000 * 60)).toFixed(1);
-            let hours = (ms / (1000 * 60 * 60)).toFixed(1);
-            let days = (ms / (1000 * 60 * 60 * 24)).toFixed(1);
-            if (seconds < 60) return seconds + " Seconds";
-            else if (minutes < 60) return minutes + " Minutes";
-            else if (hours < 24) return hours + " Hours";
-            else return days + " Days";
-          };
-          const ticketIds = response.ticket_ids.map((tid) => `<li>${tid}</li>`);
-          const template = `<div id="table">
+  $("#submit-btn").click(function () {
+    $("#form").submit(function (e) {
+      e.preventDefault();
+      const template = `<div id="table">
     <table class='table table-hover table-striped'>
       <tbody>
         <tr style='height: 80px'>
           <th class='quarter-width align-middle ps-4'>Full name</th>
-          <td class='quarter-width align-middle'>${response.name}</td>
+          <td class='quarter-width align-middle'>Nguyễn Đinh Quang Khánh</td>
           <th class='quarter-width align-middle ps-4'>Seat positions</th>
           <td class='quarter-width align-middle'>
-            ${response.seat_positions.join(", ")}
+            1, 2, 3, 4, 5
           </td>
         </tr>
         <tr style='height: 80px'>
           <th class='quarter-width align-middle ps-4'>Ticker id</th>
           <td class='quarter-width align-middle'>
             <ul class='disc-list-style-type px-3'>
-              ${ticketIds.join("")}
+              <li>f05deee2-432a-4f61-8a5a-ec70eb4c725f</li>
+              <li>f5900233-37bb-4c79-b146-eab74c41608e</li>
+              <li>9b8149ea-2855-4d6d-bdf5-12feef8f6385</li>
+              <li>90ce6ebe-f4bd-43bb-ac2f-a27c496f1f71</li>
+              <li>12369511-9491-4a58-a5b7-d3b09cd16eb4</li>
             </ul>
           </td>
           <th class='quarter-width align-middle ps-4'>Bus operator</th>
-          <td class='quarter-width align-middle'>${response.bo_name}</td>
+          <td class='quarter-width align-middle'>Phương Trang</td>
         </tr>
         <tr style='height: 80px'>
           <th class='quarter-width align-middle ps-4'>Start point</th>
-          <td class='quarter-width align-middle'>${response.start_point}</td>
+          <td class='quarter-width align-middle'>Miền Nam bus stop</td>
           <th class='quarter-width align-middle ps-4'>End point</th>
-          <td class='quarter-width align-middle'>${response.end_point}</td>
+          <td class='quarter-width align-middle'>Miền Hoa bus stop</td>
         </tr>
         <tr style='height: 80px'>
           <th class='quarter-width align-middle ps-4'>Start time</th>
           <td class='quarter-width align-middle'>
-            ${new Date(response.start_time).toLocaleDateString(undefined, {
-              weekday: "long",
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-              hour: "numeric",
-              minute: "numeric",
-            })}
+            February 11th, 2022 15:00
           </td>
           <th class='quarter-width align-middle ps-4'>End time</th>
           <td class='quarter-width align-middle'>
-            ${new Date(response.end_time).toLocaleDateString(undefined, {
-              weekday: "long",
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-              hour: "numeric",
-              minute: "numeric",
-            })}
+            February 11th, 2022 20:00
           </td>
         </tr>
         <tr style='height: 80px'>
           <th class='quarter-width align-middle ps-4'>Duration</th>
-          <td class='quarter-width align-middle'>${msToTime(
-            response.duration
-          )}</td>
+          <td class='quarter-width align-middle'>5 hours</td>
           <th class='quarter-width align-middle ps-4'>Policy</th>
           <td class='quarter-width align-middle'>
-            ${response.policy}
+            <ul class='none-list-style-type ps-0'>
+              <li>
+                <b>WHILE ON BOARD</b>
+                <ul class='disc-list-style-type'>
+                  <li>Holding your ticket</li>
+                  <li>Be silent</li>
+                </ul>
+              </li>
+              <li>
+                <b>YOUR PACKAGE</b>
+                <ul class='disc-list-style-type'>
+                  <li>Not over 10kg</li>
+                </ul>
+              </li>
+            </ul>
           </td>
         </tr>
         <tr style='height: 80px'>
           <th class='quarter-width align-middle ps-4'>Number of seats</th>
-          <td class='quarter-width align-middle'>${response.num_of_seats}</td>
+          <td class='quarter-width align-middle'>5</td>
           <th class='quarter-width align-middle ps-4'>Type of bus</th>
-          <td class='quarter-width align-middle'>${
-            response.type === 0
-              ? "Limousine"
-              : response.type === 1
-              ? "Normal Seat"
-              : "Sleeper Bus"
-          }</td>
+          <td class='quarter-width align-middle'>Vilahouse</td>
         </tr>
         <tr style='height: 80px'>
           <th class='quarter-width align-middle ps-4'>Ticket cost</th>
-          <td class='quarter-width align-middle'>${
-            response.ticket_cost
-          } VND</td>
+          <td class='quarter-width align-middle'>50k vnđ</td>
           <th class='quarter-width align-middle ps-4'>Total cost</th>
-          <td class='quarter-width align-middle'>${response.total_cost} VND</td>
+          <td class='quarter-width align-middle'>250k vnđ</td>
         </tr>
         <tr style='height: 80px'>
           <th class='quarter-width align-middle ps-4'>Status</th>
-          <td class='quarter-width align-middle'>${
-            response.status === 0
-              ? "Booked"
-              : response.status === 1
-              ? "Paid"
-              : "Canceled"
-          }</td>
+          <td class='quarter-width align-middle'>Booked</td>
           <th class='quarter-width align-middle ps-4'>&nbsp;</th>
           <td class='quarter-width align-middle'>
             &nbsp;
@@ -183,7 +134,7 @@ $(document).ready(function () {
       </tbody>
     </table>
     <div class='mt-5 d-flex justify-content-center align-items-center'>
-      <button type='button' class='home-btn btn btn-primary py-3 px-4' style='margin-right: 300px;width: 110px'>
+      <button type='button' class='btn btn-primary py-3 px-4 home-btn' style='margin-right: 300px;width: 110px'>
         Home
       </button>
       <button type='button' class='btn btn-primary py-3 px-4' style='width: 110px' data-bs-toggle='modal'
@@ -192,15 +143,10 @@ $(document).ready(function () {
       </button>
     </div>
   </div>`;
-          $("#form-container").html(template);
-          $(".home-btn").click(function () {
-            $(location).attr("href", `/`);
-          });
-        }
-      },
-      error: function (error) {
-        console.log("[ERROR]", error);
-      },
+      $("#form-container").html(template);
+      $(".home-btn").click(function () {
+        $(location).attr("href", `/`);
+      });
     });
   });
 });
