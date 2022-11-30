@@ -7,7 +7,7 @@
       <div class="table-responsive">
         <table id="history-list" class='table table-striped mt-5'>
 
-          {{!-- <tr>
+          <tr>
             <th scope='row'>1</th>
             <td>12c</td>
             <td>Phương Trang</td>
@@ -15,7 +15,7 @@
             <td>Miền Tây bus stop</td>
             <td>12/1/2022 16:00</td>
             <td>13/11/2022 15:00</td>
-            <td>View</td>
+            <td><a href="" onclick="turnOnDetail(event)">View</a></td>
           </tr>
           <tr>
             <th scope='row'>2</th>
@@ -25,7 +25,7 @@
             <td>Miền Tây bus stop</td>
             <td>12/1/2022 16:00</td>
             <td>13/11/2022 15:00</td>
-            <td>View</td>
+            <td><a href="" onclick="turnOnDetail(event)">View</a></td>
           </tr>
           <tr>
             <th scope='row'>3</th>
@@ -35,8 +35,8 @@
             <td>Miền Tây bus stop</td>
             <td>12/1/2022 16:00</td>
             <td>13/11/2022 15:00</td>
-            <td>View</td>
-          </tr> --}}
+            <td><a href="" onclick="turnOnDetail(event)">View</a></td>
+          </tr>
         </table>
       </div>
       <div class='d-grid gap-2 col-3 mx-auto'>
@@ -47,8 +47,9 @@
 
   <!-- View detail đang ẩn -->
 
+
   <div class='detail d-none' id="detail">
-    {{!-- <table class='table table-hover table-striped'>
+    <table class='table table-hover table-striped'>
       <tbody>
         <tr style='min-height: 50px'>
           <th class='quarter-width align-middle'>Ticker id</th>
@@ -111,7 +112,7 @@
           </td>
         </tr>
       </tbody>
-    </table> --}}
+    </table>
     <div class='mt-5 d-flex justify-content-center align-items-center'>
       <button type='button' class='btn btn-primary py-3 px-4' onclick="backToList()">
         Back
@@ -120,7 +121,19 @@
   </div>
 </div>
 {{> footer }}
-<script src="./js/history.js"></script>
+<script>
+  function turnOnDetail(event) {
+    event.preventDefault();
+    $("#hList").addClass("d-none");
+    $("#detail").removeClass("d-none");
+  }
+  function backToList() {
+    $("#hList").removeClass("d-none");
+    $("#detail").addClass("d-none");
+  }
+</script>
+{{!--
+<script src="./js/history.js"></script> --}}
 <style>
   .container {
     width: 80%;
