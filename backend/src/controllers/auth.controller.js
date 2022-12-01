@@ -13,6 +13,7 @@ const login = catchAsync(async (req, res) => {
   const user = await authService.loginUserWithEmailAndPassword(req.body.email, req.body.password);
   const tokens = await tokenService.generateAuthTokens(user);
   delete user.password;
+
   res.send({ tokens });
 });
 

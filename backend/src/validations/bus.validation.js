@@ -9,7 +9,7 @@ const searchBus = {
     boId: Joi.string().uuid(),
     price: Joi.number(),
     type: Joi.number(),
-    startTime: Joi.date(),
+    startTime: Joi.date().required(),
   }),
 };
 
