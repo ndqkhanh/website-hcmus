@@ -18,4 +18,13 @@ router
   .route('/bus-ticket/update/:ticketId')
   .post(auth('updateTicket'), validate(adminValidation.updateTicket), adminController.updateTicket);
 
+router
+  .route('/booking/list/:page/:limit')
+  .get(auth('bookingList'), validate(adminValidation.bookingList), adminController.bookingList);
+
+router
+  .route('/booking/:bid')
+  .get(auth('bookingGet'), validate(adminValidation.bookingGet), adminController.bookingGet)
+  .post(auth('bookingUpdate'), validate(adminValidation.bookingUpdate), adminController.bookingUpdate);
+
 module.exports = router;

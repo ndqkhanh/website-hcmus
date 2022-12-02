@@ -43,8 +43,8 @@ const updateBO = {
 const deleteBO = {
   body: Joi.object().keys({
     id: Joi.string().required(),
-  })
-}
+  }),
+};
 module.exports = {
   deleteBO,
   updateBO,

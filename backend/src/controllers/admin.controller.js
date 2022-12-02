@@ -16,8 +16,28 @@ const updateTicket = catchAsync(async (req, res) => {
   const ticketUpdated = await adminService.updateTicket(req);
   res.send(ticketUpdated);
 });
+
+const bookingList = catchAsync(async (req, res) => {
+  const { page, limit } = req.params;
+  const bookings = await adminService.bookingList(page, limit);
+  res.send(bookings);
+});
+
+const bookingUpdate = catchAsync(async (req, res) => {
+  const booking = await adminService.bookingUpdate(req);
+  res.send(booking);
+});
+
+const bookingGet = catchAsync(async (req, res) => {
+  const booking = await adminService.bookingGet(req.params.bid);
+  res.send(booking);
+});
+
 module.exports = {
   createBusTicket,
   deleteBusTicket,
   updateTicket,
+  bookingList,
+  bookingUpdate,
+  bookingGet,
 };
