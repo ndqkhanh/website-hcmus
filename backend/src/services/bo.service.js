@@ -23,6 +23,13 @@ const getReviews = async (boId, page, limit) => {
     where: {
       bo_id: boId,
     },
+    include: {
+      users: {
+        select: {
+          email: true,
+        },
+      },
+    },
   });
   const count = await prisma.reviews.count({
     where: {

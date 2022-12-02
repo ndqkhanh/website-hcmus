@@ -128,31 +128,30 @@ const getMyQuestionsPagination = async (req) => {
 
   return questions;
 };
-const getHistoryByUId = async(req)=>{
-  const historyList =  await prisma.bus_tickets.findMany({
-    orderBy:{
+const getHistoryByUId = async (req) => {
+  const historyList = await prisma.bus_tickets.findMany({
+    orderBy: {
       buses: {
         start_point: 'desc',
       },
     },
     skip: req.params.page * req.params.limit,
     take: req.params.limit,
-    where:{
+    where: {
       user_id: req.body.id,
     },
-    include:{
-      buses:{
-        include:{
-          bus_stations_bus_stationsTobuses_end_point:true,
+    include: {
+      buses: {
+        include: {
+          bus_stations_bus_stationsTobuses_end_point: true,
           bus_stations_bus_stationsTobuses_start_point: true,
-          bus_operators:true,
-        }
+          bus_operators: true,
+        },
       },
-      
-    }
-  })
+    },
+  });
   return historyList;
-}
+};
 
 module.exports = {
   getHistoryByUId,

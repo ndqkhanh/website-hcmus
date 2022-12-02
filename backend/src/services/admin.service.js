@@ -67,7 +67,6 @@ const deleteBusTicketById = async (ticketId) => {
   });
 };
 
-
 const updateTicket = async (req) => {
   const checkTicketExist = await prisma.bus_tickets.findUnique({
     where: {
@@ -95,9 +94,76 @@ const updateTicket = async (req) => {
 
   return ticketUpdated;
 };
+
+const bookingList = async (page, limit) => {
+  const data = await prisma.bus_tickets.findMany({
+    skip: page * limit,
+    take: limit,
+    include: {
+      buses: true,
+      users: {
+        select: {
+          email: true,
+        },
+      },
+    },
+  });
+
+  return { data };
+};
+
+const bookingUpdate = async (req) => {
+  const checkTicketExist = await prisma.bus_tickets.findUnique({
+    where: {
+      id: req.params.bid,
+    },
+  });
+
+  if (!checkTicketExist) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'This ticket does not exist');
+  }
+
+  const ticketUpdated = await prisma.bus_tickets.update({
+    where: {
+      id: req.params.bid,
+    },
+    data: {
+      status: req.body.status,
+      name: req.body.name,
+      phone: req.body.phone,
+      seat: req.body.seat,
+    },
+  });
+
+  return ticketUpdated;
+};
+
+const bookingGet = async (bid) => {
+  const ticket = await prisma.bus_tickets.findUnique({
+    where: {
+      id: bid,
+    },
+    include: {
+      buses: true,
+      users: {
+        select: {
+          email: true,
+        },
+      },
+    },
+  });
+
+  if (!ticket) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'This ticket does not exist');
+  }
+
+  return ticket;
+};
 module.exports = {
-  
   createBusTicket,
   deleteBusTicketById,
   updateTicket,
+  bookingList,
+  bookingUpdate,
+  bookingGet,
 };

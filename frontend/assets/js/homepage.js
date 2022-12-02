@@ -23,8 +23,31 @@ $(document).ready(function () {
     else if (response.message) alert(response.message);
     else {
       alert("You have successfully login!");
-      localStorage.setItem("token", response.tokens.access.token);
-      $(location).attr("href", "http://localhost:4000/home-account");
+      localStorage.setItem("userInfo", JSON.stringify(response));
+      $("#right-side-header").html(`      <span
+      class="dropdown-toggle"
+      type="button"
+      data-bs-toggle="dropdown"
+      aria-expanded="false"
+      style="margin-left: 5px"
+    >
+      <i class="fa-solid fa-circle-user fs-1 text-black-50"></i></span>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="#" id="goToHistory">History</a></li>
+      <li>
+        <hr class="dropdown-divider" />
+      </li>
+      <li><a class="dropdown-item" href="#" id="logOutBtn">Logout</a></li>
+    </ul>`);
+      $("#loginModal").modal("toggle");
+
+      $("#logOutBtn").click(() => {
+        $(location).attr("href", "/");
+      });
+
+      $("#goToHistory").click(() => {
+        $(location).attr("href", "/history");
+      });
     }
   });
 
@@ -53,10 +76,32 @@ $(document).ready(function () {
     if (!response) alert("Registerd failed");
     else if (response.message) alert(response.message);
     {
-      console.log("response: ", response);
-      localStorage.setItem("token", response.tokens.access.token);
+      localStorage.setItem("userInfo", JSON.stringify(response));
       alert("You have succesfully registered an account");
-      $(location).attr("href", "http://localhost:4000/home-account");
+      $("#right-side-header").html(`      <span
+      class="dropdown-toggle"
+      type="button"
+      data-bs-toggle="dropdown"
+      aria-expanded="false"
+      style="margin-left: 5px"
+    >
+      <i class="fa-solid fa-circle-user fs-1 text-black-50"></i></span>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="#" id="goToHistory">History</a></li>
+      <li>
+        <hr class="dropdown-divider" />
+      </li>
+      <li><a class="dropdown-item" href="#" id="logOutBtn">Logout</a></li>
+    </ul>`);
+      $("#registerModal").modal("toggle");
+
+      $("#logOutBtn").click(() => {
+        $(location).attr("href", "/");
+      });
+
+      $("#goToHistory").click(() => {
+        $(location).attr("href", "/history");
+      });
     }
   });
 
@@ -69,9 +114,6 @@ $(document).ready(function () {
     let newPassword = $("#inputPasswordRestore").val();
     let repassword = $("#inputRePasswordRestore").val();
 
-    console.log("email", email);
-    console.log("newPassword", newPassword);
-    console.log("repassword", repassword);
     let response = await fetch(`${BACKEND_URL}/auth/reset-password`, {
       method: "POST",
       headers: {
@@ -89,29 +131,33 @@ $(document).ready(function () {
     if (!response) alert("Reset-password failed");
     else if (response.message) alert(response.message);
     {
-      console.log("response: ", response);
       alert("You have succesfully restore an account");
 
-      /**
-       * After successfully reset password, fetch signin to get user token
-       */
-      response = await fetch(`${BACKEND_URL}/auth/signin`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json;charset=utf-8",
-        },
-        body: JSON.stringify({
-          email,
-          password: newPassword,
-        }),
+      $("#right-side-header").html(`      <span
+      class="dropdown-toggle"
+      type="button"
+      data-bs-toggle="dropdown"
+      aria-expanded="false"
+      style="margin-left: 5px"
+    >
+      <i class="fa-solid fa-circle-user fs-1 text-black-50"></i></span>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="#" id="goToHistory">History</a></li>
+      <li>
+        <hr class="dropdown-divider" />
+      </li>
+      <li><a class="dropdown-item" href="#" id="logOutBtn">Logout</a></li>
+    </ul>`);
+      localStorage.setItem("userInfo", JSON.stringify(response));
+      $("#enterEmail").modal("toggle");
+
+      $("#logOutBtn").click(() => {
+        $(location).attr("href", "/");
       });
 
-      response = await response.json();
-      localStorage.setItem("token", response.tokens.access.token);
-      let token = localStorage.getItem("token");
-      console.log("token: ", token);
-
-      $(location).attr("href", "http://localhost:4000/home-account");
+      $("#goToHistory").click(() => {
+        $(location).attr("href", "/history");
+      });
     }
   });
 
