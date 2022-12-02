@@ -3,7 +3,7 @@ $(document).ready(function () {
   const id = urlParams.get('id');
 
   const token =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjMTE4ZjY5My04NzIyLTQ0NjEtYTc5ZC1kNzY5OTFiOTZhOWUiLCJpYXQiOjE2Njk5NTc5NTMsImV4cCI6MTY3NTk1Nzg5MywidHlwZSI6ImFjY2VzcyJ9.-sfClJOg9Ef9r8vW3H4pVq-EyAQBgdTtZUlsowKn6rU';
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjMTE4ZjY5My04NzIyLTQ0NjEtYTc5ZC1kNzY5OTFiOTZhOWUiLCJpYXQiOjE2Njk5NjA1MDgsImV4cCI6MTY3NTk2MDQ0OCwidHlwZSI6ImFjY2VzcyJ9.zM6x2letxSr4LniOGR1yDXeNMMh0DkfMZlZWMLI6ujQ';
   $.ajax({
     url: `http://localhost:3000/v1/admin/booking/${id}`,
     type: 'GET',
@@ -17,7 +17,6 @@ $(document).ready(function () {
       $('#phone').val(booking.phone);
       $('#seat').val(booking.seat);
       $('#status').val(booking.status);
-      // startpoint, endpint
       $('#start_point').val(
         booking.buses.bus_stations_bus_stationsTobuses_start_point.name
       );

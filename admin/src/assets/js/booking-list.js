@@ -2,7 +2,7 @@ $(document).ready(function () {
   let page = 0;
   const loadListBookings = (limit = 2) => {
     let token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjMTE4ZjY5My04NzIyLTQ0NjEtYTc5ZC1kNzY5OTFiOTZhOWUiLCJpYXQiOjE2Njk5NTc5NTMsImV4cCI6MTY3NTk1Nzg5MywidHlwZSI6ImFjY2VzcyJ9.-sfClJOg9Ef9r8vW3H4pVq-EyAQBgdTtZUlsowKn6rU';
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjMTE4ZjY5My04NzIyLTQ0NjEtYTc5ZC1kNzY5OTFiOTZhOWUiLCJpYXQiOjE2Njk5NjA1MDgsImV4cCI6MTY3NTk2MDQ0OCwidHlwZSI6ImFjY2VzcyJ9.zM6x2letxSr4LniOGR1yDXeNMMh0DkfMZlZWMLI6ujQ';
 
     const statusText = {
       0: 'Booked',
