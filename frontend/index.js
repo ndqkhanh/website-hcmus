@@ -20,13 +20,6 @@ app.get("/", (req, res) => {
   });
 });
 
-app.get("/home-account", (req, res) => {
-  res.render("home-account", {
-    title: "Home",
-    BACKEND_URL,
-  });
-});
-
 app.get("/list", (req, res) => {
   res.render("list", {
     title: "List of buses",
