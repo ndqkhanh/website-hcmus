@@ -1,8 +1,35 @@
 $(document).ready(function () {
+  let userInfo = JSON.parse(localStorage.getItem("userInfo"));
+  console.log("userInfo ", userInfo);
+  const nowDate = Date.now();
+  // && Date.parse(userInfo.token.expires) > nowDate
+  if (
+    userInfo &&
+    userInfo.token &&
+    Date.parse(userInfo.token.expires) > nowDate
+  ) {
+    $("#right-side-header").html(`      <span
+    class="dropdown-toggle"
+    type="button"
+    data-bs-toggle="dropdown"
+    aria-expanded="false"
+    style="margin-left: 5px"
+  >
+    <i class="fa-solid fa-circle-user fs-1 text-black-50"></i></span>
+  <ul class="dropdown-menu">
+    <li><a class="dropdown-item" href="#" id="goToHistory">History</a></li>
+    <li>
+      <hr class="dropdown-divider" />
+    </li>
+    <li><a class="dropdown-item" href="#" id="logOutBtn">Logout</a></li>
+  </ul>`);
+  }
+
   /**
    * Login
    */
   $("#btnContinueLogin").click(async function () {
+    console.log("Hello");
     let email = $("#inputEmail").val();
     let password = $("#inputPassword").val();
 
@@ -18,7 +45,7 @@ $(document).ready(function () {
     });
 
     response = await response.json();
-
+    console.log("response ", response);
     if (!response) console.log("fetch del duoc");
     else if (response.message) alert(response.message);
     else {
@@ -42,6 +69,7 @@ $(document).ready(function () {
       $("#loginModal").modal("toggle");
 
       $("#logOutBtn").click(() => {
+        localStorage.setItem("userInfo", null);
         $(location).attr("href", "/");
       });
 
@@ -72,7 +100,7 @@ $(document).ready(function () {
     });
 
     response = await response.json();
-
+    console.log("response ", response);
     if (!response) alert("Registerd failed");
     else if (response.message) alert(response.message);
     {
@@ -96,6 +124,7 @@ $(document).ready(function () {
       $("#registerModal").modal("toggle");
 
       $("#logOutBtn").click(() => {
+        localStorage.setItem("userInfo", null);
         $(location).attr("href", "/");
       });
 
@@ -127,7 +156,7 @@ $(document).ready(function () {
     });
 
     response = await response.json();
-
+    console.log("response ", response);
     if (!response) alert("Reset-password failed");
     else if (response.message) alert(response.message);
     {
@@ -152,6 +181,7 @@ $(document).ready(function () {
       $("#enterEmail").modal("toggle");
 
       $("#logOutBtn").click(() => {
+        localStorage.setItem("userInfo", null);
         $(location).attr("href", "/");
       });
 
@@ -161,6 +191,14 @@ $(document).ready(function () {
     }
   });
 
+  $("#logOutBtn").click(() => {
+    localStorage.setItem("userInfo", null);
+    $(location).attr("href", "/");
+  });
+
+  $("#goToHistory").click(() => {
+    $(location).attr("href", "/history");
+  });
   /**
    * Search
    */
