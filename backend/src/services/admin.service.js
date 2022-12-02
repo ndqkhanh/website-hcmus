@@ -100,7 +100,11 @@ const bookingList = async (page, limit) => {
     skip: page * limit,
     take: limit,
     include: {
-      buses: true,
+      buses: {
+        include: {
+          bus_operators: true,
+        },
+      },
       users: {
         select: {
           email: true,
@@ -144,7 +148,12 @@ const bookingGet = async (bid) => {
       id: bid,
     },
     include: {
-      buses: true,
+      buses: {
+        include: {
+          bus_stations_bus_stationsTobuses_start_point: true,
+          bus_stations_bus_stationsTobuses_end_point: true,
+        },
+      },
       users: {
         select: {
           email: true,
