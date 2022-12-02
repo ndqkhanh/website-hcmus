@@ -41,13 +41,6 @@ app.get("/fill-form/:busId", (req, res) => {
   });
 });
 
-app.get("/booking", (req, res) => {
-  res.render("booking", {
-    title: "Booking",
-    BACKEND_URL,
-  });
-});
-
 app.get("/history", (req, res) => {
   res.render("history", {
     title: "History",

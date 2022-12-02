@@ -1,10 +1,11 @@
 $(document).ready(function () {
   const windowSplit = window.location.href.split("/");
   const busId = windowSplit[windowSplit.length - 1].split("[?#]")[0];
-  let userInfo = localStorage.getItem("info") || "{}";
-  userInfo = JSON.parse(userInfo);
-  const email = userInfo.user.email;
-  const token = userInfo.token;
+  let userInfo = localStorage.getItem("info");
+  console.log(userInfo);
+  const email = "khanhndq2002@gmail.com";
+  const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjMTE4ZjY5My04NzIyLTQ0NjEtYTc5ZC1kNzY5OTFiOTZiY2QiLCJpYXQiOjE2Njk5NTQ4ODcsImV4cCI6MTY2OTk1NjY4NywidHlwZSI6ImFjY2VzcyJ9.3vDUFj8TJeXHf6hjVxp2Chtt-xsJgSjgAjBQaN2l8T8";
 
   $.ajax({
     url: `${BACKEND_URL}/bus/${busId}`,
