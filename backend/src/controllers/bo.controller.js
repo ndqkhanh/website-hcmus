@@ -11,23 +11,23 @@ const createReview = catchAsync(async (req, res) => {
   const result = await boService.createReview(req.user.id, req.params.boId, req.body.rate, req.body.comment);
   res.send(result);
 });
-const viewBO = catchAsync(async (req,res) => {
+const viewBO = catchAsync(async (req, res) => {
   const result = await boService.listBusOperator(req);
   res.send(result);
-})
-const createBO = catchAsync(async (req,res) =>{
+});
+const createBO = catchAsync(async (req, res) => {
   const result = await boService.createBO(req);
   res.send(result);
-})
+});
 
-const updateBO = catchAsync(async (req,res) =>{
+const updateBO = catchAsync(async (req, res) => {
   const result = await boService.updateBO(req);
   res.send(result);
-})
-const deleteBO =  catchAsync(async (req,res) =>{
+});
+const deleteBO = catchAsync(async (req, res) => {
   await boService.deleteBO(req);
-  res.send({success: true});
-})
+  res.send({ success: true });
+});
 module.exports = {
   deleteBO,
   updateBO,
