@@ -9,8 +9,11 @@ function secondsToHms(d) {
   var sDisplay = s > 0 ? s + (s == 1 ? " second" : "s") : "";
   return hDisplay + mDisplay + sDisplay;
 }
+var userInfo = JSON.parse(localStorage.getItem("userInfo"));
+var token = userInfo.token;
 commentPage = 0;
-commentLimit = 1;
+commentLimit = 2;
+userRating = 1;
 maxCommentNum = null;
 $(document).ready(function () {
   /**
@@ -143,7 +146,7 @@ $(document).ready(function () {
             id: item.id,
             image_url: item.image_url,
             bus_operator_name: item.bus_operators.name,
-            bus_operator_rating: item.averageReviews,
+            bus_operator_rating: Math.round(item.averageReviews * 100) / 100,
             start_point_time:
               new Date(item.start_time).getHours() +
               ":" +
@@ -238,7 +241,7 @@ function viewDetail(id, averRating) {
         Accept: "application/json",
       },
       success: function (data) {
-        if(maxCommentNum == null || maxCommentNum < data.count)
+        if (maxCommentNum == null || maxCommentNum < data.count)
           maxCommentNum = data.count;
         if (data.data.length > 0) {
           data.data.forEach((item) => {
@@ -251,7 +254,7 @@ function viewDetail(id, averRating) {
         }
       },
       error: function (result) {
-        console.log("Error", JSON.stringify(result));
+        alert("Error", JSON.stringify(result));
       },
     });
     return commentContent;
@@ -293,20 +296,20 @@ function viewDetail(id, averRating) {
       </ul>
     </nav>
     <hr />
-    <form class='row g-3'>
+    <form class='row g-3' id = "user_review">
       <div class='form-floating'>
         <textarea class='form-control' placeholder='Leave a comment here' id='floatingTextarea2'
-          style='height: 150px; resize: none'></textarea>
+          style='height: 150px; resize: none' required></textarea>
         <label class='text-muted' for='floatingTextarea2'>Your
           Comments.</label>
       </div>
       <div>
-        <span class='float-start'>
-          <i class='text-warning bi bi-star'></i>
-          <i class='text-warning bi bi-star'></i>
-          <i class='text-warning bi bi-star'></i>
-          <i class='text-warning bi bi-star'></i>
-          <i class='text-warning bi bi-star'></i>
+        <span class='float-start' id="rating">
+          <i class='btn text-warning bi bi-star-fill' id = '1' onclick = "displayAndStoreUserRating(1)"></i>
+          <i class='btn text-warning bi bi-star' id = '2' onclick = "displayAndStoreUserRating(2)"></i>
+          <i class='btn text-warning bi bi-star' id = '3' onclick = "displayAndStoreUserRating(3)"></i>
+          <i class='btn text-warning bi bi-star' id = '4' onclick = "displayAndStoreUserRating(4)"></i>
+          <i class='btn text-warning bi bi-star' id = '5' onclick = "displayAndStoreUserRating(5)"></i>
         </span>
         <span class='float-end'>
           <button type='submit' class='btn btn-primary mb-3'>
@@ -402,22 +405,56 @@ function viewDetail(id, averRating) {
       $("#pills-tabContent").append(html);
       $("#policy").children().addClass("ps-0");
       $("#policy").children().css("list-style-type", "none");
-      $("#Previous").click(()=>{
-        if(commentPage >0){
+      $("#Previous").click(() => {
+        if (commentPage > 0) {
           commentPage--;
           $("#user_comment").children().remove();
           $("#user_comment").append(generateComment(data.bus_operators.id));
         }
       });
-      $("#Next").click(()=>{
-        if(commentPage < Math.floor(maxCommentNum/commentLimit) - 1){
+      $("#Next").click(() => {
+        if (commentPage < Math.floor(maxCommentNum / commentLimit) - 1) {
           commentPage++;
           $("#user_comment").children().remove();
           $("#user_comment").append(generateComment(data.bus_operators.id));
         }
       });
+      $("#user_review").on("submit", (e) => {
+        e.preventDefault();
+        $.ajax({
+          url: `${BACKEND_URL}/bus-operator/review/create/${data.bus_operators.id}`,
+          type: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          data: JSON.stringify({
+            comment: $("#floatingTextarea2").val(),
+            rate: userRating,
+          }),
+          success: function (data) {
+            $("#floatingTextarea2").val("");
+            alert("Success");
+          },
+          error: function (result) {
+            alert("Error", JSON.stringify(result));
+          },
+        });
+      });
     }
   });
-  
 }
-
+function displayAndStoreUserRating(starID) {
+  userRating = starID;
+  for (let i = 1; i <= 5; ++i) {
+    $(`#rating #${i}`).removeClass("bi-star-fill");
+    $(`#rating #${i}`).removeClass("bi-star");
+  }
+  for (let i = 1; i <= starID; ++i) {
+    $(`#rating #${i}`).addClass("bi bi-star-fill");
+  }
+  for (let i = starID + 1; i <= 5; ++i) {
+    $(`#rating #${i}`).addClass("bi bi-star");
+  }
+}
