@@ -19,12 +19,6 @@ app.get("/", (req, res) => {
     BACKEND_URL,
   });
 });
-app.get("/home-account", (req, res) => {
-  res.render("home-account", {
-    title: "Home",
-    BACKEND_URL,
-  });
-});
 
 app.get("/list", (req, res) => {
   res.render("list", {

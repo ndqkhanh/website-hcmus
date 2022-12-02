@@ -1,9 +1,9 @@
 $(document).ready(function () {
   $("#logOutBtn").click(() => {
-    $(location).attr("href", "http://localhost:4000/");
+    $(location).attr("href", "/");
   });
 
   $("#goToHistory").click(() => {
-    $(location).attr("href", "http://localhost:4000/history");
+    $(location).attr("href", "/history");
   });
 });
