@@ -1,33 +1,41 @@
 const Joi = require('joi');
 
-const createBusTicket = {
+const createBus = {
   body: Joi.object().keys({
-    bus_id: Joi.string().uuid().required(),
-    user_id: Joi.string().uuid().required(),
-    name: Joi.string().required(),
-    phone: Joi.string().required(),
-    seat: Joi.string().required(),
-    status: Joi.number().required(),
+    bo_id: Joi.string().uuid().required(),
+    start_point: Joi.string().uuid().required(),
+    end_point: Joi.string().required(),
+    type: Joi.number().required(),
+    start_time: Joi.date().required(),
+    end_time: Joi.date().required(),
+    image_url: Joi.string().required(),
+    policy: Joi.string(),
+    num_of_seats: Joi.number().required(),
+    price: Joi.number().required(),
   }),
 };
 
-const deleteBusTicket = {
+const deleteBus = {
   params: Joi.object().keys({
-    ticketId: Joi.string().uuid().required(),
+    busId: Joi.string().uuid().required(),
   }),
 };
 
-const updateTicket = {
+const updateBus = {
   params: Joi.object().keys({
-    ticketId: Joi.string().uuid().required(),
+    busId: Joi.string().uuid().required(),
   }),
   body: Joi.object().keys({
-    bus_id: Joi.string().uuid().required(),
-    user_id: Joi.string().uuid().required(),
-    name: Joi.string().required(),
-    phone: Joi.string().required(),
-    seat: Joi.string().required(),
-    status: Joi.number().required(),
+    bo_id: Joi.string().uuid().required(),
+    start_point: Joi.string().uuid().required(),
+    end_point: Joi.string().required(),
+    type: Joi.number().required(),
+    start_time: Joi.date().required(),
+    end_time: Joi.date().required(),
+    image_url: Joi.string().required(),
+    policy: Joi.string(),
+    num_of_seats: Joi.number().required(),
+    price: Joi.number().required(),
   }),
 };
 
@@ -57,9 +65,9 @@ const bookingGet = {
 };
 
 module.exports = {
-  createBusTicket,
-  deleteBusTicket,
-  updateTicket,
+  createBus,
+  deleteBus,
+  updateBus,
   bookingList,
   bookingUpdate,
   bookingGet,
