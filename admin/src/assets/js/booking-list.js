@@ -9,8 +9,9 @@ $(document).ready(function () {
       1: 'Paied',
       2: 'Canceled',
     };
+
     $.ajax({
-      url: `http://localhost:3000/v1/admin/booking/list/${page}/${limit}`,
+      url: `${HOST_NAME}/v1/admin/booking/list/${page}/${limit}`,
       type: 'GET',
       dataType: 'json',
       headers: {
@@ -18,7 +19,6 @@ $(document).ready(function () {
       },
       success: function (data) {
         var bookings = data.data;
-        console.log('bookings', bookings);
         if (bookings.length === 0) {
           $('#next').attr('disabled', true);
           $('#booking-list').html(
