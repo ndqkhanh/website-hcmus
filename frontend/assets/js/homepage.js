@@ -23,7 +23,7 @@ $(document).ready(function () {
     else if (response.message) alert(response.message);
     else {
       alert("You have successfully login!");
-      localStorage.setItem("token", response.tokens.access.token);
+      localStorage.setItem("userInfo", response);
       $(location).attr("href", "http://localhost:4000/home-account");
     }
   });
@@ -54,7 +54,7 @@ $(document).ready(function () {
     else if (response.message) alert(response.message);
     {
       console.log("response: ", response);
-      localStorage.setItem("token", response.tokens.access.token);
+      localStorage.setItem("userInfo", response);
       alert("You have succesfully registered an account");
       $(location).attr("href", "http://localhost:4000/home-account");
     }
@@ -107,7 +107,7 @@ $(document).ready(function () {
       });
 
       response = await response.json();
-      localStorage.setItem("token", response.tokens.access.token);
+      localStorage.setItem("userInfo", response);
       let token = localStorage.getItem("token");
       console.log("token: ", token);
 
