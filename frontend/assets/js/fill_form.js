@@ -1,46 +1,4 @@
 $(document).ready(function () {
-  // const windowSplit = window.location.href.split("/");
-  // const busId = windowSplit[windowSplit.length - 1].split("[?#]")[0];
-  // const email = "khanhndq2002@gmail.com";
-  // const token =
-  //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjMTE4ZjY5My04NzIyLTQ0NjEtYTc5ZC1kNzY5OTFiOTZiY2QiLCJpYXQiOjE2Njg4NDI3MzksImV4cCI6MTY2ODg0NDUzOSwidHlwZSI6ImFjY2VzcyJ9.wIrDw6UUayFCMDVEHvUXSaoUpFG14Av5E4ZDAYwc0AE";
-
-  // $.ajax({
-  //   url: `${BACKEND_URL}/bus/${busId}`,
-  //   type: "GET",
-  //   success: function (response) {
-  //     if (typeof response === undefined || response === null) {
-  //       alert("[ERROR]: Cannot get response from server");
-  //     } else if (response.error) {
-  //       alert("[ERROR]: " + response.error);
-  //     } else {
-  //       $("#disabledEmail").val(email);
-  //       $("#disabledStartTime").val(
-  //         new Date(response.start_time).toLocaleDateString(undefined, {
-  //           weekday: "long",
-  //           year: "numeric",
-  //           month: "long",
-  //           day: "numeric",
-  //         })
-  //       );
-  //       $("#disabledStartTime").val(
-  //         new Date(response.end_time).toLocaleDateString(undefined, {
-  //           weekday: "long",
-  //           year: "numeric",
-  //           month: "long",
-  //           day: "numeric",
-  //         })
-  //       );
-  //       $("#destination").val(
-  //         response.bus_stations_bus_stationsTobuses_end_point.location
-  //       );
-  //     }
-  //   },
-  //   error: function (error) {
-  //     console.log("[ERROR]", error);
-  //   },
-  // });
-
   $("#cancel-btn").click(function () {
     $(location).attr("href", "/list");
   });
