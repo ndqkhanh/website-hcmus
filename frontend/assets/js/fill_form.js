@@ -3,7 +3,7 @@ $(document).ready(function () {
   const busId = windowSplit[windowSplit.length - 1].split("[?#]")[0];
   const email = "khanhndq2002@gmail.com";
   const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjMTE4ZjY5My04NzIyLTQ0NjEtYTc5ZC1kNzY5OTFiOTZiY2QiLCJpYXQiOjE2Njg4NDI3MzksImV4cCI6MTY2ODg0NDUzOSwidHlwZSI6ImFjY2VzcyJ9.wIrDw6UUayFCMDVEHvUXSaoUpFG14Av5E4ZDAYwc0AE";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjMTE4ZjY5My04NzIyLTQ0NjEtYTc5ZC1kNzY5OTFiOTZiY2QiLCJpYXQiOjE2Njk5NDkzMjUsImV4cCI6MTY2OTk1MTEyNSwidHlwZSI6ImFjY2VzcyJ9.UXO55nuCXkQIOazX3l8LwPyABzqknZFXdwkrfscHsiw";
 
   $.ajax({
     url: `${BACKEND_URL}/bus/${busId}`,
@@ -45,47 +45,50 @@ $(document).ready(function () {
     $(location).attr("href", "/list");
   });
 
-  $("#submit-btn").click(async function (e) {
-    e.preventDefault();
-    const name = $("#inputFullName").val();
-    const phone = $("#inputPhone").val();
-    const numOfSeats = Number($("#inputNumberOfSeat").val());
-    $.ajax({
-      url: `${BACKEND_URL}/ticket/create/${busId}`,
-      type: "POST",
-      dataType: "json",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      data: JSON.stringify({
-        name,
-        phone,
-        numOfSeats,
-      }),
-      success: function (response) {
-        if (typeof response === undefined || response === null) {
-          alert("[ERROR]: Cannot get response from server");
-        } else if (response.error) {
-          alert(
-            "The number of seats you booked exceed the maximum number of seats\nPlease try again!!!"
-          );
-        } else {
-          console.log(JSON.stringify(response));
-          $("#title div h3").text("Booking details");
-          const msToTime = (ms) => {
-            let seconds = (ms / 1000).toFixed(1);
-            let minutes = (ms / (1000 * 60)).toFixed(1);
-            let hours = (ms / (1000 * 60 * 60)).toFixed(1);
-            let days = (ms / (1000 * 60 * 60 * 24)).toFixed(1);
-            if (seconds < 60) return seconds + " Seconds";
-            else if (minutes < 60) return minutes + " Minutes";
-            else if (hours < 24) return hours + " Hours";
-            else return days + " Days";
-          };
-          const ticketIds = response.ticket_ids.map((tid) => `<li>${tid}</li>`);
-          const template = `<div id="table">
+  $("#submit-btn").click(function () {
+    $("#form").submit(function (e) {
+      e.preventDefault();
+      const name = $("#inputFullName").val();
+      const phone = $("#inputPhone").val();
+      const numOfSeats = Number($("#inputNumberOfSeat").val());
+      $.ajax({
+        url: `${BACKEND_URL}/ticket/create/${busId}`,
+        type: "POST",
+        dataType: "json",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        data: JSON.stringify({
+          name,
+          phone,
+          numOfSeats,
+        }),
+        success: function (response) {
+          if (typeof response === undefined || response === null) {
+            alert("[ERROR]: Cannot get response from server");
+          } else if (response.error) {
+            alert(
+              "The number of seats you booked exceed the maximum number of seats\nPlease try again!!!"
+            );
+          } else {
+            console.log(JSON.stringify(response));
+            $("#title div h3").text("Booking details");
+            const msToTime = (ms) => {
+              let seconds = (ms / 1000).toFixed(1);
+              let minutes = (ms / (1000 * 60)).toFixed(1);
+              let hours = (ms / (1000 * 60 * 60)).toFixed(1);
+              let days = (ms / (1000 * 60 * 60 * 24)).toFixed(1);
+              if (seconds < 60) return seconds + " Seconds";
+              else if (minutes < 60) return minutes + " Minutes";
+              else if (hours < 24) return hours + " Hours";
+              else return days + " Days";
+            };
+            const ticketIds = response.ticket_ids.map(
+              (tid) => `<li>${tid}</li>`
+            );
+            const template = `<div id="table">
     <table class='table table-hover table-striped'>
       <tbody>
         <tr style='height: 80px'>
@@ -192,15 +195,16 @@ $(document).ready(function () {
       </button>
     </div>
   </div>`;
-          $("#form-container").html(template);
-          $(".home-btn").click(function () {
-            $(location).attr("href", `/`);
-          });
-        }
-      },
-      error: function (error) {
-        console.log("[ERROR]", error);
-      },
+            $("#form-container").html(template);
+            $(".home-btn").click(function () {
+              $(location).attr("href", `/`);
+            });
+          }
+        },
+        error: function (error) {
+          console.log("[ERROR]", error);
+        },
+      });
     });
   });
 });
