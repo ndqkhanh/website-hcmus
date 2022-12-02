@@ -21,14 +21,18 @@ $(document).ready(function () {
             year: "numeric",
             month: "long",
             day: "numeric",
+            hour: "numeric",
+            minute: "numeric",
           })
         );
-        $("#disabledStartTime").val(
+        $("#disabledEndTime").val(
           new Date(response.end_time).toLocaleDateString(undefined, {
             weekday: "long",
             year: "numeric",
             month: "long",
             day: "numeric",
+            hour: "numeric",
+            minute: "numeric",
           })
         );
         $("#destination").val(
