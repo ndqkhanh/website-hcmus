@@ -44,7 +44,24 @@
                     <div class="mb-6">
                       <h4 class="mb-1">Basic information</h4>
                     </div>
-                    <form>
+                    <form id="update-booking">
+                      <!-- row -->
+                      <div class="mb-3 row">
+                        <label
+                          for="Email"
+                          class="col-sm-4 col-form-label form-label"
+                          >Email</label
+                        >
+                        <div class="col-sm-8">
+                          <input
+                            type="text"
+                            class="form-control"
+                            placeholder="Email"
+                            id="email"
+                            disabled
+                          />
+                        </div>
+                      </div>
                       <!-- row -->
                       <div class="mb-3 row">
                         <label
@@ -90,12 +107,48 @@
                         >
 
                         <div class="col-md-8 col-12">
-                          <select class="form-select" id="location">
-                            <option selected>Select Country</option>
-                            <option value="1">India</option>
-                            <option value="2">UK</option>
-                            <option value="3">USA</option>
+                          <select class="form-select" id="status">
+                            <option selected>Select Status</option>
+                            <option value="0">Booked</option>
+                            <option value="1">Paied</option>
+                            <option value="2">Canceled</option>
                           </select>
+                        </div>
+                      </div>
+                      <!-- row -->
+                      <div class="mb-3 row">
+                        <label
+                          for="phone"
+                          class="col-sm-4 col-form-label form-label"
+                          >Start Point
+                          <span class="text-muted">(Disabled)</span></label
+                        >
+                        <div class="col-md-8 col-12">
+                          <input
+                            type="text"
+                            class="form-control"
+                            placeholder="Start Point"
+                            id="start_point"
+                            disabled
+                          />
+                        </div>
+                      </div>
+                      <!-- row -->
+                      <div class="mb-3 row">
+                        <label
+                          for="phone"
+                          class="col-sm-4 col-form-label form-label"
+                          >End Point
+                          <span class="text-muted">(Disabled)</span></label
+                        >
+                        <div class="col-md-8 col-12">
+                          <input
+                            type="text"
+                            class="form-control"
+                            placeholder="End Point"
+                            id="end_point"
+                            disabled
+                          />
                         </div>
                       </div>
                       <div class="mb-3 row">
@@ -133,4 +186,6 @@
     <!-- Scripts -->
     @@include("../../partials/scripts.html")
   </body>
+
+  <script src="@@webRoot/assets/js/booking-update.js"></script>
 </html>
