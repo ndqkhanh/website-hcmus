@@ -70,6 +70,7 @@ $(document).ready(function () {
                 class='btn btn-success'
                 data-bs-toggle='modal'
                 data-bs-target='#exampleModal'
+                onclick="viewDetail(\'{{id}}\', {{bus_operator_rating}})"
               >
                 Details
               </button>
@@ -187,7 +188,6 @@ $(document).ready(function () {
       }
     });
   }
-
   function secondsToHms(d) {
     d = Number(d);
     var h = Math.floor(d / 3600);
@@ -198,5 +198,215 @@ $(document).ready(function () {
     var mDisplay = m > 0 ? m + (m == 1 ? " minute, " : "m") : "";
     var sDisplay = s > 0 ? s + (s == 1 ? " second" : "s") : "";
     return hDisplay + mDisplay + sDisplay;
+  }
+  function viewDetail(id, averRating) {
+    function generateComment() {
+      commentHTMLTemplate = `<hr />
+      <div class='clearfix'>
+        <i class='float-start fs-1 bi bi-person-fill fa-5x me-1'></i>
+        <div class='float-start'>
+          <div class='fw-bolder'>{{name}}</div>
+          <div>
+            <i class='text-warning bi bi-star-fill'></i>
+            <i class='text-warning bi bi-star-fill'></i>
+            <i class='text-warning bi bi-star-fill'></i>
+            <i class='text-warning bi bi-star-fill'></i>
+            <i class='text-warning bi bi-star-fill'></i>
+          </div>
+          <p class='fw-light fst-italic'>Xe đi rất high !!!</p>
+        </div>
+      </div>`;
+      comentContent = "";
+      commentScript = Handlebars.compile(commentHTMLTemplate);
+      $.ajax({
+        url: `${BACKEND_URL}/bus-operator/review/${id}/${page}/${limit}`,
+        type: "GET",
+
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        success: function (data) {
+          if (data.data.length > 0) {
+            comentContent += commentScript({
+              name: data.
+            })
+          }
+        },
+        error: function (result) {
+          console.log("Error", JSON.stringify(result));
+        },
+      });
+      page++;
+    }
+    const typeName = ["Limousine", "Normal Seat", "Sleeper Bus"];
+    template = `<div class='tab-pane fade show active' id='pills-bus-operator' role='tabpanel'
+    aria-labelledby='pills-bus-operator-tab' tabindex='0'>
+    <div class='p-4 col'>
+      <div class='h3 text-center mw-50'>Nhà xe {{bo_name}}</div>
+  
+      <div>
+        <img class='img-fluid'
+          src={{image_bo}}
+          alt='Nhà xe' />
+      </div>
+      <div>
+        <span class='fst-italic fw-lighter'> Phone number: </span>
+        <span class='fw-bolder'> {{phone_num}} </span>
+        <span class='float-end'>
+          <span class='badge rounded-pill bg-warning text-dark'>
+            <i class='bi bi-star-fill'></i>
+            {{rating}}
+          </span>
+        </span>
+      </div>
+      
+      <hr />
+      <div class='clearfix'>
+        <i class='float-start fs-1 bi bi-person-fill fa-5x me-1'></i>
+        <div class='float-start'>
+          <div class='fw-bolder'>Nguyễn Đinh Quang Khánh</div>
+          <div>
+            <i class='text-warning bi bi-star-fill'></i>
+            <i class='text-warning bi bi-star-fill'></i>
+            <i class='text-warning bi bi-star-fill'></i>
+            <i class='text-warning bi bi-star-fill'></i>
+            <i class='text-warning bi bi-star-fill'></i>
+          </div>
+          <p class='fw-light fst-italic'>Xe đi rất high !!!</p>
+        </div>
+      </div>
+  
+      <nav class='mt-5' aria-label='Page navigation example'>
+        <ul class='pagination justify-content-center'>
+          <li class='page-item'>
+            <a class='page-link' href='#'>Previous</a>
+          </li>
+          <li class='page-item'>
+            <a class='page-link' href='#'>1</a>
+          </li>
+          <li class='page-item'>
+            <a class='page-link' href='#'>2</a>
+          </li>
+          <li class='page-item'>
+            <a class='page-link' href='#'>3</a>
+          </li>
+          <li class='page-item'>
+            <a class='page-link' href='#'>Next</a>
+          </li>
+        </ul>
+      </nav>
+      <hr />
+      <form class='row g-3'>
+        <div class='form-floating'>
+          <textarea class='form-control' placeholder='Leave a comment here' id='floatingTextarea2'
+            style='height: 150px; resize: none'></textarea>
+          <label class='text-muted' for='floatingTextarea2'>Your
+            Comments.</label>
+        </div>
+        <div>
+          <span class='float-start'>
+            <i class='text-warning bi bi-star'></i>
+            <i class='text-warning bi bi-star'></i>
+            <i class='text-warning bi bi-star'></i>
+            <i class='text-warning bi bi-star'></i>
+            <i class='text-warning bi bi-star'></i>
+          </span>
+          <span class='float-end'>
+            <button type='submit' class='btn btn-primary mb-3'>
+              Submit
+            </button>
+          </span>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class='tab-pane fade' id='pills-bus-information' role='tabpanel'
+    aria-labelledby='pills-bus-information-tab' tabindex='0'>
+    <div class='p-4 col'>
+      <table class='table table-borderless'>
+        <tr>
+          <td class='fst-italic' style='width: 60%'>
+            Bus operator
+          </td>
+          <td class='text-primary'>{{bo_name}}</td>
+        </tr>
+        <tr>
+          <td class='fst-italic'>Start point</td>
+          <td class='text-primary'>{{start_point}}</td>
+        </tr>
+        <tr>
+          <td class='fst-italic'>End point</td>
+          <td class='text-primary'>{{end_point}}</td>
+        </tr>
+        <tr>
+          <td class='fst-italic'>Start time</td>
+          <td class='text-primary'>{{start_time}}</td>
+        </tr>
+        <tr>
+          <td class='fst-italic'>End time</td>
+          <td class='text-primary'>{{end_time}}</td>
+        </tr>
+        <tr>
+          <td class='fst-italic'>Duration</td>
+          <td class='text-primary'>{{duration}}</td>
+        </tr>
+        <tr>
+          <td class='fst-italic'>Policy</td>
+          <td class='text-primary' id="policy">
+            {{{policy}}}
+          </td>
+        </tr>
+        <tr>
+          <td class='fst-italic'>Number of seats</td>
+          <td class='text-primary'>{{num_seat}}</td>
+        </tr>
+        <tr>
+          <td class='fst-italic'>Type of bus</td>
+          <td class='text-primary'>{{type}}</td>
+        </tr>
+        <tr>
+          <td class='fst-italic'>Cost</td>
+          <td class='text-primary'>{{price}} vnđ</td>
+        </tr>
+      </table>
+      <hr />
+      <div>
+        <img class='img-fluid' src='{{image_url}}'
+          alt='Xe' />
+      </div>
+    </div>
+  </div>`;
+    const templateScript = Handlebars.compile(template);
+    html = "";
+    $.get(`${BACKEND_URL}/bus/${id}`, {}, function (data) {
+      let duration =
+        (new Date(data.end_time) - new Date(data.start_time)) / 1000;
+      if (data) {
+        html += templateScript({
+          bo_name: data.bus_operators.name,
+          phone_num: data.bus_operators.phone,
+          rating: averRating,
+          start_point: data.bus_stations_bus_stationsTobuses_start_point.name,
+          end_point: data.bus_stations_bus_stationsTobuses_end_point.name,
+          start_time: data.start_time,
+          end_time: data.end_time,
+          duration: secondsToHms(duration),
+          policy: data.policy,
+          num_seat: data.num_of_seats,
+          type: typeName[data.type],
+          price: data.price,
+          image_url: data.image_url,
+          image_bo: data.bus_operators.image_url,
+        });
+        $("#pills-bus-operator-tab").addClass("active");
+        $("#pills-bus-information-tab").removeClass("active");
+        $("#pills-tabContent").children().remove();
+        $("#pills-tabContent").append(html);
+        $("#policy").children().addClass("ps-0");
+        $("#policy").children().css("list-style-type", "none");
+      }
+    });
   }
 });
