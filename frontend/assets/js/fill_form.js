@@ -3,7 +3,7 @@ $(document).ready(function () {
   const busId = windowSplit[windowSplit.length - 1].split("[?#]")[0];
   let userInfo = localStorage.getItem("info") || "{}";
   userInfo = JSON.parse(userInfo);
-  const email = userInfo.email;
+  const email = userInfo.user.email;
   const token = userInfo.token;
 
   $.ajax({
