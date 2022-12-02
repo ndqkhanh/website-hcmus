@@ -59,7 +59,7 @@ $(document).ready(function () {
     let password = $("#inputPasswordRegister").val();
     let repassword = $("#inputRePasswordRegister").val();
 
-    let response = await fetch("http://localhost:3000/v1/auth/signup", {
+    let response = await fetch(`${BACKEND_URL}/auth/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json;charset=utf-8",
