@@ -1,28 +1,30 @@
-$(document).ready(function () {
-  var page = 0;
-  var limit = 1;
-  var typeOfBus = ["Limousine", "Normal Seat", "Sleeper Bus"];
-  var statusBook = ["Just booked", "Booked", "Canceled payment"];
-  var token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjMTE4ZjY5My04NzIyLTQ0NjEtYTc5ZC1kNzY5OTFiOTZhOWUiLCJpYXQiOjE2Njg4NDI5OTcsImV4cCI6MTY2ODg0NDc5NywidHlwZSI6ImFjY2VzcyJ9.tORAHt2kfE5rWdTvOm4EU-awWTJe00uLukgGhN5LBu8";
-  var currentHistoryData = [];
-  function loadMore() {
-    $.ajax({
-      url: `${BACKEND_URL}/user/history/${page}/${limit}`,
-      type: "POST",
+var page = 0;
+var limit = 1;
+var typeOfBus = ["Limousine", "Normal Seat", "Sleeper Bus"];
+var statusBook = ["Just booked", "Booked", "Canceled payment"];
+var userInfo = JSON.parse(localStorage.getItem("userInfo"));
+var token = userInfo.token;
+var uid = userInfo.user.id;
+console.log(token);
+console.log(uid);
+var currentHistoryData = [];
+function loadMore() {
+  $.ajax({
+    url: `${BACKEND_URL}/user/history/${page}/${limit}`,
+    type: "POST",
 
-      data: JSON.stringify({
-        uid: "c118f693-8722-4461-a79d-d76991b96bcd",
-      }),
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      success: function (data) {
-        if (data.history_list[0]) {
-          currentHistoryData = currentHistoryData.concat(data.history_list);
-          content = `<thead><tr>
+    data: JSON.stringify({
+      uid,
+    }),
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    success: function (data) {
+      if (data.history_list[0]) {
+        currentHistoryData = currentHistoryData.concat(data.history_list);
+        content = `<thead><tr>
     <th scope='col'>#</th>
       <th scope='col'>id</th>
       <th scope='col'>House</th>
@@ -34,8 +36,8 @@ $(document).ready(function () {
     </tr></thead>
     <tbody>
     `;
-          currentHistoryData.forEach((item, index) => {
-            content += `<tr>
+        currentHistoryData.forEach((item, index) => {
+          content += `<tr>
         <td scope='row' width ='2%'>${index + 1}</th>
         <td>${item.id}</td>
         <td>${item.buses.bus_operators.name}</td>
@@ -45,25 +47,25 @@ $(document).ready(function () {
         <td>${item.buses.end_time}</td>
         <td><span class="text-primary"  onclick="viewDetail(${index})" role="button">View</span></td>
       </tr>`;
-          });
-          content += "</tbody>";
-          $("#history-list").children().remove();
-          $("#history-list").append(content);
-        } else {
-          alert("You reach the final history");
-        }
-      },
-      error: function (result) {
-        console.log("Error", JSON.stringify(result));
-      },
-    });
-    page++;
-  }
-  function viewDetail(id) {
-    $("#hList").addClass("d-none");
-    $("#detail").removeClass("d-none");
-    detailTicket = currentHistoryData[id];
-    content = `<table class='table table-hover table-striped' id="detail-ticket">
+        });
+        content += "</tbody>";
+        $("#history-list").children().remove();
+        $("#history-list").append(content);
+      } else {
+        alert("You reach the final history");
+      }
+    },
+    error: function (result) {
+      console.log("Error", JSON.stringify(result));
+    },
+  });
+  page++;
+}
+function viewDetail(id) {
+  $("#hList").addClass("d-none");
+  $("#detail").removeClass("d-none");
+  detailTicket = currentHistoryData[id];
+  content = `<table class='table table-hover table-striped' id="detail-ticket">
   <tbody>
     <tr style='min-height: 50px'>
       <th class='quarter-width align-middle'>Ticker id</th>
@@ -129,13 +131,14 @@ $(document).ready(function () {
     </tr>
   </tbody>
 </table>`;
-    previousView = $("#detail").children("#detail-ticket")[0];
-    if (previousView) previousView.remove();
-    $("#detail").prepend(content);
-  }
-  function backToList() {
-    $("#hList").removeClass("d-none");
-    $("#detail").addClass("d-none");
-  }
+  previousView = $("#detail").children("#detail-ticket")[0];
+  if (previousView) previousView.remove();
+  $("#detail").prepend(content);
+}
+function backToList() {
+  $("#hList").removeClass("d-none");
+  $("#detail").addClass("d-none");
+}
+$(document).ready(function () {
   loadMore();
 });
