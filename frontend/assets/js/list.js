@@ -10,7 +10,7 @@ function secondsToHms(d) {
   return hDisplay + mDisplay + sDisplay;
 }
 var userInfo = JSON.parse(localStorage.getItem("userInfo"));
-var token = userInfo.token;
+var token = userInfo.token.token;
 commentPage = 0;
 commentLimit = 2;
 userRating = 1;

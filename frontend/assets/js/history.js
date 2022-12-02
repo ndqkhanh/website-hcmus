@@ -3,7 +3,7 @@ var limit = 1;
 var typeOfBus = ["Limousine", "Normal Seat", "Sleeper Bus"];
 var statusBook = ["Just booked", "Booked", "Canceled payment"];
 var userInfo = JSON.parse(localStorage.getItem("userInfo"));
-var token = userInfo.token;
+var token = userInfo.token.token;
 var uid = userInfo.user.id;
 console.log(token);
 console.log(uid);
