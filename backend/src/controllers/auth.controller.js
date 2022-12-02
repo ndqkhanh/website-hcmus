@@ -6,7 +6,7 @@ const register = catchAsync(async (req, res) => {
   const user = await userService.createUser(req.body);
   const tokens = await tokenService.generateAuthTokens(user);
   delete user.password;
-  res.status(httpStatus.CREATED).send({ user, tokens });
+  res.status(httpStatus.CREATED).send({ user, token: tokens.access.token });
 });
 
 const login = catchAsync(async (req, res) => {
@@ -14,7 +14,7 @@ const login = catchAsync(async (req, res) => {
   const tokens = await tokenService.generateAuthTokens(user);
   delete user.password;
 
-  res.send({ tokens });
+  res.send({ token: tokens.access.token, user });
 });
 
 const logout = catchAsync(async (req, res) => {
@@ -35,7 +35,9 @@ const forgotPassword = catchAsync(async (req, res) => {
 
 const resetPassword = catchAsync(async (req, res) => {
   await authService.resetPassword(req.body.email, req.body.newPassword, req.body.repassword);
-  res.send({ success: true });
+  const user = await authService.loginUserWithEmailAndPassword(req.body.email, req.body.newPassword);
+  const tokens = await tokenService.generateAuthTokens(user);
+  res.send({ user, token: tokens.access.token });
 });
 
 const sendVerificationEmail = catchAsync(async (req, res) => {
