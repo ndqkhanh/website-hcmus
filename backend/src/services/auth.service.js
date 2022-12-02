@@ -14,17 +14,14 @@ const { tokenTypes } = require('../config/tokens');
  */
 const loginUserWithEmailAndPassword = async (email, password) => {
   const user = await userService.getUserByEmail(email);
-  user.password = user.password.toString();
-
+  if (user) user.password = user.password.toString();
   // if (!user || !(await user.isPasswordMatch(password))) {
   //   throw new ApiError(httpStatus.UNAUTHORIZED, 'Incorrect email or password');
   // }
   if (!user || !(await bcrypt.compare(password, user.password))) {
     throw new ApiError(httpStatus.UNAUTHORIZED, 'Incorrect email or password');
   }
-  if (user && user.disabled === true) {
-    throw new ApiError(httpStatus.UNAUTHORIZED, 'User is disabled');
-  }
+
   return user;
 };
 
