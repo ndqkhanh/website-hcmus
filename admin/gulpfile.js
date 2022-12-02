@@ -23,6 +23,7 @@ const cssnano = require('cssnano');
 const autoprefixer = require('autoprefixer');
 const replace = require('gulp-replace');
 const terser = require('gulp-terser');
+var proxyMiddleware = require('http-proxy-middleware');
 
 // Paths to project folders
 
@@ -135,6 +136,16 @@ function browsersyncServe(callback) {
   browsersync.init({
     server: {
       baseDir: [paths.temp.basetemp, paths.src.basesrc, paths.base.base],
+      // middleware: [
+      //   proxyMiddleware.createProxyMiddleware('/api', {
+      //     // target:
+      //     //   process.env.ENV === 'production'
+      //     //     ? 'http://localhost:3000'
+      //     //     : 'http://localhost:3000',
+      //     target: 'http://localhost:3000',
+      //     changeOrigin: true,
+      //   }),
+      // ],
     },
     port: 5000,
   });
