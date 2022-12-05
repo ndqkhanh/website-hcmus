@@ -59,7 +59,7 @@
         </div>
       </li>
 
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a
           class="nav-link has-arrow @@if (context.page_group !== 'busPages') { collapsed }"
           href="#!"
@@ -87,14 +87,24 @@
             </li>
             <li class="nav-item">
               <a
-                class="nav-link has-arrow @@if (context.page === 'settings') { active }"
-                href="@@webRoot/pages/settings.html"
+                class="nav-link has-arrow @@if (context.page === 'layouts') { active }"
+                href="@@webRoot/pages/bus"
               >
                 Create
               </a>
             </li>
           </ul>
         </div>
+      </li> -->
+
+      <li class="nav-item">
+        <a
+          class="nav-link @@if (context.page === 'layouts') { active }"
+          href="@@webRoot/pages/bus"
+        >
+          <i data-feather="sidebar" class="nav-icon icon-xs me-2"> </i>
+          Bus
+        </a>
       </li>
 
       <li class="nav-item">
