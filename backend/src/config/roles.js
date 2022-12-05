@@ -14,6 +14,7 @@ const allRoles = {
     'bookingList',
     'bookingGet',
     'bookingUpdate',
+    'busList',
   ],
 };
 

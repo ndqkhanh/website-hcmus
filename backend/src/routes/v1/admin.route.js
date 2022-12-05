@@ -18,6 +18,7 @@ router
   .route('/bus-ticket/update/:ticketId')
   .post(auth('updateTicket'), validate(adminValidation.updateTicket), adminController.updateTicket);
 
+router.route('/bus/list/:page/:limit').get(auth('busList'), validate(adminValidation.busList), adminController.busList);
 router
   .route('/booking/list/:page/:limit')
   .get(auth('bookingList'), validate(adminValidation.bookingList), adminController.bookingList);

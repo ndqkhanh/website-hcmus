@@ -94,7 +94,32 @@ const updateTicket = async (req) => {
 
   return ticketUpdated;
 };
+const busList = async (page, limit) => {
+  const data = await prisma.buses.findMany({
+    skip: page * limit,
+    take: limit,
+    include: {
+      bus_operators: {
+        select: {
+          name: true, // MORE INFO
+          image_url: true,
+        },
+      },
+      bus_stations_bus_stationsTobuses_start_point: {
+        select: {
+          name: true,
+        },
+      },
+      bus_stations_bus_stationsTobuses_end_point: {
+        select: {
+          name: true,
+        },
+      },
+    },
+  });
 
+  return { data };
+};
 const bookingList = async (page, limit) => {
   const data = await prisma.bus_tickets.findMany({
     skip: page * limit,
@@ -175,4 +200,5 @@ module.exports = {
   bookingList,
   bookingUpdate,
   bookingGet,
+  busList,
 };

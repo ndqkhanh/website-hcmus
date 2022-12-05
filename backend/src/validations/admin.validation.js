@@ -31,6 +31,12 @@ const updateTicket = {
   }),
 };
 
+const busList = {
+  params: Joi.object().keys({
+    page: Joi.number().required(),
+    limit: Joi.number().required(),
+  }),
+};
 const bookingList = {
   params: Joi.object().keys({
     page: Joi.number().required(),
@@ -63,4 +69,5 @@ module.exports = {
   bookingList,
   bookingUpdate,
   bookingGet,
+  busList,
 };
