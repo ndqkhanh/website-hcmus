@@ -6,19 +6,15 @@ const auth = require('../../middlewares/auth');
 
 const router = express.Router();
 
-router
-  .route('/bus-ticket/create')
-  .post(auth('createTicket'), validate(adminValidation.createBusTicket), adminController.createBusTicket);
+router.route('/bus/create').post(auth('createBus'), validate(adminValidation.createBus), adminController.createBus);
 
-router
-  .route('/bus-ticket/delete/:ticketId')
-  .post(auth('deleteTicket'), validate(adminValidation.deleteBusTicket), adminController.deleteBusTicket);
+router.route('/bus/delete/:busId').post(auth('deleteBus'), validate(adminValidation.deleteBus), adminController.deleteBus);
 
-router
-  .route('/bus-ticket/update/:ticketId')
-  .post(auth('updateTicket'), validate(adminValidation.updateTicket), adminController.updateTicket);
+router.route('/bus/update/:busId').post(auth('updateBus'), validate(adminValidation.updateBus), adminController.updateBus);
 
 router.route('/bus/list/:page/:limit').get(auth('busList'), validate(adminValidation.busList), adminController.busList);
+
+router.route('/bus/:busId').get(auth('getBus'), validate(adminValidation.getBus), adminController.getBus);
 router
   .route('/booking/list/:page/:limit')
   .get(auth('bookingList'), validate(adminValidation.bookingList), adminController.bookingList);

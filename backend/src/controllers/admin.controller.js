@@ -1,20 +1,25 @@
 const catchAsync = require('../utils/catchAsync');
 const { adminService } = require('../services');
 
-const createBusTicket = catchAsync(async (req, res) => {
-  const ticket = await adminService.createBusTicket(req);
+const createBus = catchAsync(async (req, res) => {
+  const bus = await adminService.createBus(req);
 
-  res.send(ticket);
+  res.send(bus);
 });
 
-const deleteBusTicket = catchAsync(async (req, res) => {
-  await adminService.deleteBusTicketById(req.params.ticketId);
+const deleteBus = catchAsync(async (req, res) => {
+  await adminService.deleteBusById(req.params.busId);
   res.send({ success: true });
 });
 
-const updateTicket = catchAsync(async (req, res) => {
-  const ticketUpdated = await adminService.updateTicket(req);
-  res.send(ticketUpdated);
+const updateBus = catchAsync(async (req, res) => {
+  const busUpdated = await adminService.updateBus(req);
+  res.send(busUpdated);
+});
+
+const getBus = catchAsync(async (req, res) => {
+  const bus = await adminService.getBusById(req.params.busId);
+  res.send(bus);
 });
 
 const busList = catchAsync(async (req, res) => {
@@ -40,9 +45,10 @@ const bookingGet = catchAsync(async (req, res) => {
 });
 
 module.exports = {
-  createBusTicket,
-  deleteBusTicket,
-  updateTicket,
+  createBus,
+  deleteBus,
+  updateBus,
+  getBus,
   bookingList,
   bookingUpdate,
   bookingGet,
