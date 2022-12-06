@@ -2,7 +2,7 @@ $(document).ready(function () {
   let page = 0;
   const loadListBookings = (limit = 2) => {
     let token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyYjU1ZTdhMC02NmNkLTQ5ZjMtOTE2OS0xZjBkZjIzMzVmNjIiLCJpYXQiOjE2NzAyNTE1ODQsImV4cCI6MTY3MDI1MzM4NCwidHlwZSI6ImFjY2VzcyJ9.T_s1z9-cQpbxPKQvV-QbxaSSHMyUQQhqogyUbCURg9o";
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyYjU1ZTdhMC02NmNkLTQ5ZjMtOTE2OS0xZjBkZjIzMzVmNjIiLCJpYXQiOjE2NzAyOTc1NjUsImV4cCI6MTY3MDI5OTM2NSwidHlwZSI6ImFjY2VzcyJ9.W7cyYgGtk_ON2na92Vzdzapc_RrKzNoyTN3fcpv0sOs";
 
     const typeOfBus = {
       0: "Limousine",

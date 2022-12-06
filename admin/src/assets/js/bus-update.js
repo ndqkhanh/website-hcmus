@@ -1,4 +1,4 @@
-$(document).ready(async function () {
+$(document).ready(function () {
   const MAX_LIMIT = 100;
   const OFFSET = 0;
 
@@ -6,54 +6,196 @@ $(document).ready(async function () {
   const id = urlParams.get("id");
 
   const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyYjU1ZTdhMC02NmNkLTQ5ZjMtOTE2OS0xZjBkZjIzMzVmNjIiLCJpYXQiOjE2NzAyNDk3NDcsImV4cCI6MTY3MDI1MTU0NywidHlwZSI6ImFjY2VzcyJ9.sS6o3TBpZ447rpBmS8NmNNwX17CdPWt5f6ekQl2KFAw";
-  $.ajax({
-    url: `http://localhost:3000/v1/admin/booking/${id}`,
-    type: "GET",
-    dataType: "json",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyYjU1ZTdhMC02NmNkLTQ5ZjMtOTE2OS0xZjBkZjIzMzVmNjIiLCJpYXQiOjE2NzAyOTc5ODAsImV4cCI6MTY3MDI5OTc4MCwidHlwZSI6ImFjY2VzcyJ9.46zHleUXq0Fnx9EPk-Esj5ldZE11sQgYtVd-CPAsq6E";
+
+  let typeOfBusList = [
+    { value: 0, type: "Limousine" },
+    { value: 1, type: "Normal Seat" },
+    { value: 2, type: "Sleeper Bus" },
+  ];
+
+  $.ajax(`http://localhost:3000/v1/admin/bus/${id}`, {
+    method: "GET",
     headers: {
+      "Content-Type": "application/json;charset=utf-8",
       Authorization: "Bearer " + token,
     },
-    success: function (booking) {
-      $("#email").val(booking.users.email);
-      $("#name").val(booking.name);
-      $("#phone").val(booking.phone);
-      $("#seat").val(booking.seat);
-      $("#status").val(booking.status);
-      $("#start_point").val(
-        booking.buses.bus_stations_bus_stationsTobuses_start_point.name
+    success: function (bus) {
+      $("#Bus-Operator").html(
+        `<option value = ${bus.bo_id}>${bus.bus_operators.name}</option>`
       );
-      $("#end_point").val(
-        booking.buses.bus_stations_bus_stationsTobuses_end_point.name
+      $("#Start-Point").html(
+        `<option value = ${bus.start_point}>${bus.bus_stations_bus_stationsTobuses_start_point.name}</option>`
       );
+      $("#End-Point").html(
+        `<option value = ${bus.end_point}>${bus.bus_stations_bus_stationsTobuses_end_point.name}</option>`
+      );
+      let busType = "";
+      typeOfBusList.forEach((item) => {
+        if (item.value == bus.type) busType = item.type;
+      });
+
+      $("#Type").html(`<option value = ${bus.type}>${busType} </option>`);
+      $("#Start-Time").val(bus.start_time);
+      $("#End-Time").val(bus.end_time);
+      $("#Policy").val(bus.policy);
+      $("#Number-Of-Seats").val(bus.num_of_seats);
+      $("#Price").val(bus.price);
     },
     error: function (error) {
-      console.log("error", error);
+      console.log(error);
     },
   });
 
-  $("#update-booking").submit(function (e) {
-    e.preventDefault();
-    const name = $("#name").val();
-    const phone = $("#phone").val();
-    const seat = $("#seat").val();
-    const status = $("#status").val();
-    $.ajax({
-      url: `http://localhost:3000/v1/admin/booking/${id}`,
-      type: "POST",
-      dataType: "json",
+  /**
+   * Show list bus operator from db
+   */
+
+  $("#Bus-Operator").click(function () {
+    $.ajax(
+      `http://localhost:3000/v1/bus-operator/list/${OFFSET}/${MAX_LIMIT}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json;charset=utf-8",
+          Authorization: "Bearer " + token,
+        },
+        success: function (data) {
+          let boList = data.data;
+          console.log("bosList", boList);
+          let boListString = `<select class="form-select" id="Bus-Operator">`;
+          boList.forEach((item) => {
+            boListString += `<option value=${item.id}>${item.name}</option>`;
+          });
+          boListString += "</select>";
+          $("#Bus-Operator").replaceWith(boListString);
+        },
+        error: function (error) {
+          console.log(error);
+        },
+      }
+    );
+  });
+
+  /**
+   * Show list of Start Point from db
+   */
+  $("#Start-Point").click(function () {
+    $.ajax(`http://localhost:3000/v1/bus-station/list`, {
+      method: "GET",
       headers: {
+        "Content-Type": "application/json;charset=utf-8",
         Authorization: "Bearer " + token,
       },
-      data: {
-        name: name,
-        phone: phone,
-        seat: seat,
-        status: status,
+      success: function (data) {
+        let startPointList = data.data;
+        let startPointListHtml = `<select class="form-select" id="Start-Point"><option selected>Select Start Point</option>`;
+        startPointList.forEach((startPoint) => {
+          startPointListHtml += `<option value=${startPoint.id}>${startPoint.name}, ${startPoint.location}</option>`;
+        });
+        startPointListHtml += "</select>";
+
+        $("#Start-Point").replaceWith(startPointListHtml);
+      },
+    });
+  });
+
+  /**
+   * Show End Point List from DB
+   */
+  $("#End-Point").click(function () {
+    $.ajax(`http://localhost:3000/v1/bus-station/list`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+        Authorization: "Bearer " + token,
       },
       success: function (data) {
+        let endPointList = data.data;
+        let endPointListHtml = `<select class="form-select" id="End-Point"><option selected>Select End Point</option>`;
+        endPointList.forEach((endPoint) => {
+          endPointListHtml += `<option value=${endPoint.id}>${endPoint.name}, ${endPoint.location}</option>`;
+        });
+        endPointListHtml += "</select>";
+        $("#End-Point").replaceWith(endPointListHtml);
+      },
+    });
+    // let endPointList = await fetch(
+    //   `http://localhost:3000/v1/bus-station/list`,
+    //   {
+    //     method: "GET",
+    //     headers: {
+    //       "Content-Type": "application/json;charset=utf-8",
+    //       Authorization: "Bearer " + token,
+    //     },
+    //   }
+    // );
+
+    // endPointList = await endPointList.json();
+    // endPointList = endPointList.data;
+    // let endPointListHtml = "<option selected>Select End Point</option>";
+    // endPointList.forEach((endPoint) => {
+    //   endPointListHtml += `<option value=${endPoint.id}>${endPoint.name}, ${endPoint.location}</option>`;
+    // });
+    // $("#End-Point").html(endPointListHtml);
+  });
+
+  /**
+   * Show list type of bus from DB
+   */
+
+  $("#Type").click(function () {
+    $("#Type").replaceWith(`<select class="form-select" id="Type">
+    <option selected>Select Type</option>
+    <option value="0">Limousine</option>
+    <option value="1">Normal Seat</option>
+    <option value="2">Sleeper Seat</option>
+  </select>`);
+  });
+
+  /**
+   * Update bus
+   */
+
+  $("#Update-Button").click(function (e) {
+    e.preventDefault();
+
+    console.log("Hello");
+    const busId = id;
+    const bo_id = $("#Bus-Operator").val();
+    const start_point = $("#Start-Point").val();
+    const end_point = $("#End-Point").val();
+    const type = $("#Type").val();
+    const start_time = $("#Start-Time").val();
+    const end_time = $("#End-Time").val();
+    const image_url = "dfasdf";
+    const policy = $("#Policy").val();
+    const num_of_seats = $("#Number-Of-Seats").val();
+    const price = $("#Price").val();
+
+    const data = JSON.stringify({
+      bo_id: bo_id,
+      start_point: start_point,
+      end_point: end_point,
+      type: type,
+      start_time: start_time,
+      end_time: end_time,
+      image_url: image_url,
+      policy: policy,
+      num_of_seats: num_of_seats,
+      price: price,
+    });
+
+    $.ajax(`http://localhost:3000/v1/admin/bus/update/${id}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+        Authorization: "Bearer " + token,
+      },
+      data: data,
+      success: function (data) {
         console.log("data", data);
-        window.location.href = "/pages/booking";
+        window.location.href = "/pages/bus";
       },
       error: function (error) {
         console.log("error", error);
@@ -61,87 +203,21 @@ $(document).ready(async function () {
     });
   });
 
-  /**
-   * Show list bus operator from db
-   */
-  let boList = await fetch(
-    `http://localhost:3000/v1/bus-operator/list/${OFFSET}/${MAX_LIMIT}`,
-    {
-      method: "GET",
+  $("#Delete-Button").click(function (e) {
+    e.preventDefault();
+    $.ajax(`http://localhost:3000/v1/admin/bus/delete/${id}`, {
+      method: "POST",
       headers: {
         "Content-Type": "application/json;charset=utf-8",
         Authorization: "Bearer " + token,
       },
-    }
-  );
-
-  boList = await boList.json();
-  boList = boList.data;
-  let boListString = "<option selected>Select Bus Operator</option>";
-  boList.forEach((item) => {
-    boListString += `<option value=${item.id}>${item.name}</option>`;
-  });
-  $("#Bus-Operator").html(boListString);
-
-  /**
-   * Show list of Start Point from db
-   */
-  let startPointList = await fetch(
-    `http://localhost:3000/v1/bus-station/list`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json;charset=utf-8",
-        Authorization: "Bearer " + token,
+      success: function (data) {
+        console.log("data", data);
+        window.location.href = "/pages/bus";
       },
-    }
-  );
-
-  startPointList = await startPointList.json();
-  startPointList = startPointList.data;
-  let startPointListHtml = "<option selected>Select Start Point</option>";
-  startPointList.forEach((startPoint) => {
-    startPointListHtml += `<option value=${startPoint.id}>${startPoint.name}, ${startPoint.location}</option>`;
+      error: function (error) {
+        console.log("error", error);
+      },
+    });
   });
-
-  $("#Start-Point").html(startPointListHtml);
-
-  /**
-   * Show End Point List from DB
-   */
-  let endPointList = await fetch(`http://localhost:3000/v1/bus-station/list`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json;charset=utf-8",
-      Authorization: "Bearer " + token,
-    },
-  });
-
-  endPointList = await endPointList.json();
-  endPointList = endPointList.data;
-  let endPointListHtml = "<option selected>Select End Point</option>";
-  endPointList.forEach((endPoint) => {
-    endPointListHtml += `<option value=${endPoint.id}>${endPoint.name}, ${endPoint.location}</option>`;
-  });
-  $("#End-Point").html(endPointListHtml);
-
-  /**
-   * Show list type of bus from DB
-   */
-  let typeOfBusList = [
-    { value: 0, type: "Limousine" },
-    { value: 1, type: "Normal Seat" },
-    { value: 2, type: "Sleeper Bus" },
-  ];
-  let typeOfBusListHtml = "<option selected>Select Type</option>";
-  typeOfBusList.forEach((typeOfBus) => {
-    typeOfBusListHtml += `<option value = ${typeOfBus.value}>${typeOfBus.type}</option>`;
-  });
-  $("#Type").html(typeOfBusListHtml);
-
-  /**
-   * Update bus
-   */
-  $("Update-Button").click(function () {});
-  $("#Bus-Operator").click(function () {});
 });

@@ -28,7 +28,7 @@
             <div class="col-xl-3 col-lg-4 col-md-12 col-12">
               <div class="mb-4 mb-lg-0">
                 <h4 class="mb-1">Bus</h4>
-                <p class="mb-0 fs-5 text-muted">Bus configuration settings</p>
+                <p class="mb-0 fs-5 text-muted">Bus Create</p>
               </div>
             </div>
 
@@ -51,7 +51,11 @@
                           >Bus Operator</label
                         >
                         <div class="col-md-8 col-12">
-                          <select class="form-select" id="Bus-Operator">
+                          <select
+                            class="form-select"
+                            id="Bus-Operator"
+                            required
+                          >
                             <option selected>Select Status</option>
                             <option value="0">Booked</option>
                             <option value="1">Paied</option>
@@ -67,22 +71,13 @@
                           >Start Point</label
                         >
                         <div class="col-md-8 col-12">
-                          <select class="form-select" id="Start-Point">
+                          <select class="form-select" id="Start-Point" required>
                             <option selected>Select Status</option>
                             <option value="0">Booked</option>
                             <option value="1">Paied</option>
                             <option value="2">Canceled</option>
                           </select>
                         </div>
-                        <!-- <div class="col-sm-8">
-                          <input
-                            type="Bus-Operator"
-                            class="form-control"
-                            placeholder="Email"
-                            id="email"
-                            disabled
-                          />
-                        </div> -->
                       </div>
 
                       <!-- row -->
@@ -93,22 +88,13 @@
                           >End Point</label
                         >
                         <div class="col-md-8 col-12">
-                          <select class="form-select" id="End-Point">
+                          <select class="form-select" id="End-Point" required>
                             <option selected>Select Status</option>
                             <option value="0">Booked</option>
                             <option value="1">Paied</option>
                             <option value="2">Canceled</option>
                           </select>
                         </div>
-                        <!-- <div class="col-sm-8">
-                          <input
-                            type="Bus-Operator"
-                            class="form-control"
-                            placeholder="Email"
-                            id="email"
-                            disabled
-                          />
-                        </div> -->
                       </div>
                       <!-- row -->
                       <div class="mb-3 row">
@@ -119,7 +105,7 @@
                         >
 
                         <div class="col-md-8 col-12">
-                          <select class="form-select" id="Type">
+                          <select class="form-select" id="Type" required>
                             <option selected>Select Type</option>
                             <option value="0">Limousine</option>
                             <option value="1">Normal Seat</option>
@@ -141,6 +127,7 @@
                               type="text"
                               class="form-control"
                               id="Start-Time"
+                              required
                             />
                             <span class="input-group-addon">
                               <span class="glyphicon glyphicon-calendar"></span>
@@ -162,6 +149,7 @@
                               type="text"
                               class="form-control"
                               id="End-Time"
+                              required
                             />
                             <span class="input-group-addon">
                               <span class="glyphicon glyphicon-calendar"></span>
@@ -183,6 +171,7 @@
                             class="form-control"
                             placeholder="Policy"
                             id="Policy"
+                            required
                           />
                         </div>
                       </div>
@@ -200,6 +189,7 @@
                             class="form-control"
                             placeholder="Number Of Seats"
                             id="Number-Of-Seats"
+                            required
                           />
                         </div>
                       </div>
@@ -216,6 +206,7 @@
                             class="form-control"
                             placeholder="Price"
                             id="Price"
+                            required
                           />
                         </div>
 
@@ -224,16 +215,9 @@
                           <button
                             type="submit"
                             class="btn btn-primary"
-                            id="Update-Button"
+                            id="Create-Button"
                           >
-                            Save Changes
-                          </button>
-                          <button
-                            type="submit"
-                            class="btn btn-primary p-2"
-                            id="Delete-Button"
-                          >
-                            Delete
+                            Create
                           </button>
                         </div>
                       </div>
@@ -250,5 +234,5 @@
     @@include("../../partials/scripts.html")
   </body>
 
-  <script src="@@webRoot/assets/js/bus-update.js"></script>
+  <script src="@@webRoot/assets/js/bus-create.js"></script>
 </html>
