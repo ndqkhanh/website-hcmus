@@ -5,7 +5,7 @@ $(document).ready(function () {
   const token =
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjMTE4ZjY5My04NzIyLTQ0NjEtYTc5ZC1kNzY5OTFiOTZhOWUiLCJpYXQiOjE2Njk5NjA1MDgsImV4cCI6MTY3NTk2MDQ0OCwidHlwZSI6ImFjY2VzcyJ9.zM6x2letxSr4LniOGR1yDXeNMMh0DkfMZlZWMLI6ujQ';
   $.ajax({
-    url: `http://localhost:3000/v1/admin/booking/${id}`,
+    url: `${HOST_NAME}/v1/admin/booking/${id}`,
     type: 'GET',
     dataType: 'json',
     headers: {
@@ -36,7 +36,7 @@ $(document).ready(function () {
     const seat = $('#seat').val();
     const status = $('#status').val();
     $.ajax({
-      url: `http://localhost:3000/v1/admin/booking/${id}`,
+      url: `${HOST_NAME}/v1/admin/booking/${id}`,
       type: 'POST',
       dataType: 'json',
       headers: {
