@@ -5,7 +5,7 @@ $(document).ready(function () {
   // && Date.parse(userInfo.token.expires) > nowDate
   if (
     userInfo &&
-    userInfo.token &&
+    userInfo.token.token &&
     Date.parse(userInfo.token.expires) > nowDate
   ) {
     $("#right-side-header").html(`      <span

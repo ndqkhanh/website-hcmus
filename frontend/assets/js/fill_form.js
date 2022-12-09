@@ -1,9 +1,10 @@
 $(document).ready(function () {
   const windowSplit = window.location.href.split("/");
   const busId = windowSplit[windowSplit.length - 1].split("[?#]")[0];
-  const email = "khanhndq2002@gmail.com";
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjMTE4ZjY5My04NzIyLTQ0NjEtYTc5ZC1kNzY5OTFiOTZiY2QiLCJpYXQiOjE2Njk5NDkzMjUsImV4cCI6MTY2OTk1MTEyNSwidHlwZSI6ImFjY2VzcyJ9.UXO55nuCXkQIOazX3l8LwPyABzqknZFXdwkrfscHsiw";
+
+  let userInfo = JSON.parse(localStorage.getItem("userInfo"));
+  const email = userInfo.user.email;
+  const token = userInfo.token.token;
 
   $.ajax({
     url: `${BACKEND_URL}/bus/${busId}`,
