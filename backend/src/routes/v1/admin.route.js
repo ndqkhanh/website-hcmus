@@ -12,6 +12,9 @@ router.route('/bus/delete/:busId').post(auth('deleteBus'), validate(adminValidat
 
 router.route('/bus/update/:busId').post(auth('updateBus'), validate(adminValidation.updateBus), adminController.updateBus);
 
+router.route('/bus/list/:page/:limit').get(auth('busList'), validate(adminValidation.busList), adminController.busList);
+
+router.route('/bus/:busId').get(auth('getBus'), validate(adminValidation.getBus), adminController.getBus);
 router
   .route('/booking/list/:page/:limit')
   .get(auth('bookingList'), validate(adminValidation.bookingList), adminController.bookingList);
