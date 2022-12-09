@@ -17,6 +17,17 @@ const updateBus = catchAsync(async (req, res) => {
   res.send(busUpdated);
 });
 
+const getBus = catchAsync(async (req, res) => {
+  const bus = await adminService.getBusById(req.params.busId);
+  res.send(bus);
+});
+
+const busList = catchAsync(async (req, res) => {
+  const { page, limit } = req.params;
+  const buses = await adminService.busList(page, limit);
+  res.send(buses);
+});
+
 const bookingList = catchAsync(async (req, res) => {
   const { page, limit } = req.params;
   const bookings = await adminService.bookingList(page, limit);
@@ -37,7 +48,9 @@ module.exports = {
   createBus,
   deleteBus,
   updateBus,
+  getBus,
   bookingList,
   bookingUpdate,
   bookingGet,
+  busList,
 };

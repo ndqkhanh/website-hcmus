@@ -61,13 +61,65 @@ const updateBus = async (req) => {
 
   return busUpdated;
 };
+const getBusById = async (busId) => {
+  const data = await prisma.buses.findUnique({
+    where: {
+      id: busId,
+    },
+    include: {
+      bus_operators: {
+        select: { name: true },
+      },
+      bus_stations_bus_stationsTobuses_start_point: {
+        select: {
+          name: true,
+        },
+      },
+      bus_stations_bus_stationsTobuses_end_point: {
+        select: {
+          name: true,
+        },
+      },
+    },
+  });
+  return data;
+};
+const busList = async (page, limit) => {
+  const data = await prisma.buses.findMany({
+    skip: page * limit,
+    take: limit,
+    include: {
+      bus_operators: {
+        select: {
+          name: true, // MORE INFO
+          image_url: true,
+        },
+      },
+      bus_stations_bus_stationsTobuses_start_point: {
+        select: {
+          name: true,
+        },
+      },
+      bus_stations_bus_stationsTobuses_end_point: {
+        select: {
+          name: true,
+        },
+      },
+    },
+  });
 
+  return { data };
+};
 const bookingList = async (page, limit) => {
   const data = await prisma.bus_tickets.findMany({
     skip: page * limit,
     take: limit,
     include: {
-      buses: true,
+      buses: {
+        include: {
+          bus_operators: true,
+        },
+      },
       users: {
         select: {
           email: true,
@@ -111,7 +163,12 @@ const bookingGet = async (bid) => {
       id: bid,
     },
     include: {
-      buses: true,
+      buses: {
+        include: {
+          bus_stations_bus_stationsTobuses_start_point: true,
+          bus_stations_bus_stationsTobuses_end_point: true,
+        },
+      },
       users: {
         select: {
           email: true,
@@ -130,7 +187,9 @@ module.exports = {
   createBus,
   deleteBusById,
   updateBus,
+  getBusById,
   bookingList,
   bookingUpdate,
   bookingGet,
+  busList,
 };

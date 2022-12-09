@@ -95,7 +95,7 @@ const createBuses = () => {
     end_point: BUS_STATIONS[Math.floor(Math.random() * BUS_STATIONS.length)].id,
     type: 1,
     start_time,
-    end_time: faker.datatype.datetime({ min: new Date(start_time).getTime(), max: 1669973068972 }),
+    end_time: faker.datatype.datetime({ min: new Date(start_time).getTime(), max: currentTime + month }),
     image_url: faker.image.imageUrl(300, 200),
     policy:
       '<ul><li>WHILE ON BOARD<ul><li>Holding your ticket</li><li>Be silent</li></ul></li><li>YOUR PACKAGE<ul><li>Not over 10kg</li></ul></li></ul>',
@@ -112,7 +112,7 @@ const createBusTickets = () => {
     user_id: USERS[Math.floor(Math.random() * USERS.length)].id,
     name: faker.name.fullName(),
     phone: faker.phone.number('##########'),
-    seat: faker.phone.number({ min: 1, max: bus.num_of_seats }).toString(),
+    seat: faker.datatype.number({ min: 1, max: bus.num_of_seats }).toString(),
     status: faker.datatype.number({ min: 0, max: 2 }),
   };
 };

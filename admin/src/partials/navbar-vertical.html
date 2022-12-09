@@ -1,0 +1,121 @@
+<!-- Sidebar -->
+<nav class="navbar-vertical navbar">
+  <div class="nav-scroller">
+    <!-- Brand logo -->
+    <a class="navbar-brand" href="@@webRoot/index.html">
+      <img src="@@webRoot/assets/images/brand/logo/logo.svg" alt="" />
+    </a>
+    <!-- Navbar nav -->
+    <ul class="navbar-nav flex-column" id="sideNavbar">
+      <li class="nav-item">
+        <a
+          class="nav-link has-arrow @@if (context.page === 'dashboard') { active }"
+          href="@@webRoot/index.html"
+        >
+          <i data-feather="home" class="nav-icon icon-xs me-2"></i> Dashboard
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <div class="navbar-heading">Management</div>
+      </li>
+
+      <li class="nav-item">
+        <a
+          class="nav-link has-arrow @@if (context.page_group !== 'busOperators') { collapsed }"
+          href="#!"
+          data-bs-toggle="collapse"
+          data-bs-target="#busOperators"
+          aria-expanded="false"
+          aria-controls="busOperators"
+        >
+          <i data-feather="corner-left-down" class="nav-icon icon-xs me-2"> </i>
+          Bus Operators
+        </a>
+
+        <div
+          id="busOperators"
+          class="collapse @@if (context.page_group === 'busOperators') { show }"
+          data-bs-parent="#busOperators"
+        >
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a
+                class="nav-link @@if (context.page === 'profile') { active }"
+                href="@@webRoot/pages/profile.html"
+              >
+                List
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link has-arrow @@if (context.page === 'settings') { active }"
+                href="@@webRoot/pages/create-bo.html"
+              >
+                Create
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
+
+      <!-- <li class="nav-item">
+        <a
+          class="nav-link has-arrow @@if (context.page_group !== 'busPages') { collapsed }"
+          href="#!"
+          data-bs-toggle="collapse"
+          data-bs-target="#busPages"
+          aria-expanded="false"
+          aria-controls="busPages"
+        >
+          <i data-feather="layers" class="nav-icon icon-xs me-2"> </i> Buses
+        </a>
+
+        <div
+          id="busPages"
+          class="collapse @@if (context.page_group === 'pages') { show }"
+          data-bs-parent="#sideNavbar"
+        >
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a
+                class="nav-link @@if (context.page === 'profile') { active }"
+                href="@@webRoot/pages/profile.html"
+              >
+                List
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link has-arrow @@if (context.page === 'layouts') { active }"
+                href="@@webRoot/pages/bus"
+              >
+                Create
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li> -->
+
+      <li class="nav-item">
+        <a
+          class="nav-link @@if (context.page === 'layouts') { active }"
+          href="@@webRoot/pages/bus"
+        >
+          <i data-feather="sidebar" class="nav-icon icon-xs me-2"> </i>
+          Bus
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a
+          class="nav-link @@if (context.page === 'layouts') { active }"
+          href="@@webRoot/pages/booking"
+        >
+          <i data-feather="sidebar" class="nav-icon icon-xs me-2"> </i>
+          Booking
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
