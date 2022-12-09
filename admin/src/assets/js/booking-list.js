@@ -1,37 +1,38 @@
 $(document).ready(function () {
   let page = 0;
-  const loadListBookings = (limit = 2) => {
-    let token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyYjU1ZTdhMC02NmNkLTQ5ZjMtOTE2OS0xZjBkZjIzMzVmNjIiLCJpYXQiOjE2NzAyOTU3NDAsImV4cCI6MTY3MDI5NzU0MCwidHlwZSI6ImFjY2VzcyJ9.R_DeMKhNrleRbFFe9dhngWT0ib48VjG2DkEKizakZnU";
+  const loadListBookings = async (limit = 10) => {
+    let userInfo = localStorage.getItem('userInfo');
+    userInfo = JSON.parse(userInfo);
+    let token = userInfo.token;
 
     const statusText = {
-      0: "Booked",
-      1: "Paied",
-      2: "Canceled",
+      0: 'Booked',
+      1: 'Paied',
+      2: 'Canceled',
     };
 
     $.ajax({
       url: `${HOST_NAME}/v1/admin/booking/list/${page}/${limit}`,
-      type: "GET",
-      dataType: "json",
+      type: 'GET',
+      dataType: 'json',
       headers: {
-        Authorization: "Bearer " + token,
+        Authorization: 'Bearer ' + token,
       },
       success: function (data) {
         var bookings = data.data;
         if (bookings.length === 0) {
-          $("#next").attr("disabled", true);
-          $("#booking-list").html(
+          $('#next').attr('disabled', true);
+          $('#booking-list').html(
             `<tr><td colspan="6" class="text-center">No data</td></tr>`
           );
           return;
         } else {
-          $("#next").attr("disabled", false);
+          $('#next').attr('disabled', false);
         }
 
-        var html = "";
+        var html = '';
         $.each(bookings, function (index, booking) {
-          html += "<tr>";
+          html += '<tr>';
           // html += '<td>' + booking.id + '</td>';
 
           html += `<td class="align-middle">
@@ -56,10 +57,10 @@ $(document).ready(function () {
           </div>
         </div>
       </td>`;
-          html += '<td class="align-middle">' + booking.name + "</td>";
+          html += '<td class="align-middle">' + booking.name + '</td>';
 
-          html += '<td class="align-middle">' + booking.phone + "</td>";
-          html += '<td class="align-middle">' + booking.seat + "</td>";
+          html += '<td class="align-middle">' + booking.phone + '</td>';
+          html += '<td class="align-middle">' + booking.seat + '</td>';
           html += `
         <td class="align-middle">
                           <span class="badge bg-warning">${
@@ -69,9 +70,9 @@ $(document).ready(function () {
         `;
 
           html += `<td class="align-middle"><a href="/pages/booking/update.html?id=${booking.id}" class="btn btn-primary">Edit</a></td>`;
-          html += "</tr>";
+          html += '</tr>';
         });
-        $("#booking-list").html(html);
+        $('#booking-list').html(html);
       },
       error: function (data) {
         console.log(data);
@@ -81,24 +82,24 @@ $(document).ready(function () {
 
   loadListBookings();
   // handle pagination next and prev
-  $("#next").click(function () {
+  $('#next').click(function () {
     page++;
     loadListBookings();
 
     if (page > 0) {
-      $("#prev").attr("disabled", false);
+      $('#prev').attr('disabled', false);
     } else {
-      $("#prev").attr("disabled", true);
+      $('#prev').attr('disabled', true);
     }
   });
-  $("#prev").click(function () {
+  $('#prev').click(function () {
     page--;
     loadListBookings();
 
     if (page === 0) {
-      $("#prev").attr("disabled", true);
+      $('#prev').attr('disabled', true);
     } else {
-      $("#prev").attr("disabled", false);
+      $('#prev').attr('disabled', false);
     }
   });
 });
