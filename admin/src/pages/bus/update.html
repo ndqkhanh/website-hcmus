@@ -251,4 +251,9 @@
   </body>
 
   <script src="@@webRoot/assets/js/bus-update.js"></script>
+  <script>
+    $("#user-email").text(
+      JSON.parse(localStorage.getItem("userInfo")).user.email
+    );
+  </script>
 </html>
