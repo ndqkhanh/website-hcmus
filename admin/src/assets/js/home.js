@@ -4,7 +4,7 @@
     let userInfo = await localStorage.getItem("userInfo");
     if (typeof userInfo !== "undefined" && userInfo !== null) {
       userInfo = (await userInfo) ? JSON.parse(userInfo) : {};
-      if (!userInfo.token) {
+      if (!userInfo.token.token) {
         alert("You are not authorized to access this page");
         return false;
       } else {
@@ -15,7 +15,7 @@
             headers: {
               Accept: "application/json",
               "Content-Type": "application/json",
-              Authorization: `Bearer ${userInfo.token}`,
+              Authorization: `Bearer ${userInfo.token.token}`,
             },
           }
         );
