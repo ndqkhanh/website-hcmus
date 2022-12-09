@@ -6,8 +6,6 @@ const allRoles = {
   admin: [
     'viewBO',
     'cloneBus',
-    'deleteTicket',
-    'updateTicket',
     'createBO',
     'updateBO',
     'deteleBO',
