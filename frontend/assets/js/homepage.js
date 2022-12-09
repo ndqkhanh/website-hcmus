@@ -1,8 +1,6 @@
 $(document).ready(function () {
   let userInfo = JSON.parse(localStorage.getItem("userInfo"));
-  console.log("userInfo ", userInfo);
   const nowDate = Date.now();
-  // && Date.parse(userInfo.token.expires) > nowDate
   if (
     userInfo &&
     userInfo.token.token &&
