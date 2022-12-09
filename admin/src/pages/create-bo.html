@@ -121,4 +121,9 @@
     @@include("../partials/scripts.html")
   </body>
   <script src="@@webRoot/assets/js/create-bo.js"></script>
+  <script>
+    $("#user-email").text(
+      JSON.parse(localStorage.getItem("userInfo")).user.email
+    );
+  </script>
 </html>
