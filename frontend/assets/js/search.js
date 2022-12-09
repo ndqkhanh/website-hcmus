@@ -1,4 +1,9 @@
 $(document).ready(async function () {
+  const urlParams = new URLSearchParams(window.location.search);
+  const startPoint = urlParams.get("startPoint");
+  const endPoint = urlParams.get("endPoint");
+  const startTime = urlParams.get("startTime");
+
   let bus_station = await fetch(`${BACKEND_URL}/bus-station/list`, {
     method: "GET",
     headers: {
@@ -26,14 +31,25 @@ $(document).ready(async function () {
   destinationContent += `</select>
       </div>`;
 
-  $("#departure-destination").prepend(destinationContent + departureContent);
+  $("#departure").replaceWith(departureContent);
+  $("#destination").replaceWith(destinationContent);
+
+  bus_station.data.forEach((item) => {
+    if (startPoint === item.id) $("#departure").val(item.id);
+
+    if (endPoint === item.id) $("#destination").val(item.id);
+  });
+  //  $("#departure-destination").prepend(destinationContent + departureContent);
+
+  if (startTime) $("#datepicker").val(startTime);
 
   $("#btnSearch").click(async function () {
     let deparature = $("#departure").find(":selected").val();
     let destination = $("#destination").find(":selected").val();
     let date = $("#datepicker").datepicker("getDate");
 
-    date = date.getMonth() + "/" + date.getDate() + "/" + date.getFullYear();
+    date =
+      date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear();
 
     let url = `http://localhost:4000/list?startPoint=${deparature}&endPoint=${destination}&startTime=${date}`;
     $(location).attr("href", url);
