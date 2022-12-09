@@ -103,32 +103,35 @@ $(document).ready(function () {
     else if (response.message) alert(response.message);
     {
       localStorage.setItem("userInfo", JSON.stringify(response));
-      alert("You have succesfully registered an account");
-      $("#right-side-header").html(`      <span
-      class="dropdown-toggle"
-      type="button"
-      data-bs-toggle="dropdown"
-      aria-expanded="false"
-      style="margin-left: 5px"
-    >
-      <i class="fa-solid fa-circle-user fs-1 text-black-50"></i></span>
-    <ul class="dropdown-menu">
-      <li><a class="dropdown-item" href="#" id="goToHistory">History</a></li>
-      <li>
-        <hr class="dropdown-divider" />
-      </li>
-      <li><a class="dropdown-item" href="#" id="logOutBtn">Logout</a></li>
-    </ul>`);
-      $("#registerModal").modal("toggle");
+      const userInfo = localStorage.getItem("userInfo");
+      if (userInfo && userInfo.token.token) {
+        alert("You have succesfully registered an account");
+        $("#right-side-header").html(`      <span
+        class="dropdown-toggle"
+        type="button"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+        style="margin-left: 5px"
+      >
+        <i class="fa-solid fa-circle-user fs-1 text-black-50"></i></span>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="#" id="goToHistory">History</a></li>
+        <li>
+          <hr class="dropdown-divider" />
+        </li>
+        <li><a class="dropdown-item" href="#" id="logOutBtn">Logout</a></li>
+        </ul>`);
+        $("#registerModal").modal("toggle");
 
-      $("#logOutBtn").click(() => {
-        localStorage.setItem("userInfo", null);
-        $(location).attr("href", "/");
-      });
+        $("#logOutBtn").click(() => {
+          localStorage.setItem("userInfo", null);
+          $(location).attr("href", "/");
+        });
 
-      $("#goToHistory").click(() => {
-        $(location).attr("href", "/history");
-      });
+        $("#goToHistory").click(() => {
+          $(location).attr("href", "/history");
+        });
+      }
     }
   });
 
@@ -154,38 +157,40 @@ $(document).ready(function () {
     });
 
     response = await response.json();
-    console.log("response ", response);
     if (!response) alert("Reset-password failed");
     else if (response.message) alert(response.message);
     {
-      alert("You have succesfully restore an account");
+      const userInfo = localStorage.getItem("userInfo");
+      if (userInfo.token.token) {
+        alert("You have succesfully restore an account");
 
-      $("#right-side-header").html(`      <span
-      class="dropdown-toggle"
-      type="button"
-      data-bs-toggle="dropdown"
-      aria-expanded="false"
-      style="margin-left: 5px"
-    >
-      <i class="fa-solid fa-circle-user fs-1 text-black-50"></i></span>
-    <ul class="dropdown-menu">
-      <li><a class="dropdown-item" href="#" id="goToHistory">History</a></li>
-      <li>
-        <hr class="dropdown-divider" />
-      </li>
-      <li><a class="dropdown-item" href="#" id="logOutBtn">Logout</a></li>
-    </ul>`);
-      localStorage.setItem("userInfo", JSON.stringify(response));
-      $("#enterEmail").modal("toggle");
+        $("#right-side-header").html(`      <span
+        class="dropdown-toggle"
+        type="button"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+        style="margin-left: 5px"
+      >
+        <i class="fa-solid fa-circle-user fs-1 text-black-50"></i></span>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="#" id="goToHistory">History</a></li>
+        <li>
+          <hr class="dropdown-divider" />
+        </li>
+        <li><a class="dropdown-item" href="#" id="logOutBtn">Logout</a></li>
+      </ul>`);
+        localStorage.setItem("userInfo", JSON.stringify(response));
+        $("#enterEmail").modal("toggle");
 
-      $("#logOutBtn").click(() => {
-        localStorage.setItem("userInfo", null);
-        $(location).attr("href", "/");
-      });
+        $("#logOutBtn").click(() => {
+          localStorage.setItem("userInfo", null);
+          $(location).attr("href", "/");
+        });
 
-      $("#goToHistory").click(() => {
-        $(location).attr("href", "/history");
-      });
+        $("#goToHistory").click(() => {
+          $(location).attr("href", "/history");
+        });
+      }
     }
   });
 
@@ -198,6 +203,8 @@ $(document).ready(function () {
     $(location).attr("href", "/history");
   });
   /**
-   * Search
+   * Change mouse when hover
    */
+  $("#regiterLink").css({ cursor: "pointer" });
+  $("#restoreLink").css({ cursor: "pointer" });
 });
