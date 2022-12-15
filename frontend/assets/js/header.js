@@ -15,11 +15,11 @@ $(document).ready(function () {
   >
     <i class="fa-solid fa-circle-user fs-1 text-black-50"></i></span>
   <ul class="dropdown-menu">
-    <li><a class="dropdown-item" href="#" id="goToHistory">History</a></li>
+    <li><a class="dropdown-item" href="/history" id="goToHistory">History</a></li>
     <li>
       <hr class="dropdown-divider" />
     </li>
-    <li><a class="dropdown-item" href="#" id="logOutBtn">Logout</a></li>
+    <li><a class="dropdown-item" href="/" id="logOutBtn">Logout</a></li>
   </ul>`);
   } else $("#right-side-header").html(`<button type="button" class="btn btn-primary" id="loginBtn">Login</button> `);
 

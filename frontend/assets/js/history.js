@@ -5,8 +5,7 @@ var statusBook = ["Just booked", "Booked", "Canceled payment"];
 var userInfo = JSON.parse(localStorage.getItem("userInfo"));
 var token = userInfo.token.token;
 var uid = userInfo.user.id;
-console.log(token);
-console.log(uid);
+
 var currentHistoryData = [];
 function loadMore() {
   $.ajax({
@@ -62,9 +61,20 @@ function loadMore() {
   page++;
 }
 function viewDetail(id) {
+  detailTicket = currentHistoryData[id];
   $("#hList").addClass("d-none");
   $("#detail").removeClass("d-none");
-  detailTicket = currentHistoryData[id];
+  currentDate = new Date();
+
+  if(Date.parse(currentDate) < Date.parse(detailTicket.buses.start_time)){
+    if($("#discard").hasClass("d-none") == true)
+      $("#discard").removeClass("d-none");
+  }
+  else{
+    if($("#discard").hasClass("d-none") == false)
+      $("#discard").addClass("d-none");
+  }
+  
   content = `<table class='table table-hover table-striped' id="detail-ticket">
   <tbody>
     <tr style='min-height: 50px'>
