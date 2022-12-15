@@ -58,6 +58,7 @@ const createTicketByNumOfSeats = async (userId, busId, name, phone, numOfSeats) 
       where: {
         bus_id: busId,
         seat: i.toString(),
+        status: { not: 2 },
       },
     });
     if (!checkSeatPosExist) {
