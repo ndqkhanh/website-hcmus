@@ -1,5 +1,7 @@
 $(document).ready(function () {
-  let userInfo = JSON.parse(localStorage.getItem("userInfo"));
+  let userInfo = localStorage.getItem("userInfo");
+  if (userInfo) userInfo = JSON.parse(userInfo);
+
   const nowDate = Date.now();
   if (
     userInfo &&

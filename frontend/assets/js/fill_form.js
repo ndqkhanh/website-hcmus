@@ -6,6 +6,8 @@ $(document).ready(function () {
   const email = userInfo.user.email;
   const token = userInfo.token.token;
 
+  console.log(token);
+
   $.ajax({
     url: `${BACKEND_URL}/bus/${busId}`,
     type: "GET",
