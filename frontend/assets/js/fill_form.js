@@ -221,7 +221,7 @@ $(document).ready(function () {
                 $("#exampleModal").modal("show");
               },
               error: function (error) {
-                console.log("[ERROR]", error);
+                alert("[ERROR]", "Payment failed");
               },
             });
           });
