@@ -194,8 +194,7 @@ $(document).ready(function () {
       <button type='button' class='home-btn btn btn-primary py-3 px-4' style='margin-right: 300px;width: 110px'>
         Home
       </button>
-      <button type='button' class='btn btn-primary py-3 px-4' style='width: 110px' data-bs-toggle='modal'
-        data-bs-target='#exampleModal'>
+      <button id="pay-btn" type='button' class='btn btn-primary py-3 px-4' style='width: 110px'>
         Pay
       </button>
     </div>
@@ -203,6 +202,28 @@ $(document).ready(function () {
           $("#form-container").html(template);
           $(".home-btn").click(function () {
             $(location).attr("href", `/`);
+          });
+          $("#pay-btn").click(function () {
+            $.ajax({
+              url: `${BACKEND_URL}/ticket/payment`,
+              type: "POST",
+              dataType: "json",
+              headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+              data: JSON.stringify({
+                ticket_ids: response.ticket_ids,
+              }),
+              success: function (response) {
+                console.log("[SUCCESS]", response);
+                $("#exampleModal").modal("show");
+              },
+              error: function (error) {
+                console.log("[ERROR]", error);
+              },
+            });
           });
         }
       },

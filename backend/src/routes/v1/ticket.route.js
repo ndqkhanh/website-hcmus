@@ -11,5 +11,7 @@ router
   .route('/create/:busId')
   .post(auth('createTicket'), validate(ticketValidation.createTicket), ticketController.createTicket);
 
+router.route('/payment').post(auth('payTicket'), validate(ticketValidation.payTicket), ticketController.payTicket);
+
 router.route('/printTicket').post(auth('printTicket'), validate(ticketValidation.printTicket), ticketController.printTicket);
 module.exports = router;

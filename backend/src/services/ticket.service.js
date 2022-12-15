@@ -8,6 +8,37 @@ const ApiError = require('../utils/ApiError');
 
 const prisma = new PrismaClient();
 
+const payTicket = async (ticketIds) => {
+  const checkTicketIDExist = await prisma.bus_tickets.findMany({
+    where: {
+      status: 0,
+      id: {
+        in: ticketIds,
+      },
+    },
+  });
+
+  if (checkTicketIDExist.length !== ticketIds.length) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Ticket ID Not found');
+  }
+
+  for (let i = 0; i < ticketIds.length; i++) {
+    const ticket = await prisma.bus_tickets.update({
+      where: {
+        id: ticketIds[i],
+      },
+      data: {
+        status: 1,
+      },
+    });
+    if (!ticket) {
+      throw new ApiError(httpStatus.NOT_FOUND, ERROR_MESSAGE.PAY_TICKET_ERROR);
+    }
+  }
+
+  return { message: 'Pay ticket successfully' };
+};
+
 const createTicketByNumOfSeats = async (userId, busId, name, phone, numOfSeats) => {
   const checkBusIDExist = await prisma.buses.findUnique({
     where: {
@@ -114,4 +145,5 @@ const getTicketByBusIdAndUserId = async (busId, userId) => {
 module.exports = {
   createTicketByNumOfSeats,
   getTicketByBusIdAndUserId,
+  payTicket,
 };

@@ -19,7 +19,14 @@ const printTicket = {
   }),
 };
 
+const payTicket = {
+  body: Joi.object().keys({
+    ticket_ids: Joi.array().required(),
+  }),
+};
+
 module.exports = {
   createTicket,
   printTicket,
+  payTicket,
 };
