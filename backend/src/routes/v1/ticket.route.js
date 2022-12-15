@@ -12,4 +12,7 @@ router
   .post(auth('createTicket'), validate(ticketValidation.createTicket), ticketController.createTicket);
 
 router.route('/printTicket').post(auth('printTicket'), validate(ticketValidation.printTicket), ticketController.printTicket);
+router
+  .route('/discard-ticket')
+  .post(auth('discardTicket'), validate(ticketController.discardTicket), ticketController.discardTicket);
 module.exports = router;

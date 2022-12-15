@@ -111,7 +111,26 @@ const getTicketByBusIdAndUserId = async (busId, userId) => {
     },
   });
 };
+const discardTicket = async(req)=>{
+  const checkTicket = await prisma.bus_tickets.findUnique({
+    where:{
+      id: req.body.tid
+    }
+  })
+  if (!checkTicket) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Ticket not found');
+  }
+  return prisma.bus_tickets.update({
+    where:{
+      id: req.body.tid
+    },
+    data:{
+      status: 2
+    }
+  })
+}
 module.exports = {
+  discardTicket,
   createTicketByNumOfSeats,
   getTicketByBusIdAndUserId,
 };

@@ -18,8 +18,14 @@ const printTicket = {
     user_id: Joi.string().uuid().required(),
   }),
 };
+const discardTicket = {
+  body: Joi.object().keys({
+    tid: Joi.string().uuid().required()
+  })
+}
 
 module.exports = {
+  discardTicket,
   createTicket,
   printTicket,
 };
