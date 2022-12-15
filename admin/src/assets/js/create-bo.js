@@ -5,10 +5,10 @@ $(document).ready(function () {
 
   $("#create-bo").submit(function (e) {
     e.preventDefault();
-    console.log("2");
     const name = $("#name").val();
     const phone = $("#phone").val();
     const image_url = $("#image-url").val();
+    console.log(name, phone,image_url)
     $.ajax({
       url: `${HOST_NAME}/v1/bus-operator/create`,
       type: "POST",
@@ -17,11 +17,12 @@ $(document).ready(function () {
         "Content-Type": "application/json",
         Accept: "application/json",
       },
-      data: {
+      dataType: "json",
+      data: JSON.stringify({
         name,
         phone,
         image_url,
-      },
+      }),
       success: function (data) {
         console.log("data", data);
       },
