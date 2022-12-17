@@ -4,6 +4,7 @@ const allRoles = {
   bus_operator: ['cloneBus', 'deleteTicket', 'updateTicket', 'bookingList', 'bookingGet', 'bookingUpdate'],
 
   admin: [
+    'getBOByID',
     'viewBO',
     'cloneBus',
     'createBO',
