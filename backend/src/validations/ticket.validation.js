@@ -18,6 +18,11 @@ const printTicket = {
     user_id: Joi.string().uuid().required(),
   }),
 };
+const discardTicket = {
+  body: Joi.object().keys({
+    tid: Joi.string().uuid().required()
+  })
+}
 
 const payTicket = {
   body: Joi.object().keys({
@@ -26,6 +31,7 @@ const payTicket = {
 };
 
 module.exports = {
+  discardTicket,
   createTicket,
   printTicket,
   payTicket,

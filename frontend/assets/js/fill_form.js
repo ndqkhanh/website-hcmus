@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).ready(async function () {
   const windowSplit = window.location.href.split("/");
   const busId = windowSplit[windowSplit.length - 1].split("[?#]")[0];
 

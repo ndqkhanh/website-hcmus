@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    @@include("../../partials/head.html")
+    <title>Setting | Dash Ui - Bootstrap 5 Admin Dashboard Template</title>
+  </head>
+
+  <body class="bg-light">
+    <div id="db-wrapper">
+      <!-- navbar vertical -->
+      @@include('../../partials/navbar-vertical.html', { "page": "settings",
+      "page_group": "bookingList" })
+      <!-- page content -->
+      <div id="page-content">
+        @@include("../../partials/header.html")
+        <!-- Container fluid -->
+        <div class="container-fluid p-6">
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-12">
+              <!-- Page header -->
+
+              <div class="border-bottom pb-4 mb-4">
+                <h3 class="mb-0 fw-bold">Bus Operator</h3>
+              </div>
+            </div>
+          </div>
+          <div class="row mb-8">
+            <div class="col-xl-12 col-lg-8 col-md-12 col-12">
+              <!-- card -->
+              <div class="card">
+                <!-- card body -->
+                <div class="table-responsive">
+                  <table class="table text-nowrap mb-0">
+                    <thead class="table-light">
+                      <tr>
+                        <th>Bus Operator</th>
+                        <th>Phone</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody id="bo-list"></tbody>
+                  </table>
+                </div>
+
+                <!-- show 2 button pagination prev and next -->
+                <div class="card-footer d-flex justify-content-between">
+                  <button class="btn btn-primary" id="prev">Prev</button>
+                  <button class="btn btn-primary" id="next">Next</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Scripts -->
+    @@include("../../partials/scripts.html")
+  </body>
+
+  <script src="@@webRoot/assets/js/bo-list.js"></script>
+  <script>
+    $("#user-email").text(
+      JSON.parse(localStorage.getItem("userInfo")).user.email
+    );
+  </script>
+</html>

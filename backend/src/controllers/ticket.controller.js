@@ -63,7 +63,13 @@ const printTicket = catchAsync(async (req, res) => {
   };
   res.send(ticketInfo);
 });
+
+const discardTicket = catchAsync(async(req,res) =>{
+  const result = await ticketService.discardTicket(req);
+  res.send(result);
+})
 module.exports = {
+  discardTicket,
   createTicket,
   printTicket,
   payTicket,

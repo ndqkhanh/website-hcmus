@@ -14,4 +14,7 @@ router
 router.route('/payment').post(auth('payTicket'), validate(ticketValidation.payTicket), ticketController.payTicket);
 
 router.route('/printTicket').post(auth('printTicket'), validate(ticketValidation.printTicket), ticketController.printTicket);
+router
+  .route('/discard-ticket')
+  .post(auth('discardTicket'), validate(ticketController.discardTicket), ticketController.discardTicket);
 module.exports = router;

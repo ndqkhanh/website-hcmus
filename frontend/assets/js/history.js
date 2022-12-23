@@ -5,8 +5,7 @@ var statusBook = ["Just booked", "Booked", "Canceled payment"];
 var userInfo = JSON.parse(localStorage.getItem("userInfo"));
 var token = userInfo.token.token;
 var uid = userInfo.user.id;
-console.log(token);
-console.log(uid);
+
 var currentHistoryData = [];
 function loadMore() {
   $.ajax({
@@ -62,9 +61,22 @@ function loadMore() {
   page++;
 }
 function viewDetail(id) {
+  detailTicket = currentHistoryData[id];
   $("#hList").addClass("d-none");
   $("#detail").removeClass("d-none");
-  detailTicket = currentHistoryData[id];
+  currentDate = new Date();
+  if (
+    Date.parse(currentDate) < Date.parse(detailTicket.buses.start_time) &&
+    detailTicket.status != 2
+  ) {
+    if ($("#discard").hasClass("d-none") == true)
+      $("#discard").removeClass("d-none");
+    $("#discard").attr("tid", detailTicket.id);
+  } else {
+    if ($("#discard").hasClass("d-none") == false)
+      $("#discard").addClass("d-none");
+  }
+
   content = `<table class='table table-hover table-striped' id="detail-ticket">
   <tbody>
     <tr style='min-height: 50px'>
@@ -121,9 +133,9 @@ function viewDetail(id) {
     </tr>
     <tr style='min-height: 50px'>
       <th class='quarter-width align-middle'>Status</th>
-      <td class='quarter-width align-middle'>${
-        statusBook[detailTicket.status]
-      }</td>
+      <td class='quarter-width align-middle' id='status_num'> 
+      ${statusBook[detailTicket.status]}
+      </td>
       <th class='quarter-width align-middle'>Seat positions</th>
       <td class='quarter-width align-middle'>
         ${detailTicket.seat}
@@ -139,6 +151,35 @@ function backToList() {
   $("#hList").removeClass("d-none");
   $("#detail").addClass("d-none");
 }
+
 $(document).ready(function () {
   loadMore();
+  $("#discard").click(() => {
+    tid = $("#discard").attr("tid");
+    $.ajax({
+      url: `${BACKEND_URL}/ticket/discard-ticket`,
+      type: "POST",
+
+      data: JSON.stringify({
+        tid,
+      }),
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      success: function (data) {
+        console.log(data);
+        alert("Discard success");
+        $("#discard").addClass("d-none");
+        $("#status_num").text(statusBook[2]);
+        currentHistoryData.forEach((item) => {
+          if (item.id == tid) item.status = 2;
+        });
+      },
+      error: function (result) {
+        console.log("Error" + JSON.stringify(result));
+      },
+    });
+  });
 });
