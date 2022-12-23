@@ -15,6 +15,7 @@ model users {
   password    Bytes
   create_time DateTime?     @default(now()) @db.Timestamptz(6)
   update_time DateTime?     @default(now()) @db.Timestamptz(6)
+  boid        String?       @db.Uuid
   bus_tickets bus_tickets[]
   reviews     reviews[]
 }

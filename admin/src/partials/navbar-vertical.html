@@ -20,7 +20,7 @@
         <div class="navbar-heading">Management</div>
       </li>
 
-      <li class="nav-item">
+      <li class="nav-item" id="bus-operator">
         <a
           class="nav-link @@if (context.page === 'layouts') { active }"
           href="@@webRoot/pages/bus-operator"
@@ -92,3 +92,12 @@
     </ul>
   </div>
 </nav>
+
+<script>
+  let userInfo = localStorage.getItem('userInfo');
+  userInfo = (userInfo)?JSON.parse(userInfo):null
+  role = userInfo?.user?.role
+  if(role == 1){
+    document.getElementById("bus-operator").setAttribute("hidden","true");
+  }
+</script>
