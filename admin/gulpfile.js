@@ -23,7 +23,7 @@ const cssnano = require('cssnano');
 const autoprefixer = require('autoprefixer');
 const replace = require('gulp-replace');
 const terser = require('gulp-terser');
-var proxyMiddleware = require('http-proxy-middleware');
+// var proxyMiddleware = require('http-proxy-middleware');
 
 // Paths to project folders
 
