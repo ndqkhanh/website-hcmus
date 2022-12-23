@@ -125,15 +125,16 @@ $(document).ready(async function () {
             const ticketIds = response.ticket_ids.map(
               (tid) => `<li>${tid}</li>`
             );
-            const template = `<div id="table">
+            const template = `<div>
+    <div id="table">
     <table class='table table-hover table-striped'>
       <tbody>
         <tr style='height: 80px'>
           <th class='quarter-width align-middle ps-4'>Full name</th>
           <td class='quarter-width align-middle'>${response.name}</td>
-          <th class='quarter-width align-middle ps-4'>Seat positions</th>
+          <th class='quarter-width align-middle ps-4'>Email</th>
           <td class='quarter-width align-middle'>
-            ${response.seat_positions.join(", ")}
+            ${email}
           </td>
         </tr>
         <tr style='height: 80px'>
@@ -207,6 +208,10 @@ $(document).ready(async function () {
           <td class='quarter-width align-middle'>${response.total_cost} VND</td>
         </tr>
         <tr style='height: 80px'>
+          <th class='quarter-width align-middle ps-4'>Seat positions</th>
+          <td class='quarter-width align-middle'>
+            ${response.seat_positions.join(", ")}
+          </td>
           <th class='quarter-width align-middle ps-4'>Status</th>
           <td class='quarter-width align-middle'>${
             response.status === 0
@@ -215,13 +220,10 @@ $(document).ready(async function () {
               ? "Paid"
               : "Canceled"
           }</td>
-          <th class='quarter-width align-middle ps-4'>&nbsp;</th>
-          <td class='quarter-width align-middle'>
-            &nbsp;
-          </td>
         </tr>
       </tbody>
     </table>
+    </div>
     <div class='mt-5 d-flex justify-content-center align-items-center'>
       <button type='button' class='home-btn btn btn-primary py-3 px-4' style='margin-right: 300px;width: 110px'>
         Home
@@ -236,6 +238,7 @@ $(document).ready(async function () {
               $(location).attr("href", `/`);
             });
             $("#pay-btn").click(function () {
+              console.log("pay");
               $.ajax({
                 url: `${BACKEND_URL}/ticket/payment`,
                 type: "POST",
@@ -251,6 +254,11 @@ $(document).ready(async function () {
                 success: function (response) {
                   console.log("[SUCCESS]", response);
                   $("#exampleModal").modal("show");
+                  $("#pdf-btn").click(function () {
+                    const node = $("#table").html();
+                    console.log(node);
+                    printJS("table", "html");
+                  });
                 },
                 error: function (error) {
                   alert("[ERROR]", "Payment failed");
