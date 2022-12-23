@@ -16,6 +16,11 @@ const createTicket = catchAsync(async (req, res) => {
   res.send(result);
 });
 
+const payTicket = catchAsync(async (req, res) => {
+  const result = await ticketService.payTicket(req.body.ticket_ids);
+  res.send(result);
+});
+
 const printTicket = catchAsync(async (req, res) => {
   const tickets = await ticketService.getTicketByBusIdAndUserId(req.body.bus_id, req.body.user_id);
   if (tickets.length <= 0) {
@@ -67,4 +72,5 @@ module.exports = {
   discardTicket,
   createTicket,
   printTicket,
+  payTicket,
 };
