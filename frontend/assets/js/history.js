@@ -3,8 +3,8 @@ var limit = 1;
 var typeOfBus = ["Limousine", "Normal Seat", "Sleeper Bus"];
 var statusBook = ["Just booked", "Booked", "Canceled payment"];
 var userInfo = JSON.parse(localStorage.getItem("userInfo"));
-var token = userInfo.token.token;
-var uid = userInfo.user.id;
+var token = userInfo?.token?.token;
+var uid = userInfo?.user?.id;
 console.log(token);
 console.log(uid);
 var currentHistoryData = [];
@@ -139,6 +139,28 @@ function backToList() {
   $("#hList").removeClass("d-none");
   $("#detail").addClass("d-none");
 }
-$(document).ready(function () {
-  loadMore();
+$(document).ready(async function () {
+  var checkT = await checkToken();
+  console.log(checkT)
+  if(checkT == true)
+    loadMore();
+  else 
+  window.location.href = "/";
 });
+async function checkToken() {
+  if(!token) return false;
+  var result = await fetch(
+    `${BACKEND_URL}/user/history/0/0`,
+    {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  if(!(result?.history_list)) 
+  return false;
+  return true;
+};
