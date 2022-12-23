@@ -9,14 +9,42 @@ function secondsToHms(d) {
   var sDisplay = s > 0 ? s + (s == 1 ? ' second' : 's') : '';
   return hDisplay + mDisplay + sDisplay;
 }
+
 var userInfo = JSON.parse(localStorage.getItem('userInfo'));
-var token = userInfo.token.token;
-commentPage = 0;
-commentLimit = 2;
-userRating = 1;
-maxCommentNum = null;
-$(document).ready(function () {
-  const breadcrumbTemplate = `
+var token = userInfo?.token?.token;
+
+$(document).ready(async function () {
+  
+  commentPage = 0;
+  commentLimit = 2;
+  userRating = 1;
+  maxCommentNum = null;
+
+  const isAuthenticated = async () => {
+    let userInfo = await localStorage.getItem('userInfo');
+    if (typeof userInfo !== 'undefined' && userInfo !== null) {
+      userInfo = (await userInfo) ? JSON.parse(userInfo) : {};
+      if (!userInfo?.token?.token) {
+        return false;
+      } else {
+        let response = await fetch(`${BACKEND_URL}/user/history/0/0`, {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${userInfo.token.token}`,
+          },
+        });
+        response = await response.json();
+        if (!response) return false;
+        if (typeof response.history_list === 'undefined' || response.history_list === null) {
+          return false;
+        }
+        return true;
+      }
+    } else return false;
+  };
+  const breadcrumbTemplate = await `
     <li class='breadcrumb-item pb-0'><a href='/'>Home</a></li>
     <li class='breadcrumb-item active' aria-current='page'>List</li>
     `;
@@ -42,8 +70,10 @@ $(document).ready(function () {
   function numberWithThoundsand(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
   }
-  function loadMore(reset = false) {
-    const template = `<div class='mb-4 card bus-ticket'>
+  async function loadMore(reset = false) {
+    const checkAuthen = await isAuthenticated();
+    console.log(checkAuthen);
+    const template = await `<div class='mb-4 card bus-ticket'>
     <div class='card-body'>
       <div class='row'>
         <div class='col-md-3'>
@@ -102,7 +132,7 @@ $(document).ready(function () {
               > | </span><span class='text-primary fw-bold'>{{type}}</span>
             </div>
             <div>
-              <button type='button' class='btn btn-primary book-bus' bid='{{id}}'>
+              <button type='button' class='btn btn-primary book-bus book-btn' bid='{{id}}' ${checkAuthen ? "" : "disabled"} >
                 Book
               </button>
             </div>
@@ -172,7 +202,18 @@ $(document).ready(function () {
     );
   }
 
-  loadMore();
+  await loadMore();
+
+  // if (!(await isAuthenticated())) {
+  //   console.log('1');
+  //   // $('.book-btn').prop('disabled', true);
+  //   $("#list-of-buses-div").find(".book-btn").prop('disabled', true);
+  // }
+  // else {
+  //   console.log('2');
+  //   // $('.book-btn').prop('disabled', false);
+  //   $("#list-of-buses-div").find(".book-btn").prop('disabled', true);
+  // }
 
   $('#list-of-buses-div').on('click', '.book-bus', function () {
     const bid = $(this).attr('bid');
