@@ -1,7 +1,16 @@
 const allRoles = {
   user: ['createTicket', 'seeHistory', 'createReview', 'printTicket', 'discardTicket', 'payTicket'],
 
-  bus_operator: ['cloneBus', 'deleteTicket', 'updateTicket', 'bookingList', 'bookingGet', 'bookingUpdate'],
+  bus_operator: [
+    'bookingList',
+    'busList',
+    'cloneBus',
+    'deleteTicket',
+    'updateTicket',
+    'bookingList',
+    'bookingGet',
+    'bookingUpdate',
+  ],
 
   admin: [
     'getBOByID',
@@ -10,10 +19,8 @@ const allRoles = {
     'createBO',
     'updateBO',
     'deteleBO',
-    'bookingList',
     'bookingGet',
     'bookingUpdate',
-    'busList',
     'getBus',
     'createBus',
     'deleteBus',
