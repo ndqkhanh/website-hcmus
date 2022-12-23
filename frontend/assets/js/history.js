@@ -5,8 +5,7 @@ var statusBook = ["Just booked", "Booked", "Canceled payment"];
 var userInfo = JSON.parse(localStorage.getItem("userInfo"));
 var token = userInfo?.token?.token;
 var uid = userInfo?.user?.id;
-console.log(token);
-console.log(uid);
+
 var currentHistoryData = [];
 function loadMore() {
   $.ajax({
@@ -154,10 +153,8 @@ function backToList() {
 }
 $(document).ready(async function () {
   var checkT = await checkToken();
-  console.log(checkT);
   if (checkT == true) {
     loadMore();
-
     $("#discard").click(() => {
       tid = $("#discard").attr("tid");
       $.ajax({
@@ -198,6 +195,7 @@ async function checkToken() {
       Authorization: `Bearer ${token}`,
     },
   });
+  result = await result.json()
   if (!result?.history_list) return false;
   return true;
 }
