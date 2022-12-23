@@ -3,9 +3,10 @@ var limit = 1;
 var typeOfBus = ["Limousine", "Normal Seat", "Sleeper Bus"];
 var statusBook = ["Just booked", "Booked", "Canceled payment"];
 var userInfo = JSON.parse(localStorage.getItem("userInfo"));
-var token = userInfo.token.token;
-var uid = userInfo.user.id;
-
+var token = userInfo?.token?.token;
+var uid = userInfo?.user?.id;
+console.log(token);
+console.log(uid);
 var currentHistoryData = [];
 function loadMore() {
   $.ajax({
@@ -151,35 +152,52 @@ function backToList() {
   $("#hList").removeClass("d-none");
   $("#detail").addClass("d-none");
 }
+$(document).ready(async function () {
+  var checkT = await checkToken();
+  console.log(checkT);
+  if (checkT == true) {
+    loadMore();
 
-$(document).ready(function () {
-  loadMore();
-  $("#discard").click(() => {
-    tid = $("#discard").attr("tid");
-    $.ajax({
-      url: `${BACKEND_URL}/ticket/discard-ticket`,
-      type: "POST",
+    $("#discard").click(() => {
+      tid = $("#discard").attr("tid");
+      $.ajax({
+        url: `${BACKEND_URL}/ticket/discard-ticket`,
+        type: "POST",
 
-      data: JSON.stringify({
-        tid,
-      }),
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      success: function (data) {
-        console.log(data);
-        alert("Discard success");
-        $("#discard").addClass("d-none");
-        $("#status_num").text(statusBook[2]);
-        currentHistoryData.forEach((item) => {
-          if (item.id == tid) item.status = 2;
-        });
-      },
-      error: function (result) {
-        console.log("Error" + JSON.stringify(result));
-      },
+        data: JSON.stringify({
+          tid,
+        }),
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        success: function (data) {
+          console.log(data);
+          alert("Discard success");
+          $("#discard").addClass("d-none");
+          $("#status_num").text(statusBook[2]);
+          currentHistoryData.forEach((item) => {
+            if (item.id == tid) item.status = 2;
+          });
+        },
+        error: function (result) {
+          console.log("Error" + JSON.stringify(result));
+        },
+      });
     });
-  });
+  } else window.location.href = "/";
 });
+async function checkToken() {
+  if (!token) return false;
+  var result = await fetch(`${BACKEND_URL}/user/history/0/0`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  if (!result?.history_list) return false;
+  return true;
+}
