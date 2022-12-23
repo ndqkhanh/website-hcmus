@@ -23,7 +23,7 @@ const cssnano = require('cssnano');
 const autoprefixer = require('autoprefixer');
 const replace = require('gulp-replace');
 const terser = require('gulp-terser');
-var proxyMiddleware = require('http-proxy-middleware');
+// var proxyMiddleware = require('http-proxy-middleware');
 
 // Paths to project folders
 
@@ -81,6 +81,7 @@ function fonts(callback) {
 
 // HTML
 function html(callback) {
+  src(paths.src.js);
   return src([paths.src.html, '!./src/partials/**/*'])
     .pipe(
       fileinclude({
