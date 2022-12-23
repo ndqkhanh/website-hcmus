@@ -9,7 +9,7 @@
         return false;
       } else {
         let response = await fetch(
-          `http://localhost:3000/v1/admin/booking/list/0/1`,
+          `${HOST_NAME}/v1/admin/booking/list/0/1`,
           {
             method: "GET",
             headers: {
