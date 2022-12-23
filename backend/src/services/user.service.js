@@ -138,7 +138,7 @@ const getHistoryByUId = async (req) => {
     skip: req.params.page * req.params.limit,
     take: req.params.limit,
     where: {
-      user_id: req.body.id,
+      user_id: req.user.id,
     },
     include: {
       buses: {
