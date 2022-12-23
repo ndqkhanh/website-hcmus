@@ -1,14 +1,20 @@
 const httpStatus = require('http-status');
 const catchAsync = require('../utils/catchAsync');
 const { authService, userService, tokenService, emailService } = require('../services');
+// const sendEmail = require('../utils/sendEmail');
 
 const register = catchAsync(async (req, res) => {
   const user = await userService.createUser(req.body);
   const tokens = await tokenService.generateAuthTokens(user);
+  // const email = await sendEmail(user, 'Verify email', 'Please check your email');
+  // Check otp
   delete user.password;
   res.status(httpStatus.CREATED).send({ user, token: tokens.access });
 });
-
+const sendEmail = catchAsync(async (req, res) => {
+  const result = await authService.sendEmail(req);
+  res.send({ success: result });
+});
 const login = catchAsync(async (req, res) => {
   const user = await authService.loginUserWithEmailAndPassword(req.body.email, req.body.password);
   const tokens = await tokenService.generateAuthTokens(user);
@@ -47,8 +53,8 @@ const sendVerificationEmail = catchAsync(async (req, res) => {
 });
 
 const verifyEmail = catchAsync(async (req, res) => {
-  await authService.verifyEmail(req.query.token);
-  res.status(httpStatus.NO_CONTENT).send();
+  const result = await authService.verifyEmail(req);
+  res.send({ success: result });
 });
 
 module.exports = {
@@ -60,4 +66,5 @@ module.exports = {
   resetPassword,
   sendVerificationEmail,
   verifyEmail,
+  sendEmail,
 };

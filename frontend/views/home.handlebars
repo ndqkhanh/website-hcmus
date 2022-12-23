@@ -264,4 +264,45 @@
   </div>
 </div>
 
+<!--Enter otp code-->
+<div
+  class='modal fade'
+  id='otpModal'
+  tabindex='-1'
+>
+  <div class='modal-dialog'>
+    <div class='modal-content'>
+      <div class="modal-header">
+        <h5 class="modal-title">Enter OTP</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class='modal-body'>
+        <form>
+          <div class='form-group row py-2'>
+            <label
+              for='inputOTP'
+              class='col-sm-3 col-form-label'
+            >OTP code</label>
+            <div class='col-sm-9'>
+              <input
+                {{!-- type='email' --}}
+                class='form-control'
+                id='inputOTP'
+              />
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class='modal-footer d-flex justify-content-center flex-column'>
+        <button
+          type='button'
+          class='btn btn-primary'
+          id="btnContinueOtp"
+        >
+          Continue
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
 <script src='./js/homepage.js'></script>
