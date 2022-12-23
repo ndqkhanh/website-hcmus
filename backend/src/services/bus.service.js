@@ -60,13 +60,19 @@ const searchBus = async (body) => {
         },
       }));
 
-    bus.averageReviews = (
-      await prisma.reviews.aggregate({
-        _avg: {
-          rate: true,
-        },
-      })
-    )._avg.rate;
+    bus.averageReviews =
+      Math.round(
+        (
+          await prisma.reviews.aggregate({
+            _avg: {
+              rate: true,
+            },
+            where: {
+              bo_id: bus.bo_id,
+            },
+          })
+        )._avg.rate * 10
+      ) / 10;
   }
 
   const count = await prisma.buses.count({

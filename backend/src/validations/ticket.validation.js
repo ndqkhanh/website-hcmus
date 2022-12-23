@@ -24,8 +24,15 @@ const discardTicket = {
   })
 }
 
+const payTicket = {
+  body: Joi.object().keys({
+    ticket_ids: Joi.array().required(),
+  }),
+};
+
 module.exports = {
   discardTicket,
   createTicket,
   printTicket,
+  payTicket,
 };

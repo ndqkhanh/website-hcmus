@@ -1,8 +1,8 @@
 $(document).ready(async function () {
   const urlParams = new URLSearchParams(window.location.search);
-  const startPoint = urlParams.get("startPoint");
-  const endPoint = urlParams.get("endPoint");
-  const startTime = urlParams.get("startTime");
+  const startPoint = urlParams.get('startPoint');
+  const endPoint = urlParams.get('endPoint');
+  const startTime = urlParams.get('startTime');
 
   // let bus_station = await fetch(`${BACKEND_URL}/bus-station/list`, {
   //   method: "GET",
@@ -12,9 +12,9 @@ $(document).ready(async function () {
   // });
 
   $.ajax(`${BACKEND_URL}/bus-station/list`, {
-    method: "GET",
+    method: 'GET',
     headers: {
-      "Content-Type": "application/json;charset=utf-8",
+      'Content-Type': 'application/json;charset=utf-8',
     },
     success: function (bus_station) {
       let departureContent = `  <div class="col d-flex">
@@ -37,31 +37,30 @@ $(document).ready(async function () {
       destinationContent += `</select>
       </div>`;
 
-      $("#departure").replaceWith(departureContent);
-      $("#destination").replaceWith(destinationContent);
+      $('#departure').replaceWith(departureContent);
+      $('#destination').replaceWith(destinationContent);
 
       bus_station.data.forEach((item) => {
-        if (startPoint === item.id) $("#departure").val(item.id);
-        if (endPoint === item.id) $("#destination").val(item.id);
-        if (startTime) $("#datepicker").val(startTime);
+        if (startPoint === item.id) $('#departure').val(item.id);
+        if (endPoint === item.id) $('#destination').val(item.id);
+        if (startTime) $('#datepicker').val(startTime);
       });
     },
   });
 
-  $("#btnSearch").click(async function () {
-    let deparature = $("#departure").find(":selected").val();
-    let destination = $("#destination").find(":selected").val();
-    let date = $("#datepicker").datepicker("getDate");
+  $('#btnSearch').click(async function () {
+    let deparature = $('#departure').find(':selected').val();
+    let destination = $('#destination').find(':selected').val();
+    let date = $('#datepicker').datepicker('getDate');
 
-    date =
-      date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear();
+    date = date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear();
 
-    let url = `http://localhost:4000/list?startPoint=${deparature}&endPoint=${destination}&startTime=${date}`;
+    let url = `/list?startPoint=${deparature}&endPoint=${destination}&startTime=${date}`;
 
     $.ajax(`${BACKEND_URL}/bus/search`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json;charset=utf-8",
+        'Content-Type': 'application/json;charset=utf-8',
       },
       data: JSON.stringify({
         startPoint: deparature,
@@ -71,9 +70,9 @@ $(document).ready(async function () {
         startTime: date,
       }),
       success: function (data) {
-        console.log("data ", data);
+        console.log('data ', data);
       },
     });
-    $(location).attr("href", url);
+    $(location).attr('href', url);
   });
 });
