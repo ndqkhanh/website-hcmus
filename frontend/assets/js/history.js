@@ -135,6 +135,12 @@ function backToList() {
   $('#detail').addClass('d-none');
 }
 $(document).ready(async function () {
+  const breadcrumbTemplate = `
+    <li class='breadcrumb-item pb-0'><a href='/'>Home</a></li>
+    <li class='breadcrumb-item active' aria-current='page'>History</li>
+    `;
+
+  $("#breadcrumb-container").html(breadcrumbTemplate);
   var checkT = await checkToken();
   if (checkT == true) {
     loadMore();

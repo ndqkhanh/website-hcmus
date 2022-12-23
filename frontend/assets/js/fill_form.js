@@ -35,6 +35,14 @@ $(document).ready(async function () {
     const email = await userInfo.user.email;
     const token = await userInfo.token.token;
 
+    const breadcrumbTemplate = `
+    <li class='breadcrumb-item pb-0'><a href='/'>Home</a></li>
+    <li class='breadcrumb-item pb-0'><a href='/list'>List</a></li>
+    <li class='breadcrumb-item active' aria-current='page'>Fill form</li>
+    `;
+
+    $("#breadcrumb-container").html(breadcrumbTemplate);
+
     $.ajax({
       url: `${BACKEND_URL}/bus/${busId}`,
       type: 'GET',
