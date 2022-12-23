@@ -1,99 +1,131 @@
-$(document).ready(async function () {
-  const windowSplit = window.location.href.split("/");
-  const busId = windowSplit[windowSplit.length - 1].split("[?#]")[0];
-
-  let userInfo = JSON.parse(localStorage.getItem("userInfo"));
-  const email = userInfo.user.email;
-  const token = userInfo.token.token;
-
-  console.log(token);
-
-  $.ajax({
-    url: `${BACKEND_URL}/bus/${busId}`,
-    type: "GET",
-    success: function (response) {
-      if (typeof response === undefined || response === null) {
-        alert("[ERROR]: Cannot get response from server");
-      } else if (response.error) {
-        alert("[ERROR]: " + response.error);
-      } else {
-        $("#disabledEmail").val(email);
-        $("#disabledStartTime").val(
-          new Date(response.start_time).toLocaleDateString(undefined, {
-            weekday: "long",
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-            hour: "numeric",
-            minute: "numeric",
-          })
-        );
-        $("#disabledEndTime").val(
-          new Date(response.end_time).toLocaleDateString(undefined, {
-            weekday: "long",
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-            hour: "numeric",
-            minute: "numeric",
-          })
-        );
-        $("#destination").val(
-          response.bus_stations_bus_stationsTobuses_end_point.location
-        );
+const isAuthenticated = async () => {
+  let userInfo = await localStorage.getItem("userInfo");
+  if (typeof userInfo !== "undefined" && userInfo !== null) {
+    userInfo = (await userInfo) ? JSON.parse(userInfo) : {};
+    if (!userInfo.token.token) {
+      alert("You are not authorized to access this page");
+      return false;
+    } else {
+      let response = await fetch(`${BACKEND_URL}/user/history/0/0`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${userInfo.token.token}`,
+        },
+      });
+      response = await response.json();
+      if (!response) return false;
+      if (
+        typeof response.history_list === "undefined" ||
+        response.history_list === null
+      ) {
+        return false;
       }
-    },
-    error: function (error) {
-      console.log("[ERROR]", error);
-    },
-  });
+      return true;
+    }
+  } else return false;
+};
 
-  $("#cancel-btn").click(function () {
-    $(location).attr("href", "/list");
-  });
+$(document).ready(async function () {
+  if (!(await isAuthenticated())) {
+    $(location).attr("href", "/");
+  } else {
+    const windowSplit = await window.location.href.split("/");
+    const busId = await windowSplit[windowSplit.length - 1].split("[?#]")[0];
 
-  // $("#submit-btn").click(function () {
-  $("#form").submit(function (e) {
-    e.preventDefault();
-    const name = $("#inputFullName").val();
-    const phone = $("#inputPhone").val();
-    const numOfSeats = Number($("#inputNumberOfSeat").val());
+    let userInfo = await JSON.parse(localStorage.getItem("userInfo"));
+    const email = await userInfo.user.email;
+    const token = await userInfo.token.token;
+
     $.ajax({
-      url: `${BACKEND_URL}/ticket/create/${busId}`,
-      type: "POST",
-      dataType: "json",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      data: JSON.stringify({
-        name,
-        phone,
-        numOfSeats,
-      }),
+      url: `${BACKEND_URL}/bus/${busId}`,
+      type: "GET",
       success: function (response) {
         if (typeof response === undefined || response === null) {
           alert("[ERROR]: Cannot get response from server");
         } else if (response.error) {
-          alert(
-            "The number of seats you booked exceed the maximum number of seats\nPlease try again!!!"
-          );
+          alert("[ERROR]: " + response.error);
         } else {
-          console.log(JSON.stringify(response));
-          $("#title div h3").text("Booking details");
-          const msToTime = (ms) => {
-            let seconds = (ms / 1000).toFixed(1);
-            let minutes = (ms / (1000 * 60)).toFixed(1);
-            let hours = (ms / (1000 * 60 * 60)).toFixed(1);
-            let days = (ms / (1000 * 60 * 60 * 24)).toFixed(1);
-            if (seconds < 60) return seconds + " Seconds";
-            else if (minutes < 60) return minutes + " Minutes";
-            else if (hours < 24) return hours + " Hours";
-            else return days + " Days";
-          };
-          const ticketIds = response.ticket_ids.map((tid) => `<li>${tid}</li>`);
-          const template = `<div id="table">
+          $("#disabledEmail").val(email);
+          $("#disabledStartTime").val(
+            new Date(response.start_time).toLocaleDateString(undefined, {
+              weekday: "long",
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+              hour: "numeric",
+              minute: "numeric",
+            })
+          );
+          $("#disabledEndTime").val(
+            new Date(response.end_time).toLocaleDateString(undefined, {
+              weekday: "long",
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+              hour: "numeric",
+              minute: "numeric",
+            })
+          );
+          $("#destination").val(
+            response.bus_stations_bus_stationsTobuses_end_point.location
+          );
+        }
+      },
+      error: function (error) {
+        console.log("[ERROR]", error);
+      },
+    });
+
+    $("#cancel-btn").click(function () {
+      $(location).attr("href", "/list");
+    });
+
+    // $("#submit-btn").click(function () {
+    $("#form").submit(function (e) {
+      e.preventDefault();
+      const name = $("#inputFullName").val();
+      const phone = $("#inputPhone").val();
+      const numOfSeats = Number($("#inputNumberOfSeat").val());
+      $.ajax({
+        url: `${BACKEND_URL}/ticket/create/${busId}`,
+        type: "POST",
+        dataType: "json",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        data: JSON.stringify({
+          name,
+          phone,
+          numOfSeats,
+        }),
+        success: function (response) {
+          if (typeof response === undefined || response === null) {
+            alert("[ERROR]: Cannot get response from server");
+          } else if (response.error) {
+            alert(
+              "The number of seats you booked exceed the maximum number of seats\nPlease try again!!!"
+            );
+          } else {
+            console.log(JSON.stringify(response));
+            $("#title div h3").text("Booking details");
+            const msToTime = (ms) => {
+              let seconds = (ms / 1000).toFixed(1);
+              let minutes = (ms / (1000 * 60)).toFixed(1);
+              let hours = (ms / (1000 * 60 * 60)).toFixed(1);
+              let days = (ms / (1000 * 60 * 60 * 24)).toFixed(1);
+              if (seconds < 60) return seconds + " Seconds";
+              else if (minutes < 60) return minutes + " Minutes";
+              else if (hours < 24) return hours + " Hours";
+              else return days + " Days";
+            };
+            const ticketIds = response.ticket_ids.map(
+              (tid) => `<li>${tid}</li>`
+            );
+            const template = `<div id="table">
     <table class='table table-hover table-striped'>
       <tbody>
         <tr style='height: 80px'>
@@ -199,38 +231,39 @@ $(document).ready(async function () {
       </button>
     </div>
   </div>`;
-          $("#form-container").html(template);
-          $(".home-btn").click(function () {
-            $(location).attr("href", `/`);
-          });
-          $("#pay-btn").click(function () {
-            $.ajax({
-              url: `${BACKEND_URL}/ticket/payment`,
-              type: "POST",
-              dataType: "json",
-              headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-              },
-              data: JSON.stringify({
-                ticket_ids: response.ticket_ids,
-              }),
-              success: function (response) {
-                console.log("[SUCCESS]", response);
-                $("#exampleModal").modal("show");
-              },
-              error: function (error) {
-                alert("[ERROR]", "Payment failed");
-              },
+            $("#form-container").html(template);
+            $(".home-btn").click(function () {
+              $(location).attr("href", `/`);
             });
-          });
-        }
-      },
-      error: function (error) {
-        console.log("[ERROR]", error);
-      },
+            $("#pay-btn").click(function () {
+              $.ajax({
+                url: `${BACKEND_URL}/ticket/payment`,
+                type: "POST",
+                dataType: "json",
+                headers: {
+                  Accept: "application/json",
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${token}`,
+                },
+                data: JSON.stringify({
+                  ticket_ids: response.ticket_ids,
+                }),
+                success: function (response) {
+                  console.log("[SUCCESS]", response);
+                  $("#exampleModal").modal("show");
+                },
+                error: function (error) {
+                  alert("[ERROR]", "Payment failed");
+                },
+              });
+            });
+          }
+        },
+        error: function (error) {
+          console.log("[ERROR]", error);
+        },
+      });
     });
-  });
+  }
 });
 // });
