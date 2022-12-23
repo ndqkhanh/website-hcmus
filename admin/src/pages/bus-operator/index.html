@@ -20,7 +20,7 @@
               <!-- Page header -->
 
               <div class="border-bottom pb-4 mb-4">
-                <h3 class="mb-0 fw-bold">Booking</h3>
+                <h3 class="mb-0 fw-bold">Bus Operator</h3>
               </div>
             </div>
           </div>
@@ -34,14 +34,11 @@
                     <thead class="table-light">
                       <tr>
                         <th>Bus Operator</th>
-                        <th>Customer Name</th>
-                        <th>Customer Phone</th>
-                        <th>Customer Seat</th>
-                        <th>Status</th>
+                        <th>Phone</th>
                         <th>Actions</th>
                       </tr>
                     </thead>
-                    <tbody id="booking-list"></tbody>
+                    <tbody id="bo-list"></tbody>
                   </table>
                 </div>
 
@@ -60,7 +57,7 @@
     @@include("../../partials/scripts.html")
   </body>
 
-  <script src="@@webRoot/assets/js/booking-list.js"></script>
+  <script src="@@webRoot/assets/js/bo-list.js"></script>
   <script>
     $("#user-email").text(
       JSON.parse(localStorage.getItem("userInfo")).user.email

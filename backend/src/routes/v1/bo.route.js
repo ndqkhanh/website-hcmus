@@ -16,5 +16,6 @@ router.route('/list/:page/:limit').get(validate(boValidation.getBO), boControlle
 router.route('/create').post(auth('createBO'), validate(boValidation.createBO), boController.createBO);
 router.route('/update').post(auth('updateBO'), validate(boValidation.updateBO), boController.updateBO);
 router.route('/delete').post(auth('deteleBO'), validate(boValidation.deleteBO), boController.deleteBO);
+router.route('/:boId').get(auth('getBOByID'),validate(boValidation.getBOByID), boController.getBOById);
 
 module.exports = router;

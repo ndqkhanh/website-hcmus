@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    @@include("../../partials/head.html")
-    <title>Setting | Dash Ui - Bootstrap 5 Admin Dashboard Template</title>
-  </head>
 
-  <body class="bg-light">
+<head>
+  @@include("../../partials/head.html")
+  <title>Setting | Dash Ui - Bootstrap 5 Admin Dashboard Template</title>
+</head>
+
+<body class="bg-light">
     <div id="db-wrapper">
       <!-- navbar vertical -->
       @@include('../../partials/navbar-vertical.html', { "page": "settings",
@@ -20,16 +21,16 @@
               <!-- Page header -->
 
               <div class="border-bottom pb-4 mb-4">
-                <h3 class="mb-0 fw-bold">Update</h3>
+                <h3 class="mb-0 fw-bold">Create Bus Operators</h3>
               </div>
             </div>
           </div>
           <div class="row mb-8">
             <div class="col-xl-3 col-lg-4 col-md-12 col-12">
               <div class="mb-4 mb-lg-0">
-                <h4 class="mb-1">Booking</h4>
+                <h4 class="mb-1">Create</h4>
                 <p class="mb-0 fs-5 text-muted">
-                  Booking configuration settings
+                    Create configuration settings
                 </p>
               </div>
             </div>
@@ -44,24 +45,7 @@
                     <div class="mb-6">
                       <h4 class="mb-1">Basic information</h4>
                     </div>
-                    <form id="update-booking">
-                      <!-- row -->
-                      <div class="mb-3 row">
-                        <label
-                          for="Email"
-                          class="col-sm-4 col-form-label form-label"
-                          >Email</label
-                        >
-                        <div class="col-sm-8">
-                          <input
-                            type="text"
-                            class="form-control"
-                            placeholder="Email"
-                            id="email"
-                            disabled
-                          />
-                        </div>
-                      </div>
+                    <form id="create-bo">
                       <!-- row -->
                       <div class="mb-3 row">
                         <label
@@ -86,7 +70,7 @@
                           for="phone"
                           class="col-sm-4 col-form-label form-label"
                           >Phone
-                          <span class="text-muted">(Optional)</span></label
+                          </label
                         >
                         <div class="col-md-8 col-12">
                           <input
@@ -101,76 +85,26 @@
                       <!-- row -->
                       <div class="mb-3 row">
                         <label
-                          for="location"
+                          for="image-url"
                           class="col-sm-4 col-form-label form-label"
-                          >Status</label
-                        >
-
-                        <div class="col-md-8 col-12">
-                          <select class="form-select" id="status">
-                            <option selected>Select Status</option>
-                            <option value="0">Booked</option>
-                            <option value="1">Paied</option>
-                            <option value="2">Canceled</option>
-                          </select>
-                        </div>
-                      </div>
-                      <!-- row -->
-                      <div class="mb-3 row">
-                        <label
-                          for="phone"
-                          class="col-sm-4 col-form-label form-label"
-                          >Start Point
-                          <span class="text-muted">(Disabled)</span></label
+                          >Image URL
+                          </label
                         >
                         <div class="col-md-8 col-12">
                           <input
                             type="text"
                             class="form-control"
-                            placeholder="Start Point"
-                            id="start_point"
-                            disabled
-                          />
-                        </div>
-                      </div>
-                      <!-- row -->
-                      <div class="mb-3 row">
-                        <label
-                          for="phone"
-                          class="col-sm-4 col-form-label form-label"
-                          >End Point
-                          <span class="text-muted">(Disabled)</span></label
-                        >
-                        <div class="col-md-8 col-12">
-                          <input
-                            type="text"
-                            class="form-control"
-                            placeholder="End Point"
-                            id="end_point"
-                            disabled
-                          />
-                        </div>
-                      </div>
-                      <div class="mb-3 row">
-                        <label
-                          for="phone"
-                          class="col-sm-4 col-form-label form-label"
-                          >Seat
-                        </label>
-                        <div class="col-md-8 col-12">
-                          <input
-                            type="text"
-                            class="form-control"
-                            placeholder="Seat"
-                            id="seat"
+                            placeholder="image-url"
+                            id="image-url"
                             required
                           />
                         </div>
+                      </div>
 
                         <!-- button -->
                         <div class="offset-md-4 col-md-8 col-12 mt-3">
                           <button type="submit" class="btn btn-primary">
-                            Save Changes
+                            Create
                           </button>
                         </div>
                       </div>
@@ -186,8 +120,7 @@
     <!-- Scripts -->
     @@include("../../partials/scripts.html")
   </body>
-
-  <script src="@@webRoot/assets/js/booking-update.js"></script>
+  <script src="@@webRoot/assets/js/create-bo.js"></script>
   <script>
     $("#user-email").text(
       JSON.parse(localStorage.getItem("userInfo")).user.email

@@ -1,19 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    @@include("../../partials/head.html")
+    <title>Setting | Dash Ui - Bootstrap 5 Admin Dashboard Template</title>
+  </head>
 
-<head>
-  @@include("../partials/head.html")
-  <title>Setting | Dash Ui - Bootstrap 5 Admin Dashboard Template</title>
-</head>
-
-<body class="bg-light">
+  <body class="bg-light">
     <div id="db-wrapper">
       <!-- navbar vertical -->
-      @@include('../partials/navbar-vertical.html', { "page": "settings",
+      @@include('../../partials/navbar-vertical.html', { "page": "settings",
       "page_group": "pages" })
       <!-- page content -->
       <div id="page-content">
-        @@include("../partials/header.html")
+        @@include("../../partials/header.html")
         <!-- Container fluid -->
         <div class="container-fluid p-6">
           <div class="row">
@@ -21,16 +20,16 @@
               <!-- Page header -->
 
               <div class="border-bottom pb-4 mb-4">
-                <h3 class="mb-0 fw-bold">Create Bus Operators</h3>
+                <h3 class="mb-0 fw-bold">Update</h3>
               </div>
             </div>
           </div>
           <div class="row mb-8">
             <div class="col-xl-3 col-lg-4 col-md-12 col-12">
               <div class="mb-4 mb-lg-0">
-                <h4 class="mb-1">Create</h4>
+                <h4 class="mb-1">Bus operator</h4>
                 <p class="mb-0 fs-5 text-muted">
-                    Create configuration settings
+                  Bus operator configuration settings
                 </p>
               </div>
             </div>
@@ -45,7 +44,7 @@
                     <div class="mb-6">
                       <h4 class="mb-1">Basic information</h4>
                     </div>
-                    <form id="create-bo">
+                    <form id="update-bo">
                       <!-- row -->
                       <div class="mb-3 row">
                         <label
@@ -63,14 +62,13 @@
                           />
                         </div>
                       </div>
-
                       <!-- row -->
                       <div class="mb-3 row">
                         <label
                           for="phone"
                           class="col-sm-4 col-form-label form-label"
                           >Phone
-                          </label
+                          <span class="text-muted">(Optional)</span></label
                         >
                         <div class="col-md-8 col-12">
                           <input
@@ -82,29 +80,31 @@
                           />
                         </div>
                       </div>
+                      
                       <!-- row -->
                       <div class="mb-3 row">
                         <label
                           for="image-url"
                           class="col-sm-4 col-form-label form-label"
-                          >Image URL
-                          </label
+                          >Image
+                        </label
                         >
                         <div class="col-md-8 col-12">
                           <input
                             type="text"
                             class="form-control"
-                            placeholder="image-url"
+                            placeholder="Url"
                             id="image-url"
                             required
                           />
                         </div>
                       </div>
 
+
                         <!-- button -->
                         <div class="offset-md-4 col-md-8 col-12 mt-3">
                           <button type="submit" class="btn btn-primary">
-                            Create
+                            Save Changes
                           </button>
                         </div>
                       </div>
@@ -118,7 +118,13 @@
       </div>
     </div>
     <!-- Scripts -->
-    @@include("../partials/scripts.html")
+    @@include("../../partials/scripts.html")
   </body>
-  <script src="@@webRoot/assets/js/create-bo.js"></script>
+
+  <script src="@@webRoot/assets/js/bo-update.js"></script>
+  <script>
+    $("#user-email").text(
+      JSON.parse(localStorage.getItem("userInfo")).user.email
+    );
+  </script>
 </html>

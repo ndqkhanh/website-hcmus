@@ -45,7 +45,13 @@ const deleteBO = {
     id: Joi.string().required(),
   }),
 };
+const getBOByID = {
+  params: Joi.object().keys({
+    boId: Joi.string().uuid().required(),
+  })
+}
 module.exports = {
+  getBOByID,
   deleteBO,
   updateBO,
   createBO,

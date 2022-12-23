@@ -7,52 +7,44 @@ $(document).ready(function () {
   let token = userInfo.token.token;
 
   $.ajax({
-    url: `${HOST_NAME}/v1/admin/booking/${id}`,
+    url: `${HOST_NAME}/v1/bus-operator/${id}`,
     type: "GET",
     dataType: "json",
     headers: {
       Authorization: "Bearer " + token,
     },
     success: function (booking) {
-      $("#email").val(booking.users.email);
-      $("#name").val(booking.name);
       $("#phone").val(booking.phone);
-      $("#seat").val(booking.seat);
-      $("#status").val(booking.status);
-      $("#start_point").val(
-        booking.buses.bus_stations_bus_stationsTobuses_start_point.name
-      );
-      $("#end_point").val(
-        booking.buses.bus_stations_bus_stationsTobuses_end_point.name
-      );
+      $("#name").val(booking.name);
+      $("#image-url").val(booking.image_url);
     },
     error: function (error) {
       console.log("error", error);
     },
   });
 
-  $("#update-booking").submit(function (e) {
+  $("#update-bo").submit(function (e) {
     e.preventDefault();
     const name = $("#name").val();
     const phone = $("#phone").val();
-    const seat = $("#seat").val();
-    const status = $("#status").val();
+    const image_url = $("#image-url").val();
+
     $.ajax({
-      url: `${HOST_NAME}/v1/admin/booking/${id}`,
+      url: `${HOST_NAME}/v1/bus-operator/update`,
       type: "POST",
       dataType: "json",
       headers: {
         Authorization: "Bearer " + token,
       },
       data: {
+        id: id,
         name: name,
         phone: phone,
-        seat: seat,
-        status: status,
+        image_url: image_url,
       },
       success: function (data) {
         console.log("data", data);
-        window.location.href = "/pages/booking";
+        window.location.href = "/pages/bus-operator";
       },
       error: function (error) {
         console.log("error", error);
