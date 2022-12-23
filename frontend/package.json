@@ -1,7 +1,8 @@
 {
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "format": "prettier --write \"./**/*.{ts,tsx,js,jsx,json}\" --end-of-line lf"
   },
   "main": "index.js",
   "dependencies": {
@@ -11,6 +12,7 @@
     "print-js": "^1.6.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.20"
+    "nodemon": "^2.0.20",
+    "prettier": "^2.0.5"
   }
 }

@@ -20,9 +20,7 @@ $(document).ready(function () {
    * Get parameter from URL
    */
   function getUrlParameter(name) {
-    let results = new RegExp('[?&]' + name + '=([^&#]*)').exec(
-      window.location.href
-    );
+    let results = new RegExp('[?&]' + name + '=([^&#]*)').exec(window.location.href);
     if (results == null) {
       return null;
     }
@@ -140,25 +138,16 @@ $(document).ready(function () {
           return;
         }
         for (const item of data.data) {
-          let duration =
-            (new Date(item.end_time) - new Date(item.start_time)) / 1000;
+          let duration = (new Date(item.end_time) - new Date(item.start_time)) / 1000;
           html += templateScript({
             id: item.id,
             image_url: item.image_url,
             bus_operator_name: item.bus_operators.name,
             bus_operator_rating: Math.round(item.averageReviews * 100) / 100,
-            start_point_time:
-              new Date(item.start_time).getHours() +
-              ':' +
-              new Date(item.start_time).getSeconds(),
-            start_point_date: new Date(item.start_time)
-              .toISOString()
-              .split('T')[0],
+            start_point_time: new Date(item.start_time).getHours() + ':' + new Date(item.start_time).getSeconds(),
+            start_point_date: new Date(item.start_time).toISOString().split('T')[0],
             start_point_name: item.start_point.name,
-            end_point_time:
-              new Date(item.end_time).getHours() +
-              ':' +
-              new Date(item.end_time).getSeconds(),
+            end_point_time: new Date(item.end_time).getHours() + ':' + new Date(item.end_time).getSeconds(),
             end_point_date: new Date(item.end_time).toISOString().split('T')[0],
             end_point_name: item.start_point.name,
             left_seats: item.left_seats,
@@ -199,9 +188,7 @@ $(document).ready(function () {
   $(window).on('scroll', function () {
     if (
       $(window).scrollTop() >=
-      $('#list-of-buses-div').offset().top +
-        $('#list-of-buses-div').outerHeight() -
-        window.innerHeight
+      $('#list-of-buses-div').offset().top + $('#list-of-buses-div').outerHeight() - window.innerHeight
     ) {
       page++;
       loadMore();
@@ -217,9 +204,7 @@ $(document).ready(function () {
     $.get(`${BACKEND_URL}/bus-operator/list/0/1000`, function (data) {
       if (data.data.length > 0) {
         data.data.forEach((item) => {
-          $('#filter-bus-operator').append(
-            $('<option></option>').attr('value', item.id).text(item.name)
-          );
+          $('#filter-bus-operator').append($('<option></option>').attr('value', item.id).text(item.name));
         });
       }
     });
@@ -230,10 +215,8 @@ function viewDetail(id, averRating) {
   commentPage = 0;
   function generateStart(num) {
     star = '';
-    for (let i = 0; i < num; ++i)
-      star += "<i class='text-warning bi bi-star-fill'></i>";
-    for (let i = num; i < 5; ++i)
-      star += "<i class='text-warning bi bi-star'></i>";
+    for (let i = 0; i < num; ++i) star += "<i class='text-warning bi bi-star-fill'></i>";
+    for (let i = num; i < 5; ++i) star += "<i class='text-warning bi bi-star'></i>";
     return star;
   }
   function generateComment(bo_id) {
@@ -260,8 +243,7 @@ function viewDetail(id, averRating) {
         Accept: 'application/json',
       },
       success: function (data) {
-        if (maxCommentNum == null || maxCommentNum < data.count)
-          maxCommentNum = data.count;
+        if (maxCommentNum == null || maxCommentNum < data.count) maxCommentNum = data.count;
         if (data.data.length > 0) {
           data.data.forEach((item) => {
             commentContent += commentScript({
