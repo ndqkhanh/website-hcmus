@@ -84,9 +84,14 @@ const BUSES = [];
 const BUS_TICKETS = [];
 const REVIEWS = [];
 
+// select count(*) as sl, DATE(start_time), start_point, end_point
+// from buses
+// group by start_point, end_point, DATE(start_time)
+// order by sl desc, DATE(start_time) desc
+
 const createBuses = () => {
   const currentTime = new Date().getTime();
-  const month = 2629746000;
+  const month = 262974383;
   const start_time = faker.datatype.datetime({ min: currentTime, max: currentTime + month });
   return {
     id: faker.datatype.uuid(),
@@ -128,15 +133,15 @@ const createReview = () => {
 };
 
 async function main() {
-  Array.from({ length: 30 }).forEach(() => {
+  Array.from({ length: 15 }).forEach(() => {
     BUS_OPERATORS.push(createBusOperator());
   });
 
-  Array.from({ length: 20 }).forEach(() => {
+  Array.from({ length: 10 }).forEach(() => {
     BUS_STATIONS.push(createBusStation());
   });
 
-  Array.from({ length: 1000 }).forEach(() => {
+  Array.from({ length: 50000 }).forEach(() => {
     BUSES.push(createBuses());
   });
 
