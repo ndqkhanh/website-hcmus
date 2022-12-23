@@ -44,7 +44,7 @@ $(document).ready(function () {
       },
       success: function (data) {
         console.log('data', data);
-        window.location.href = `${HOST_NAME}/pages/bus-operator`;
+        window.location.href = `/pages/bus-operator`;
       },
       error: function (error) {
         console.log('error', error);

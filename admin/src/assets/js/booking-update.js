@@ -51,7 +51,7 @@ $(document).ready(function () {
         status: status,
       },
       success: function (data) {
-        window.location.href = `${HOST_NAME}/pages/booking`;
+        window.location.href = `/pages/booking`;
       },
       error: function (error) {
         console.log('error', error);

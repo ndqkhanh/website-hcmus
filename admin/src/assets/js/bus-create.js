@@ -175,7 +175,7 @@ $(document).ready(function () {
       data: data,
       success: function (data) {
         console.log('data', data);
-        window.location.href = `${HOST_NAME}/pages/bus`;
+        window.location.href = `/pages/bus`;
       },
       error: function (error) {
         console.log('error', error);

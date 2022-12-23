@@ -4,7 +4,8 @@
     let userInfo = localStorage.getItem('userInfo');
     if (typeof userInfo !== 'undefined' && userInfo !== null) {
       userInfo = userInfo ? JSON.parse(userInfo) : {};
-      if (!userInfo.token) {
+      console.log('userInfo', userInfo);
+      if (!userInfo?.token?.token) {
         alert('You are not authorized to access this page');
         return false;
       } else {
@@ -14,10 +15,11 @@
             headers: {
               Accept: 'application/json',
               'Content-Type': 'application/json',
-              Authorization: `Bearer ${userInfo.token}`,
+              Authorization: `Bearer ${userInfo?.token?.token}`,
             },
           });
           response = await response.json();
+          console.log('response', response);
           if (!response) return false;
           if (typeof response.data === 'undefined' || response.data === null) {
             return false;
@@ -32,7 +34,6 @@
 
   const check = await isAuthenticated();
   if (!check) {
-    console.log('vui');
-    // window.location.href = 'http://localhost:5000/pages/sign-in.html';
+    // window.location.href = `/pages/sign-in.html`;
   }
 })();
