@@ -2,7 +2,7 @@ const isAuthenticated = async () => {
   let userInfo = await localStorage.getItem('userInfo');
   if (typeof userInfo !== 'undefined' && userInfo !== null) {
     userInfo = (await userInfo) ? JSON.parse(userInfo) : {};
-    if (!userInfo.token.token) {
+    if (!userInfo?.token?.token) {
       alert('You are not authorized to access this page');
       return false;
     } else {
