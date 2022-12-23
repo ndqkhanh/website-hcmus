@@ -16,6 +16,12 @@ commentLimit = 2;
 userRating = 1;
 maxCommentNum = null;
 $(document).ready(function () {
+  const breadcrumbTemplate = `
+    <li class='breadcrumb-item pb-0'><a href='/'>Home</a></li>
+    <li class='breadcrumb-item active' aria-current='page'>List</li>
+    `;
+
+  $("#breadcrumb-container").html(breadcrumbTemplate);
   /**
    * Get parameter from URL
    */
