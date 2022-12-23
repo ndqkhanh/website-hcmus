@@ -24,6 +24,7 @@ $(document).ready(function () {
         image_url,
       }),
       success: function (data) {
+        window.location.href = "http://localhost:5000/pages/bus-operator";
         console.log("data", data);
       },
       error: function (error) {

@@ -21,7 +21,7 @@ $(document).ready(function () {
         var buses = data.data;
         if (buses.length === 0) {
           $("#next").attr("disabled", true);
-          $("#booking-list").html(
+          $("#bus-list").html(
             `<tr><td colspan="6" class="text-center">No data</td></tr>`
           );
           return;
@@ -75,7 +75,17 @@ $(document).ready(function () {
           //                 </td>
           // `;
           html += '<td class="align-middle">' + bus.num_of_seats + "</td>";
-          html += `<td class="align-middle"><a href="/pages/bus/update.html?id=${bus.id}" class="btn btn-primary">Edit</a></td>`;
+          html += `<td class="align-middle">
+          <ul class="list-unstyled">
+          <li>
+          <a href="/pages/bus/update.html?id=${bus.id}" class="btn btn-primary">Edit</a> 
+          </li>
+          <li>
+          <a href="" class="btn btn-warning my-1" id="removed" bid="${bus.id}">Remove</a>
+          </li>
+          </ul>
+          </td>`;
+          
           html += "</tr>";
         });
         $("#bus-list").html(html);
@@ -108,4 +118,7 @@ $(document).ready(function () {
       $("#prev").attr("disabled", false);
     }
   });
+  $("#booking-list").on("click","#remove",(e)=>{
+    e.preventDefault();
+  })
 });
