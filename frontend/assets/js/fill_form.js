@@ -244,6 +244,34 @@ $(document).ready(async function () {
                 },
               });
             });
+            $('#pay-btn').click(function () {
+              console.log('pay');
+              $.ajax({
+                url: `${BACKEND_URL}/ticket/payment`,
+                type: 'POST',
+                dataType: 'json',
+                headers: {
+                  Accept: 'application/json',
+                  'Content-Type': 'application/json',
+                  Authorization: `Bearer ${token}`,
+                },
+                data: JSON.stringify({
+                  ticket_ids: response.ticket_ids,
+                }),
+                success: function (response) {
+                  console.log('[SUCCESS]', response);
+                  $('#exampleModal').modal('show');
+                  $('#pdf-btn').click(function () {
+                    const node = $('#table').html();
+                    console.log(node);
+                    printJS('table', 'html');
+                  });
+                },
+                error: function (error) {
+                  alert('[ERROR]', 'Payment failed');
+                },
+              });
+            });
           }
         },
         error: function (error) {
