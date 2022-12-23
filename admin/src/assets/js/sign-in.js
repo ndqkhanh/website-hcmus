@@ -23,7 +23,7 @@
         else {
           if (response.user.role === 0 || response.user.role === 1) {
             localStorage.setItem('userInfo', JSON.stringify(response));
-            window.location.href = '/';
+            window.location.href = HOST_NAME;
           } else {
             alert('You are not authorized to access this page');
           }

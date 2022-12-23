@@ -2,6 +2,6 @@
 (function () {
   $('#log-out-btn').click(function () {
     localStorage.removeItem('userInfo');
-    window.location.href = '/pages/sign-in.html';
+    window.location.href = `${HOST_NAME}/pages/sign-in.html`;
   });
 })();
