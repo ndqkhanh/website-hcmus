@@ -28,7 +28,7 @@
 
   const check = await isAuthenticated();
   if (!check) {
-    console.log('vui');
-    // window.location.href = 'http://localhost:5000/pages/sign-in.html';
+    // console.log('vui');
+    window.location.href = 'http://localhost:5000/pages/sign-in.html';
   }
 })();
