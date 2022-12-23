@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 (async function () {
   const isAuthenticated = async () => {
     let userInfo = await localStorage.getItem("userInfo");
@@ -18,19 +18,17 @@
               Authorization: `Bearer ${userInfo.token.token}`,
             },
           }
-        );
-        response = await response.json();
-        if (!response) return false;
-        if (typeof response.data === "undefined" || response.data === null) {
+          return true;
+        } catch (error) {
           return false;
         }
-        return true;
       }
     } else return false;
   };
 
   const check = await isAuthenticated();
   if (!check) {
-    window.location.href = "http://localhost:5000/pages/sign-in.html";
+    console.log('vui');
+    // window.location.href = 'http://localhost:5000/pages/sign-in.html';
   }
 })();
