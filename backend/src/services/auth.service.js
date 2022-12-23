@@ -1,10 +1,15 @@
+const nodemailer = require('nodemailer');
 const httpStatus = require('http-status');
 const bcrypt = require('bcrypt');
 const tokenService = require('./token.service');
 const userService = require('./user.service');
 const Token = require('../models/token.model');
 const ApiError = require('../utils/ApiError');
+
 const { tokenTypes } = require('../config/tokens');
+
+const { PrismaClient } = require('@prisma/client');
+const prisma = new PrismaClient();
 
 /**
  * Login with email and password
@@ -84,24 +89,100 @@ const resetPassword = async (email, newPassword, repassword) => {
  * @param {string} verifyEmailToken
  * @returns {Promise}
  */
-const verifyEmail = async (verifyEmailToken) => {
+const verifyEmail = async (req) => {
   try {
-    const verifyEmailTokenDoc = await tokenService.verifyToken(verifyEmailToken, tokenTypes.VERIFY_EMAIL);
-    const user = await userService.getUserById(verifyEmailTokenDoc.user);
-    if (!user) {
-      throw new Error();
-    }
-    await Token.deleteMany({ user: user.id, type: tokenTypes.VERIFY_EMAIL });
-    await userService.updateUserById(user.id, { isEmailVerified: true });
+    const email = req.body.email;
+    const otp = req.body.otp;
+    const user = await prisma.users.findFirst({
+      where: {
+        email,
+      },
+    });
+
+    const verification = await prisma.user_verification.findFirst({
+      where: {
+        uid: user.id,
+      },
+    });
+    console.log('otp', otp);
+    console.log('verification.code', verification.code);
+    if (!verification || verification.code !== otp) return false;
+
+    await prisma.users.update({
+      where: {
+        id: user.id,
+      },
+      data: {
+        verification: true,
+      },
+    });
+    return true;
   } catch (error) {
     throw new ApiError(httpStatus.UNAUTHORIZED, 'Email verification failed');
   }
 };
+const sendEmail = async (req) => {
+  const email = req.body.email;
 
+  const user = await prisma.users.findFirst({
+    where: {
+      email,
+    },
+  });
+
+  let user_verification = await prisma.user_verification.findFirst({
+    where: {
+      uid: user.id,
+    },
+  });
+
+  if (!user_verification || user_verification === {}) {
+    user_verification = await prisma.user_verification.create({
+      data: {
+        uid: user.id,
+      },
+    });
+  }
+  console.log(user_verification);
+
+  try {
+    const transporter = nodemailer.createTransport({
+      host: 'smtp.sendgrid.net',
+      port: 465,
+      secure: true,
+      auth: {
+        user: 'apikey',
+        pass: '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',
+      },
+    });
+
+    const mailOptions = {
+      from: 'Web-HCMUS <group9notification@gmail.com>',
+      to: email,
+      subject: 'Verify email',
+      text: '\nPlease enter your code ' + user_verification.code,
+    };
+
+    // await transporter.sendMail(mailOptions, function (error, info) {
+    //   if (error) {
+    //     console.log(error);
+    //     return false;
+    //   } else {
+    //     console.log('Email sent ' + info.response);
+    //     return true;
+    //   }
+    // });
+  } catch (error) {
+    console.log('email not sent');
+    console.log(error);
+    return false;
+  }
+};
 module.exports = {
   loginUserWithEmailAndPassword,
   logout,
   refreshAuth,
   resetPassword,
   verifyEmail,
+  sendEmail,
 };
