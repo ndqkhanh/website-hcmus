@@ -4,12 +4,12 @@ function secondsToHms(d) {
   var m = Math.floor((d % 3600) / 60);
   var s = Math.floor((d % 3600) % 60);
 
-  var hDisplay = h > 0 ? h + (h == 1 ? " hour, " : "h") : "";
-  var mDisplay = m > 0 ? m + (m == 1 ? " minute, " : "m") : "";
-  var sDisplay = s > 0 ? s + (s == 1 ? " second" : "s") : "";
+  var hDisplay = h > 0 ? h + (h == 1 ? ' hour, ' : 'h') : '';
+  var mDisplay = m > 0 ? m + (m == 1 ? ' minute, ' : 'm') : '';
+  var sDisplay = s > 0 ? s + (s == 1 ? ' second' : 's') : '';
   return hDisplay + mDisplay + sDisplay;
 }
-var userInfo = JSON.parse(localStorage.getItem("userInfo"));
+var userInfo = JSON.parse(localStorage.getItem('userInfo'));
 var token = userInfo.token.token;
 commentPage = 0;
 commentLimit = 2;
@@ -20,7 +20,7 @@ $(document).ready(function () {
    * Get parameter from URL
    */
   function getUrlParameter(name) {
-    let results = new RegExp("[?&]" + name + "=([^&#]*)").exec(
+    let results = new RegExp('[?&]' + name + '=([^&#]*)').exec(
       window.location.href
     );
     if (results == null) {
@@ -30,13 +30,13 @@ $(document).ready(function () {
   }
   let page = 0;
 
-  $("#filter-pricing").on("input", function () {
-    const price = $("#filter-pricing").val();
-    $("#current-pricing").text(numberWithThoundsand(price));
+  $('#filter-pricing').on('input', function () {
+    const price = $('#filter-pricing').val();
+    $('#current-pricing').text(numberWithThoundsand(price));
   });
 
   function numberWithThoundsand(x) {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
   }
   function loadMore(reset = false) {
     const template = `<div class='mb-4 card bus-ticket'>
@@ -71,7 +71,7 @@ $(document).ready(function () {
               </div>
             </div>
             <div class='col-md-3 text-end'>
-              <h4 class='fw-bold text-primary'>{{price}}đ</h4>
+              <h5 class='fw-bold text-primary'>{{price}} đ</h5>
               <p class='mb-0'>
                 <small class='text-muted'>{{left_seats}} seats available</small>
               </p>
@@ -108,18 +108,18 @@ $(document).ready(function () {
     </div>
   </div>`;
     const templateScript = Handlebars.compile(template);
-    let html = "";
+    let html = '';
     //  (0 - Limousine, 1 - Normal Seat, 2 - Sleeper Bus)
-    const busTypeText = ["Limousine", "Normal Seat", "Sleeper Bus"];
-    const busOperator = $("#filter-bus-operator").val();
+    const busTypeText = ['Limousine', 'Normal Seat', 'Sleeper Bus'];
+    const busOperator = $('#filter-bus-operator').val();
     const busType = $('[name="typeOfSeat"]:checked').val();
-    const price = $("#filter-pricing").val();
-    const deparature = getUrlParameter("startPoint");
-    const destination = getUrlParameter("endPoint");
-    const date = getUrlParameter("startTime");
+    const price = $('#filter-pricing').val();
+    const deparature = getUrlParameter('startPoint');
+    const destination = getUrlParameter('endPoint');
+    const date = getUrlParameter('startTime');
 
     if (page == 0) {
-      $("#load-more").show();
+      $('#load-more').show();
     }
 
     $.post(
@@ -128,15 +128,15 @@ $(document).ready(function () {
         startPoint: deparature,
         endPoint: destination,
         page,
-        limit: 1,
-        boId: busOperator === "" ? undefined : busOperator,
+        limit: 10,
+        boId: busOperator === '' ? undefined : busOperator,
         type: parseInt(busType),
         price: parseInt(price),
         startTime: date,
       },
       function (data) {
         if (data.data.length === 0 && reset === false) {
-          $("#load-more").hide();
+          $('#load-more').hide();
           return;
         }
         for (const item of data.data) {
@@ -149,17 +149,17 @@ $(document).ready(function () {
             bus_operator_rating: Math.round(item.averageReviews * 100) / 100,
             start_point_time:
               new Date(item.start_time).getHours() +
-              ":" +
+              ':' +
               new Date(item.start_time).getSeconds(),
             start_point_date: new Date(item.start_time)
               .toISOString()
-              .split("T")[0],
+              .split('T')[0],
             start_point_name: item.start_point.name,
             end_point_time:
               new Date(item.end_time).getHours() +
-              ":" +
+              ':' +
               new Date(item.end_time).getSeconds(),
-            end_point_date: new Date(item.end_time).toISOString().split("T")[0],
+            end_point_date: new Date(item.end_time).toISOString().split('T')[0],
             end_point_name: item.start_point.name,
             left_seats: item.left_seats,
             price: numberWithThoundsand(item.price),
@@ -169,9 +169,9 @@ $(document).ready(function () {
         }
 
         if (page === 0) {
-          $("#list-of-buses-div").html(html);
+          $('#list-of-buses-div').html(html);
         } else {
-          $("#list-of-buses-div").append(html);
+          $('#list-of-buses-div').append(html);
         }
       }
     );
@@ -179,17 +179,36 @@ $(document).ready(function () {
 
   loadMore();
 
-  $("#list-of-buses-div").on("click", ".book-bus", function () {
-    const bid = $(this).attr("bid");
-    window.location.href = "/fill-form/" + bid;
+  $('#list-of-buses-div').on('click', '.book-bus', function () {
+    const bid = $(this).attr('bid');
+    window.location.href = '/fill-form/' + bid;
   });
 
-  $("#load-more").click(function () {
-    page++;
-    loadMore();
+  // $('#load-more').click(function () {
+  //   page++;
+  //   loadMore();
+  // });
+
+  // $(window).scroll(function () {
+  //   if ($(window).scrollTop() + $(window).height() > $(document).height()) {
+  //     // alert("near bottom!");
+
+  //   }
+  // });
+
+  $(window).on('scroll', function () {
+    if (
+      $(window).scrollTop() >=
+      $('#list-of-buses-div').offset().top +
+        $('#list-of-buses-div').outerHeight() -
+        window.innerHeight
+    ) {
+      page++;
+      loadMore();
+    }
   });
 
-  $("#filter").click(function () {
+  $('#filter').click(function () {
     page = 0;
     loadMore(true);
   });
@@ -198,8 +217,8 @@ $(document).ready(function () {
     $.get(`${BACKEND_URL}/bus-operator/list/0/1000`, function (data) {
       if (data.data.length > 0) {
         data.data.forEach((item) => {
-          $("#filter-bus-operator").append(
-            $("<option></option>").attr("value", item.id).text(item.name)
+          $('#filter-bus-operator').append(
+            $('<option></option>').attr('value', item.id).text(item.name)
           );
         });
       }
@@ -210,7 +229,7 @@ function viewDetail(id, averRating) {
   maxCommentNum = null;
   commentPage = 0;
   function generateStart(num) {
-    star = "";
+    star = '';
     for (let i = 0; i < num; ++i)
       star += "<i class='text-warning bi bi-star-fill'></i>";
     for (let i = num; i < 5; ++i)
@@ -229,16 +248,16 @@ function viewDetail(id, averRating) {
         <p class='fw-light fst-italic'>{{comment}}</p>
       </div>
     </div>`;
-    commentContent = "";
+    commentContent = '';
     commentScript = Handlebars.compile(commentHTMLTemplate);
     $.ajax({
       url: `${BACKEND_URL}/bus-operator/review/${bo_id}/${commentPage}/${commentLimit}`,
-      type: "GET",
+      type: 'GET',
       async: false,
       headers: {
         Authorization: `Bearer`,
-        "Content-Type": "application/json",
-        Accept: "application/json",
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
       },
       success: function (data) {
         if (maxCommentNum == null || maxCommentNum < data.count)
@@ -254,13 +273,13 @@ function viewDetail(id, averRating) {
         }
       },
       error: function (result) {
-        alert("Error", JSON.stringify(result));
+        alert('Error', JSON.stringify(result));
       },
     });
     return commentContent;
   }
 
-  const typeName = ["Limousine", "Normal Seat", "Sleeper Bus"];
+  const typeName = ['Limousine', 'Normal Seat', 'Sleeper Bus'];
   template = `<div class='tab-pane fade show active' id='pills-bus-operator' role='tabpanel'
   aria-labelledby='pills-bus-operator-tab' tabindex='0'>
   <div class='p-4 col'>
@@ -377,7 +396,7 @@ function viewDetail(id, averRating) {
   </div>
 </div>`;
   const templateScript = Handlebars.compile(template);
-  html = "";
+  html = '';
   $.get(`${BACKEND_URL}/bus/${id}`, {}, function (data) {
     let duration = (new Date(data.end_time) - new Date(data.start_time)) / 1000;
     if (data) {
@@ -399,46 +418,46 @@ function viewDetail(id, averRating) {
         user_comment: generateComment(data.bus_operators.id),
       });
       //generateComment();
-      $("#pills-bus-operator-tab").addClass("active");
-      $("#pills-bus-information-tab").removeClass("active");
-      $("#pills-tabContent").children().remove();
-      $("#pills-tabContent").append(html);
-      $("#policy").children().addClass("ps-0");
-      $("#policy").children().css("list-style-type", "none");
-      $("#Previous").click(() => {
+      $('#pills-bus-operator-tab').addClass('active');
+      $('#pills-bus-information-tab').removeClass('active');
+      $('#pills-tabContent').children().remove();
+      $('#pills-tabContent').append(html);
+      $('#policy').children().addClass('ps-0');
+      $('#policy').children().css('list-style-type', 'none');
+      $('#Previous').click(() => {
         if (commentPage > 0) {
           commentPage--;
-          $("#user_comment").children().remove();
-          $("#user_comment").append(generateComment(data.bus_operators.id));
+          $('#user_comment').children().remove();
+          $('#user_comment').append(generateComment(data.bus_operators.id));
         }
       });
-      $("#Next").click(() => {
+      $('#Next').click(() => {
         if (commentPage < Math.floor(maxCommentNum / commentLimit) - 1) {
           commentPage++;
-          $("#user_comment").children().remove();
-          $("#user_comment").append(generateComment(data.bus_operators.id));
+          $('#user_comment').children().remove();
+          $('#user_comment').append(generateComment(data.bus_operators.id));
         }
       });
-      $("#user_review").on("submit", (e) => {
+      $('#user_review').on('submit', (e) => {
         e.preventDefault();
         $.ajax({
           url: `${BACKEND_URL}/bus-operator/review/create/${data.bus_operators.id}`,
-          type: "POST",
+          type: 'POST',
           headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-            Accept: "application/json",
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
           },
           data: JSON.stringify({
-            comment: $("#floatingTextarea2").val(),
+            comment: $('#floatingTextarea2').val(),
             rate: userRating,
           }),
           success: function (data) {
-            $("#floatingTextarea2").val("");
-            alert("Success");
+            $('#floatingTextarea2').val('');
+            alert('Success');
           },
           error: function (result) {
-            alert("Error", JSON.stringify(result));
+            alert('Error', JSON.stringify(result));
           },
         });
       });
@@ -448,13 +467,13 @@ function viewDetail(id, averRating) {
 function displayAndStoreUserRating(starID) {
   userRating = starID;
   for (let i = 1; i <= 5; ++i) {
-    $(`#rating #${i}`).removeClass("bi-star-fill");
-    $(`#rating #${i}`).removeClass("bi-star");
+    $(`#rating #${i}`).removeClass('bi-star-fill');
+    $(`#rating #${i}`).removeClass('bi-star');
   }
   for (let i = 1; i <= starID; ++i) {
-    $(`#rating #${i}`).addClass("bi bi-star-fill");
+    $(`#rating #${i}`).addClass('bi bi-star-fill');
   }
   for (let i = starID + 1; i <= 5; ++i) {
-    $(`#rating #${i}`).addClass("bi bi-star");
+    $(`#rating #${i}`).addClass('bi bi-star');
   }
 }
