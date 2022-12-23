@@ -118,7 +118,30 @@ $(document).ready(function () {
       $('#prev').attr('disabled', false);
     }
   });
-  $("#booking-list").on("click","#remove",(e)=>{
+  //removed bus
+  $("#bus-list").on("click", "#removed", function (e) {
     e.preventDefault();
-  })
+    var bid = e.target.getAttribute("bid");
+    let text = "Remove this bus";
+    if(confirm(text) == true){
+      let userInfo = localStorage.getItem("userInfo");
+      userInfo = JSON.parse(userInfo);
+      let token = userInfo?.token?.token;
+      $.ajax({
+        url: `${HOST_NAME}/v1/admin/bus/delete/${bid}`,
+        type: "POST",
+        dataType: "json",
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+        success: function (data) {
+          loadListBookings();
+        },
+        error: function (data) {
+          console.log(data);
+        },
+      });
+      
+    }
+  });
 });

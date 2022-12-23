@@ -34,6 +34,6 @@
 
   const check = await isAuthenticated();
   if (!check) {
-    // window.location.href = `/pages/sign-in.html`;
+    window.location.href = `/pages/sign-in.html`;
   }
 })();
