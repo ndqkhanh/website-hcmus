@@ -55,7 +55,7 @@ $(document).ready(async function () {
 
     date = date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear();
 
-    let url = `http://localhost:4000/list?startPoint=${deparature}&endPoint=${destination}&startTime=${date}`;
+    let url = `/list?startPoint=${deparature}&endPoint=${destination}&startTime=${date}`;
 
     $.ajax(`${BACKEND_URL}/bus/search`, {
       method: 'POST',
