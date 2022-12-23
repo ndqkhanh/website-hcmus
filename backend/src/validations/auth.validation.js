@@ -9,6 +9,12 @@ const register = {
   }),
 };
 
+const sendEmail = {
+  body: Joi.object().keys({
+    email: Joi.string().email().required(),
+  }),
+};
+
 const login = {
   body: Joi.object().keys({
     email: Joi.string().email().required(),
@@ -43,8 +49,9 @@ const resetPassword = {
 };
 
 const verifyEmail = {
-  query: Joi.object().keys({
-    token: Joi.string().required(),
+  body: Joi.object().keys({
+    email: Joi.string().email().required(),
+    otp: Joi.string().uuid().required(), // User enter otp
   }),
 };
 
@@ -56,4 +63,5 @@ module.exports = {
   forgotPassword,
   resetPassword,
   verifyEmail,
+  sendEmail,
 };

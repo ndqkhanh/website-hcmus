@@ -8,6 +8,7 @@ const prisma = new PrismaClient();
 
 const searchBus = async (body) => {
   const { startPoint, endPoint, page, limit, boId, price, type, startTime } = body;
+
   const query = {
     start_point: startPoint,
     end_point: endPoint,
