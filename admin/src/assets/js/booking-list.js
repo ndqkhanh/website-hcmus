@@ -7,7 +7,7 @@ $(document).ready(function () {
 
     const statusText = {
       0: "Booked",
-      1: "Paied",
+      1: "Paid",
       2: "Canceled",
     };
 
