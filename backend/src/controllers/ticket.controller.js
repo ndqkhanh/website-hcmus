@@ -7,6 +7,7 @@ const ApiError = require('../utils/ApiError');
 
 const createTicket = catchAsync(async (req, res) => {
   const result = await ticketService.createTicketByNumOfSeats(
+    req.user.email,
     req.user.id,
     req.params.busId,
     req.body.name,
@@ -64,10 +65,10 @@ const printTicket = catchAsync(async (req, res) => {
   res.send(ticketInfo);
 });
 
-const discardTicket = catchAsync(async(req,res) =>{
+const discardTicket = catchAsync(async (req, res) => {
   const result = await ticketService.discardTicket(req);
   res.send(result);
-})
+});
 module.exports = {
   discardTicket,
   createTicket,
