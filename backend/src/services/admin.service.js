@@ -1,5 +1,6 @@
 const { PrismaClient } = require('@prisma/client');
 const httpStatus = require('http-status');
+const { email } = require('../config/config');
 
 const prisma = new PrismaClient();
 const ApiError = require('../utils/ApiError');
@@ -84,10 +85,26 @@ const getBusById = async (busId) => {
   });
   return data;
 };
-const busList = async (page, limit) => {
-  const data = await prisma.buses.findMany({
+const busList = async (page, limit, req) => {
+  let data = null;
+  let condition = {};
+  if (req.user.role == 'bus_operator') {
+    user = await prisma.users.findFirst({
+      where: {
+        id: req.user.id,
+      },
+      select: {
+        boid: true,
+      },
+    });
+    condition = { bo_id: user.boid };
+  }
+  console.log(condition);
+  data = await prisma.buses.findMany({
     skip: page * limit,
     take: limit,
+    where: condition,
+
     include: {
       bus_operators: {
         select: {
@@ -110,10 +127,26 @@ const busList = async (page, limit) => {
 
   return { data };
 };
-const bookingList = async (page, limit) => {
-  const data = await prisma.bus_tickets.findMany({
+const bookingList = async (page, limit, req) => {
+  let data = null;
+  condition = {};
+  if (req.user.role == 'bus_operator') {
+    user = await prisma.users.findFirst({
+      where: {
+        id: req.user.id,
+      },
+      select: {
+        boid: true,
+      },
+    });
+    condition = { bo_id: user.boid };
+  }
+  data = await prisma.bus_tickets.findMany({
     skip: page * limit,
     take: limit,
+    where: {
+      buses: condition,
+    },
     include: {
       buses: {
         include: {

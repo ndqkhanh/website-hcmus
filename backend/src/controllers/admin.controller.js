@@ -24,13 +24,13 @@ const getBus = catchAsync(async (req, res) => {
 
 const busList = catchAsync(async (req, res) => {
   const { page, limit } = req.params;
-  const buses = await adminService.busList(page, limit);
+  const buses = await adminService.busList(page, limit, req);
   res.send(buses);
 });
 
 const bookingList = catchAsync(async (req, res) => {
   const { page, limit } = req.params;
-  const bookings = await adminService.bookingList(page, limit);
+  const bookings = await adminService.bookingList(page, limit, req);
   res.send(bookings);
 });
 
