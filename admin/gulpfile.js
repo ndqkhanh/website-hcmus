@@ -81,7 +81,7 @@ function fonts(callback) {
 
 // HTML
 function html(callback) {
-  src(paths.src.js);
+  src(paths.src.js).pipe(dest(paths.dist.js));
   return src([paths.src.html, '!./src/partials/**/*'])
     .pipe(
       fileinclude({

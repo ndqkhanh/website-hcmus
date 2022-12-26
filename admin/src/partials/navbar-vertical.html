@@ -20,44 +20,17 @@
         <div class="navbar-heading">Management</div>
       </li>
 
-      <li class="nav-item">
+      <li class="nav-item" id="bus-operator">
         <a
-          class="nav-link has-arrow @@if (context.page_group !== 'busOperators') { collapsed }"
-          href="#!"
-          data-bs-toggle="collapse"
-          data-bs-target="#busOperators"
-          aria-expanded="false"
-          aria-controls="busOperators"
+          class="nav-link @@if (context.page === 'layouts') { active }"
+          href="@@webRoot/pages/bus-operator"
         >
-          <i data-feather="corner-left-down" class="nav-icon icon-xs me-2"> </i>
-          Bus Operators
+          <i data-feather="sidebar" class="nav-icon icon-xs me-2"> </i>
+          Bus Operator
         </a>
-
-        <div
-          id="busOperators"
-          class="collapse @@if (context.page_group === 'busOperators') { show }"
-          data-bs-parent="#busOperators"
-        >
-          <ul class="nav flex-column">
-            <li class="nav-item">
-              <a
-                class="nav-link @@if (context.page === 'profile') { active }"
-                href="@@webRoot/pages/bus-operator/index.html"
-              >
-                List
-              </a>
-            </li>
-            <li class="nav-item">
-              <a
-                class="nav-link has-arrow @@if (context.page === 'settings') { active }"
-                href="@@webRoot/pages/bus-operator/create-bo.html"
-              >
-                Create
-              </a>
-            </li>
-          </ul>
-        </div>
       </li>
+
+        
 
       <!-- <li class="nav-item">
         <a
@@ -119,3 +92,12 @@
     </ul>
   </div>
 </nav>
+
+<script>
+  let userInfo = localStorage.getItem('userInfo');
+  userInfo = (userInfo)?JSON.parse(userInfo):null
+  role = userInfo?.user?.role
+  if(role == 1){
+    document.getElementById("bus-operator").setAttribute("hidden","true");
+  }
+</script>

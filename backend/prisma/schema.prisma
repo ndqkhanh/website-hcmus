@@ -9,16 +9,15 @@ datasource db {
 }
 
 model users {
-  id                String             @id(map: "users_pk") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  role              Int                @default(2) @db.SmallInt
-  email             String             @unique(map: "users_un") @db.VarChar(255)
-  password          Bytes
-  create_time       DateTime?          @default(now()) @db.Timestamptz(6)
-  update_time       DateTime?          @default(now()) @db.Timestamptz(6)
-  verification      Boolean            @default(false)
-  bus_tickets       bus_tickets[]
-  reviews           reviews[]
-  user_verification user_verification?
+  id          String        @id(map: "users_pk") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  role        Int           @default(2) @db.SmallInt
+  email       String        @unique(map: "users_un") @db.VarChar(255)
+  password    Bytes
+  create_time DateTime?     @default(now()) @db.Timestamptz(6)
+  update_time DateTime?     @default(now()) @db.Timestamptz(6)
+  boid        String?       @db.Uuid
+  bus_tickets bus_tickets[]
+  reviews     reviews[]
 }
 
 model bus_operators {

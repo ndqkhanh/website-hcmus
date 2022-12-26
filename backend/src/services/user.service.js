@@ -31,8 +31,14 @@ const createUser = async (userBody) => {
     },
   });
 
-  if (checkEmail) {
+  if (checkEmail && checkEmail.verification === true) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Username already taken');
+  } else if (checkEmail && checkEmail.verification === false) {
+    await prisma.users.delete({
+      where: {
+        email: userBody.email,
+      },
+    });
   }
 
   // eslint-disable-next-line no-param-reassign

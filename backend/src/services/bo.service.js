@@ -20,6 +20,9 @@ const getReviews = async (boId, page, limit) => {
   const data = await prisma.reviews.findMany({
     skip: page * limit,
     take: limit,
+    orderBy: {
+      rate: 'desc',
+    },
     where: {
       bo_id: boId,
     },

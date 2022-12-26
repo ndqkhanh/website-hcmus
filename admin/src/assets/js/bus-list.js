@@ -20,8 +20,8 @@ $(document).ready(function () {
       success: function (data) {
         var buses = data.data;
         if (buses.length === 0) {
-          $('#next').attr('disabled', true);
-          $('#booking-list').html(
+          $("#next").attr("disabled", true);
+          $("#bus-list").html(
             `<tr><td colspan="6" class="text-center">No data</td></tr>`
           );
           return;
@@ -74,9 +74,19 @@ $(document).ready(function () {
           //                   }</span>
           //                 </td>
           // `;
-          html += '<td class="align-middle">' + bus.num_of_seats + '</td>';
-          html += `<td class="align-middle"><a href="/pages/bus/update.html?id=${bus.id}" class="btn btn-primary">Edit</a></td>`;
-          html += '</tr>';
+          html += '<td class="align-middle">' + bus.num_of_seats + "</td>";
+          html += `<td class="align-middle">
+          <ul class="list-unstyled">
+          <li>
+          <a href="/pages/bus/update.html?id=${bus.id}" class="btn btn-primary">Edit</a> 
+          </li>
+          <li>
+          <a href="" class="btn btn-warning my-1" id="removed" bid="${bus.id}">Remove</a>
+          </li>
+          </ul>
+          </td>`;
+          
+          html += "</tr>";
         });
         $('#bus-list').html(html);
       },
@@ -106,6 +116,32 @@ $(document).ready(function () {
       $('#prev').attr('disabled', true);
     } else {
       $('#prev').attr('disabled', false);
+    }
+  });
+  //removed bus
+  $("#bus-list").on("click", "#removed", function (e) {
+    e.preventDefault();
+    var bid = e.target.getAttribute("bid");
+    let text = "Remove this bus";
+    if(confirm(text) == true){
+      let userInfo = localStorage.getItem("userInfo");
+      userInfo = JSON.parse(userInfo);
+      let token = userInfo?.token?.token;
+      $.ajax({
+        url: `${HOST_NAME}/v1/admin/bus/delete/${bid}`,
+        type: "POST",
+        dataType: "json",
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+        success: function (data) {
+          loadListBookings();
+        },
+        error: function (data) {
+          console.log(data);
+        },
+      });
+      
     }
   });
 });
