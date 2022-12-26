@@ -1,5 +1,5 @@
 var page = 0;
-var limit = 1;
+var limit = 5;
 var typeOfBus = ['Limousine', 'Normal Seat', 'Sleeper Bus'];
 var statusBook = ['Just booked', 'Booked', 'Canceled payment'];
 var userInfo = JSON.parse(localStorage.getItem('userInfo'));
