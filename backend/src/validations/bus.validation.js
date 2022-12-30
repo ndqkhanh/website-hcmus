@@ -1,4 +1,4 @@
-const Joi = require('joi');
+const Joi = require('joi').extend(require('@joi/date'));
 
 const searchBus = {
   body: Joi.object().keys({
@@ -26,8 +26,8 @@ const getBusInformation = {
 const cloneBus = {
   body: Joi.object().keys({
     id: Joi.string().uuid().required(),
-    start_time: Joi.date().required(),
-    end_time: Joi.date().required(),
+    start_time: Joi.date().format(['YYYY/MM/DD']).required(),
+    end_time: Joi.date().format(['YYYY/MM/DD']).required(),
   }),
 };
 module.exports = {

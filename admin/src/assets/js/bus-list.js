@@ -1,21 +1,21 @@
 $(document).ready(function () {
   let page = 0;
   const loadListBookings = (limit = 10) => {
-    let userInfo = localStorage.getItem('userInfo');
+    let userInfo = localStorage.getItem("userInfo");
     userInfo = JSON.parse(userInfo);
     let token = userInfo.token.token;
 
     const typeOfBus = {
-      0: 'Limousine',
-      1: 'Normal Seat',
-      2: 'Sleeper Bus',
+      0: "Limousine",
+      1: "Normal Seat",
+      2: "Sleeper Bus",
     };
     $.ajax({
       url: `${HOST_NAME}/v1/admin/bus/list/${page}/${limit}`,
-      type: 'GET',
-      dataType: 'json',
+      type: "GET",
+      dataType: "json",
       headers: {
-        Authorization: 'Bearer ' + token,
+        Authorization: "Bearer " + token,
       },
       success: function (data) {
         var buses = data.data;
@@ -26,13 +26,13 @@ $(document).ready(function () {
           );
           return;
         } else {
-          $('#next').attr('disabled', false);
+          $("#next").attr("disabled", false);
         }
 
-        var html = '';
+        var html = "";
         $.each(buses, function (index, bus) {
           console.log(bus);
-          html += '<tr>';
+          html += "<tr>";
           // html += '<td>' + booking.id + '</td>';
 
           html += `<td class="align-middle">
@@ -60,13 +60,13 @@ $(document).ready(function () {
           html +=
             '<td class="align-middle">' +
             bus.bus_stations_bus_stationsTobuses_start_point.name +
-            '</td>';
+            "</td>";
 
           html +=
             '<td class="align-middle">' +
             bus.bus_stations_bus_stationsTobuses_end_point.name +
-            '</td>';
-          html += '<td class="align-middle">' + typeOfBus[bus.type] + '</td>';
+            "</td>";
+          html += '<td class="align-middle">' + typeOfBus[bus.type] + "</td>";
           // html += `
           // <td class="align-middle">
           //                   <span class="badge bg-warning">${
@@ -81,14 +81,14 @@ $(document).ready(function () {
           <a href="/pages/bus/update.html?id=${bus.id}" class="btn btn-primary">Edit</a> 
           </li>
           <li>
-          <a href="" class="btn btn-warning my-1" id="removed" bid="${bus.id}">Remove</a>
+          <a href="/pages/bus/clone.html?id=${bus.id}" class="btn btn-warning my-1" id="clone" bid="${bus.id}">Clone</a>
           </li>
           </ul>
           </td>`;
-          
+
           html += "</tr>";
         });
-        $('#bus-list').html(html);
+        $("#bus-list").html(html);
       },
       error: function (data) {
         console.log(data);
@@ -98,24 +98,24 @@ $(document).ready(function () {
 
   loadListBookings();
   // handle pagination next and prev
-  $('#next').click(function () {
+  $("#next").click(function () {
     page++;
     loadListBookings();
 
     if (page > 0) {
-      $('#prev').attr('disabled', false);
+      $("#prev").attr("disabled", false);
     } else {
-      $('#prev').attr('disabled', true);
+      $("#prev").attr("disabled", true);
     }
   });
-  $('#prev').click(function () {
+  $("#prev").click(function () {
     page--;
     loadListBookings();
 
     if (page === 0) {
-      $('#prev').attr('disabled', true);
+      $("#prev").attr("disabled", true);
     } else {
-      $('#prev').attr('disabled', false);
+      $("#prev").attr("disabled", false);
     }
   });
   //removed bus
@@ -123,7 +123,7 @@ $(document).ready(function () {
     e.preventDefault();
     var bid = e.target.getAttribute("bid");
     let text = "Remove this bus";
-    if(confirm(text) == true){
+    if (confirm(text) == true) {
       let userInfo = localStorage.getItem("userInfo");
       userInfo = JSON.parse(userInfo);
       let token = userInfo?.token?.token;
@@ -141,7 +141,6 @@ $(document).ready(function () {
           console.log(data);
         },
       });
-      
     }
   });
 });
