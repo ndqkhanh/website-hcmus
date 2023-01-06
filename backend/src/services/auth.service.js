@@ -82,6 +82,7 @@ const resetPassword = async (email, newPassword, repassword) => {
   } catch (error) {
     throw new ApiError(httpStatus.UNAUTHORIZED, 'Password reset failed');
   }
+  return true;
 };
 
 /**
@@ -152,7 +153,7 @@ const sendEmail = async (req) => {
       secure: true,
       auth: {
         user: 'apikey',
-        pass: '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',
+        pass: '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',
       },
     });
 
@@ -163,20 +164,21 @@ const sendEmail = async (req) => {
       text: '\nPlease enter your code ' + user_verification.code,
     };
 
-    await transporter.sendMail(mailOptions, function (error, info) {
-      if (error) {
-        console.log(error);
-        return false;
-      } else {
-        console.log('Email sent ' + info.response);
-        return true;
-      }
-    });
+    // await transporter.sendMail(mailOptions, function (error, info) {
+    //   if (error) {
+    //     console.log(error);
+    //     return false;
+    //   } else {
+    //     console.log('Email sent ' + info.response);
+    //     return true;
+    //   }
+    // });
   } catch (error) {
     console.log('email not sent');
     console.log(error);
     return false;
   }
+  return true;
 };
 module.exports = {
   loginUserWithEmailAndPassword,
