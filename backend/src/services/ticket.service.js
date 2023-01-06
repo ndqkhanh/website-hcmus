@@ -13,19 +13,6 @@ const ApiError = require('../utils/ApiError');
 const prisma = new PrismaClient();
 
 const payTicket = async (ticketIds) => {
-  const checkTicketIDExist = await prisma.bus_tickets.findMany({
-    where: {
-      status: 0,
-      id: {
-        in: ticketIds,
-      },
-    },
-  });
-
-  if (checkTicketIDExist.length !== ticketIds.length) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'Ticket ID Not found');
-  }
-
   for (let i = 0; i < ticketIds.length; i++) {
     const ticket = await prisma.bus_tickets.update({
       where: {
@@ -157,9 +144,9 @@ const createTicketByNumOfSeats = async (email, userId, busId, name, phone, numOf
           <td class="quarter-width align-middle">${email}</td>
         </tr>
         <tr style="height: 80px">
-          <th class="quarter-width align-middle ps-4">Ticker id</th>
+          <th class="quarter-width align-middle ps-4">Ticket id</th>
           <td class="quarter-width align-middle">
-            <ul class="disc-list-style-type px-3">${result.ticket_ids.join('')}</ul>
+            <ul class="disc-list-style-type px-3">${result.ticket_ids.join('<br>')}</ul>
           </td>
           <th class="quarter-width align-middle ps-4">Bus operator</th>
           <td class="quarter-width align-middle">${result.bo_name}</td>
@@ -226,7 +213,7 @@ const createTicketByNumOfSeats = async (email, userId, busId, name, phone, numOf
     </table>
   </div>`;
 
-  const ticketIdsFormatted = result.ticket_ids.join('');
+  const ticketIdsFormatted = await result.ticket_ids.map((tid) => `<li>${tid}</li>`);
   const startTime = new Date(result.start_time).toLocaleDateString(undefined, {
     weekday: 'long',
     year: 'numeric',
@@ -258,7 +245,7 @@ const createTicketByNumOfSeats = async (email, userId, busId, name, phone, numOf
           <td class="quarter-width align-middle">{{email}}</td>
         </tr>
         <tr style="height: 80px">
-          <th class="quarter-width align-middle ps-4">Ticker id</th>
+          <th class="quarter-width align-middle ps-4">Ticket id</th>
           <td class="quarter-width align-middle">
             <ul class="disc-list-style-type px-3">{{ticketIdsFormatted}}</ul>
           </td>
@@ -368,7 +355,7 @@ const createTicketByNumOfSeats = async (email, userId, busId, name, phone, numOf
       secure: true,
       auth: {
         user: 'apikey',
-        pass: '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',
+        pass: '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',
       },
     });
 
@@ -376,7 +363,7 @@ const createTicketByNumOfSeats = async (email, userId, busId, name, phone, numOf
       from: 'Web-HCMUS <group9notification@gmail.com>',
       to: email,
       subject: 'Ticket information',
-      text: `<html><body>${template}</body></html>`,
+      html: `<html><body>${template}</body></html>`,
       attachments: [
         {
           filename: 'ticket-information.pdf',
@@ -386,14 +373,14 @@ const createTicketByNumOfSeats = async (email, userId, busId, name, phone, numOf
       ],
     };
 
-    // await transporter.sendMail(mailOptions, function (error, info) {
-    //   if (error) {
-    //     console.log(error);
-    //     return false;
-    //   }
-    //   console.log(`Email sent ${info.response}`);
-    //   return true;
-    // });
+    await transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error);
+        return false;
+      }
+      console.log(`Email sent ${info.response}`);
+      return true;
+    });
   } catch (error) {
     console.log('email not sent');
     console.log(error);

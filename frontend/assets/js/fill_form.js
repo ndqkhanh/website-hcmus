@@ -41,7 +41,7 @@ $(document).ready(async function () {
     <li class='breadcrumb-item active' aria-current='page'>Fill form</li>
     `;
 
-    $("#breadcrumb-container").html(breadcrumbTemplate);
+    $('#breadcrumb-container').html(breadcrumbTemplate);
 
     $.ajax({
       url: `${BACKEND_URL}/bus/${busId}`,
@@ -220,6 +220,12 @@ $(document).ready(async function () {
       </button>
     </div>
   </div>`;
+            console.log(
+              `response.ticket_ids`,
+              JSON.stringify({
+                ticket_ids: response.ticket_ids,
+              })
+            );
             $('#form-container').html(template);
             $('.home-btn').click(function () {
               $(location).attr('href', `/`);
@@ -253,7 +259,6 @@ $(document).ready(async function () {
               });
             });
             $('#pay-btn').click(function () {
-              console.log('pay');
               $.ajax({
                 url: `${BACKEND_URL}/ticket/payment`,
                 type: 'POST',
