@@ -205,9 +205,8 @@ $(document).ready(function () {
 
     if (!response) alert("Reset-password failed");
     else if (response.message) alert(response.message);
-    else if (response.user && response.token) {
-      response = JSON.stringify(response);
-      localStorage.setItem("userInfo", response);
+    else if (response.success) {
+
       $("#enterEmail").modal("toggle");
       console.log("Hello");
       $("#otpModal").modal("show");
@@ -236,11 +235,24 @@ $(document).ready(function () {
           }),
         });
         verifyEmail = await verifyEmail.json();
-
+        
+        console.log("verifyEmail", verifyEmail);
         if (verifyEmail.success == true) {
-          let userInfo = localStorage.getItem("userInfo");
+          /**Sign in again */
+          let data = await fetch(`${BACKEND_URL}/auth/signin`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json;charset=utf-8",
+            },
+            body: JSON.stringify({
+              email,
+              password: newPassword
+            }),
+          });
+          data = await data.json();
+          localStorage.setItem("userInfo", JSON.stringify(data));
+          let userInfo = data;
           console.log(userInfo);
-          userInfo = JSON.parse(userInfo);
 
          
           if (userInfo.token.token) {
