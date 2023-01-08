@@ -19,6 +19,8 @@ model users {
   bus_tickets       bus_tickets[]
   reviews           reviews[]
   user_verification user_verification[]
+  bus_operators     bus_operators?      @relation(fields: [bus_operatorsId], references: [id])
+  bus_operatorsId   String?             @db.Uuid
 }
 
 model bus_operators {
