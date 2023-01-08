@@ -19,8 +19,7 @@ model users {
   bus_tickets       bus_tickets[]
   reviews           reviews[]
   user_verification user_verification[]
-  bus_operators     bus_operators?      @relation(fields: [bus_operatorsId], references: [id])
-  bus_operatorsId   String?             @db.Uuid
+  bus_operators     bus_operators?      @relation(fields: [boid], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "users_fk")
 }
 
 model bus_operators {
