@@ -22,6 +22,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write \"./**/*.{ts,tsx,js,jsx,json}\" --end-of-line lf",
+    "prisma:generate": "prisma generate",
     "docker": "docker-compose -f docker-compose.yml up"
   },
   "keywords": [
