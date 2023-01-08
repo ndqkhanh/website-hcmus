@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    @@include("../../partials/head.html")
+    <title>Setting | Dash Ui - Bootstrap 5 Admin Dashboard Template</title>
+  </head>
+
+  <body class="bg-light">
+    <div id="db-wrapper">
+      <!-- navbar vertical -->
+      @@include('../../partials/navbar-vertical.html', { "page": "settings",
+      "page_group": "pages" })
+      <!-- page content -->
+      <div id="page-content">
+        @@include("../../partials/header.html")
+        <!-- Container fluid -->
+        <div class="container-fluid p-6">
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-12">
+              <!-- Page header -->
+
+              <div class="border-bottom pb-4 mb-4">
+                <h3 class="mb-0 fw-bold">Clone</h3>
+              </div>
+            </div>
+          </div>
+          <div class="row mb-8">
+            <div class="col-xl-3 col-lg-4 col-md-12 col-12">
+              <div class="mb-4 mb-lg-0">
+                <h4 class="mb-1">Bus</h4>
+                <p class="mb-0 fs-5 text-muted">Bus Clone</p>
+              </div>
+            </div>
+
+            <div class="col-xl-9 col-lg-8 col-md-12 col-12">
+              <!-- card -->
+              <div class="card">
+                <!-- card body -->
+                <div class="card-body">
+                  <div>
+                    <!-- border -->
+                    <div class="mb-6">
+                      <h4 class="mb-1">Basic information</h4>
+                    </div>
+                    <form id="clone-bus">
+                      <!-- row -->
+                      <div class="mb-3 row">
+                        <label
+                          for="Start Time"
+                          class="col-sm-4 col-form-label form-label"
+                          >Start Time</label
+                        >
+
+                        <div class="col-md-8 col-12">
+                          <div class="input-group date">
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="Start-Time"
+                              required
+                            />
+                            <span class="input-group-addon">
+                              <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- row -->
+                      <div class="mb-3 row">
+                        <label
+                          for="End Time"
+                          class="col-sm-4 col-form-label form-label"
+                          >End Time</label
+                        >
+
+                        <div class="col-md-8 col-12">
+                          <div class="input-group date">
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="End-Time"
+                              required
+                            />
+                            <span class="input-group-addon">
+                              <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="mb-3 row">
+                        <!-- button -->
+                        <div class="offset-md-4 col-md-8 col-12 mt-3">
+                          <button
+                            type="submit"
+                            class="btn btn-primary"
+                            id="Clone-Button"
+                          >
+                            Clone
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Scripts -->
+    @@include("../../partials/scripts.html")
+  </body>
+
+  <script src="@@webRoot/assets/js/bus-clone.js"></script>
+  <script>
+    $("#user-email").text(
+      JSON.parse(localStorage.getItem("userInfo")).user.email
+    );
+  </script>
+</html>

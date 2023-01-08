@@ -41,7 +41,7 @@ $(document).ready(async function () {
     <li class='breadcrumb-item active' aria-current='page'>Fill form</li>
     `;
 
-    $("#breadcrumb-container").html(breadcrumbTemplate);
+    $('#breadcrumb-container').html(breadcrumbTemplate);
 
     $.ajax({
       url: `${BACKEND_URL}/bus/${busId}`,
@@ -137,7 +137,7 @@ $(document).ready(async function () {
           </td>
         </tr>
         <tr style='height: 80px'>
-          <th class='quarter-width align-middle ps-4'>Ticker id</th>
+          <th class='quarter-width align-middle ps-4'>Ticket id</th>
           <td class='quarter-width align-middle'>
             <ul class='disc-list-style-type px-3'>
               ${ticketIds.join('')}
@@ -204,7 +204,7 @@ $(document).ready(async function () {
             ${response.seat_positions.join(', ')}
           </td>
           <th class='quarter-width align-middle ps-4'>Status</th>
-          <td class='quarter-width align-middle'>${
+          <td id="status-td" class='quarter-width align-middle'>${
             response.status === 0 ? 'Booked' : response.status === 1 ? 'Paid' : 'Canceled'
           }</td>
         </tr>
@@ -220,12 +220,18 @@ $(document).ready(async function () {
       </button>
     </div>
   </div>`;
+            console.log(
+              `response.ticket_ids`,
+              JSON.stringify({
+                ticket_ids: response.ticket_ids,
+              })
+            );
             $('#form-container').html(template);
             $('.home-btn').click(function () {
               $(location).attr('href', `/`);
             });
             $('#pay-btn').click(function () {
-              console.log('pay');
+              $('#status-td').text('Paid');
               $.ajax({
                 url: `${BACKEND_URL}/ticket/payment`,
                 type: 'POST',
@@ -253,7 +259,6 @@ $(document).ready(async function () {
               });
             });
             $('#pay-btn').click(function () {
-              console.log('pay');
               $.ajax({
                 url: `${BACKEND_URL}/ticket/payment`,
                 type: 'POST',

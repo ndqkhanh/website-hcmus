@@ -82,9 +82,6 @@ $(document).ready(function () {
    * Register
    */
   $("#btnContinueRegister").click(async function () {
-    $("#registerModal").modal("toggle");
-
-    $("#otpModal").modal("show");
 
     let email = $("#inputEmailRegister").val();
     let password = $("#inputPasswordRegister").val();
@@ -103,10 +100,10 @@ $(document).ready(function () {
       }),
     });
     response = await response.json();
-    console.log("response: ", response);
+
     if (!response) alert("Registerd failed");
     else if (response.message) alert(response.message);
-    else if (response.user && response.token) {
+    else if (response.user  && response.token) {
       alert("Please enter your otp code");
       $("#registerModal").modal("toggle");
 
@@ -122,7 +119,7 @@ $(document).ready(function () {
         }),
       });
 
-      // $("#btnContinueOtp").click(async function () {
+      $("#btnContinueOtp").click(async function () {
       let otp = $("#inputOTP").val();
       console.log("otp", otp);
 
@@ -143,6 +140,7 @@ $(document).ready(function () {
       console.log("verifyEmail ", verifyEmail.success);
       $("#otpModal").modal("toggle");
       if (verifyEmail.success === true) {
+
         $("#otpModal").modal("toggle");
         localStorage.setItem("userInfo", JSON.stringify(response));
         let userInfo = localStorage.getItem("userInfo");
@@ -176,7 +174,7 @@ $(document).ready(function () {
           });
         }
       } else alert("You failed to verify-email");
-      // });
+      });
     }
   });
 
@@ -207,9 +205,8 @@ $(document).ready(function () {
 
     if (!response) alert("Reset-password failed");
     else if (response.message) alert(response.message);
-    else if (response.user && response.token) {
-      response = JSON.stringify(response);
-      localStorage.setItem("userInfo", response);
+    else if (response.success) {
+
       $("#enterEmail").modal("toggle");
       console.log("Hello");
       $("#otpModal").modal("show");
@@ -238,14 +235,28 @@ $(document).ready(function () {
           }),
         });
         verifyEmail = await verifyEmail.json();
-
+        
+        console.log("verifyEmail", verifyEmail);
         if (verifyEmail.success == true) {
-          let userInfo = localStorage.getItem("userInfo");
+          /**Sign in again */
+          let data = await fetch(`${BACKEND_URL}/auth/signin`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json;charset=utf-8",
+            },
+            body: JSON.stringify({
+              email,
+              password: newPassword
+            }),
+          });
+          data = await data.json();
+          localStorage.setItem("userInfo", JSON.stringify(data));
+          let userInfo = data;
           console.log(userInfo);
-          userInfo = JSON.parse(userInfo);
 
-          $("#otpModal").modal("toggle");
+         
           if (userInfo.token.token) {
+            $("#otpModal").modal("toggle");
             alert("You have succesfully restore an account");
 
             $("#right-side-header").html(`      <span

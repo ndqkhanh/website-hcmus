@@ -28,6 +28,7 @@ model bus_operators {
   name      String
   buses     buses[]
   reviews   reviews[]
+  users     users[]
 
   @@index([name])
 }
