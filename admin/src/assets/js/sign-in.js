@@ -18,7 +18,7 @@
         password,
       }),
       success: function (response) {
-        if (!response) console.log('No response');
+        if (!response) alert('Login failed');
         else if (response.message) alert(response.message);
         else {
           if (response.user.role === 0 || response.user.role === 1) {
@@ -30,7 +30,8 @@
         }
       },
       error: function (error) {
-        console.log('[ERROR]', error);
+        // console.log('[ERROR]', error);
+        alert('Login failed');
       },
     });
   });

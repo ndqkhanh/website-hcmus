@@ -2,14 +2,14 @@ $(document).ready(function () {
   const MAX_LIMIT = 100;
   const OFFSET = 0;
 
-  let userInfo = localStorage.getItem("userInfo");
+  let userInfo = localStorage.getItem('userInfo');
   userInfo = JSON.parse(userInfo);
   let token = userInfo.token.token;
 
   let typeOfBusList = [
-    { value: 0, type: "Limousine" },
-    { value: 1, type: "Normal Seat" },
-    { value: 2, type: "Sleeper Bus" },
+    { value: 0, type: 'Limousine' },
+    { value: 1, type: 'Normal Seat' },
+    { value: 2, type: 'Sleeper Bus' },
   ];
 
   // $.ajax(`http://localhost:3000/v1/admin/bus/${id}`, {
@@ -50,108 +50,109 @@ $(document).ready(function () {
    */
 
   $.ajax(`${HOST_NAME}/v1/bus-operator/list/${OFFSET}/${MAX_LIMIT}`, {
-    method: "GET",
+    method: 'GET',
     headers: {
-      "Content-Type": "application/json;charset=utf-8",
-      Authorization: "Bearer " + token,
+      'Content-Type': 'application/json;charset=utf-8',
+      Authorization: 'Bearer ' + token,
     },
     success: function (data) {
       let boList = data.data;
       let boListString = `<select class="form-select" id="Bus-Operator">
       <option>Select Bus Operator</option>`;
       boList.forEach((item) => {
-        boListString += `<option value=${item.id}>${item.name}</option>`;
+        if (item.id != userInfo.user.boid) return;
+        boListString += `<option value='${item.id}'>${item.name}</option>`;
       });
-      boListString += "</select>";
-      $("#Bus-Operator").html(boListString);
+      boListString += '</select>';
+      $('#Bus-Operator').html(boListString);
     },
     error: function (error) {
       console.log(error);
     },
   });
-  $("#Bus-Operator").click(function () {
-    console.log($("#Bus-Operator").val());
+  $('#Bus-Operator').click(function () {
+    console.log($('#Bus-Operator').val());
   });
 
   /**
    * Show list of Start Point from db
    */
   $.ajax(`${HOST_NAME}/v1/bus-station/list`, {
-    method: "GET",
+    method: 'GET',
     headers: {
-      "Content-Type": "application/json;charset=utf-8",
-      Authorization: "Bearer " + token,
+      'Content-Type': 'application/json;charset=utf-8',
+      Authorization: 'Bearer ' + token,
     },
     success: function (data) {
       let startPointList = data.data;
       let startPointListHtml = `<select class="form-select" id="Start-Point"><option selected>Select Start Point</option>`;
       startPointList.forEach((startPoint) => {
-        startPointListHtml += `<option value=${startPoint.id}>${startPoint.name}, ${startPoint.location}</option>`;
+        startPointListHtml += `<option value='${startPoint.id}'>${startPoint.name}, ${startPoint.location}</option>`;
       });
-      startPointListHtml += "</select>";
+      startPointListHtml += '</select>';
 
-      $("#Start-Point").html(startPointListHtml);
+      $('#Start-Point').html(startPointListHtml);
     },
   });
-  $("#Start-Point").click(function () {
-    console.log("Start-Point: ", $("#Start-Point").val());
+  $('#Start-Point').click(function () {
+    console.log('Start-Point: ', $('#Start-Point').val());
   });
 
   /**
    * Show End Point List from DB
    */
   $.ajax(`${HOST_NAME}/v1/bus-station/list`, {
-    method: "GET",
+    method: 'GET',
     headers: {
-      "Content-Type": "application/json;charset=utf-8",
-      Authorization: "Bearer " + token,
+      'Content-Type': 'application/json;charset=utf-8',
+      Authorization: 'Bearer ' + token,
     },
     success: function (data) {
       let endPointList = data.data;
       let endPointListHtml = `<select class="form-select" id="End-Point"><option selected>Select End Point</option>`;
       endPointList.forEach((endPoint) => {
-        endPointListHtml += `<option value=${endPoint.id}>${endPoint.name}, ${endPoint.location}</option>`;
+        endPointListHtml += `<option value='${endPoint.id}'>${endPoint.name}, ${endPoint.location}</option>`;
       });
-      endPointListHtml += "</select>";
-      $("#End-Point").html(endPointListHtml);
+      endPointListHtml += '</select>';
+      $('#End-Point').html(endPointListHtml);
     },
   });
-  $("#End-Point").click(function () {
-    console.log("End Point", $("#End-Point").val());
+  $('#End-Point').click(function () {
+    console.log('End Point', $('#End-Point').val());
   });
 
   /**
    * Show list type of bus from DB
    */
-  $("#Type").replaceWith(`<select class="form-select" id="Type">
+  $('#Type').replaceWith(`<select class="form-select" id="Type">
    <option selected>Select Type</option>
    <option value="0">Limousine</option>
    <option value="1">Normal Seat</option>
    <option value="2">Sleeper Seat</option>
  </select>`);
 
-  $("#Type").click(function () {
-    console.log($("#Type").val());
+  $('#Type').click(function () {
+    console.log($('#Type').val());
   });
 
   /**
    * Update bus
    */
 
-  $("#Create-Button").click(function (e) {
+  $('#Create-Button').click(function (e) {
     e.preventDefault();
 
-    console.log("Hello");
-    const bo_id = $("#Bus-Operator").val();
-    const start_point = $("#Start-Point").val();
-    const end_point = $("#End-Point").val();
-    const type = $("#Type").val();
-    const start_time = $("#Start-Time").val();
-    const end_time = $("#End-Time").val();
-    const image_url = "dfasdf";
-    const policy = $("#Policy").val();
-    const num_of_seats = $("#Number-Of-Seats").val();
-    const price = $("#Price").val();
+    console.log('Hello');
+    const bo_id = $('#Bus-Operator').val();
+    const start_point = $('#Start-Point').val();
+    const end_point = $('#End-Point').val();
+    const type = $('#Type').val();
+    const start_time = $('#Start-Time').val();
+    const end_time = $('#End-Time').val();
+    const image_url = 'dfasdf';
+    const policy = $('#Policy').val();
+    const num_of_seats = $('#Number-Of-Seats').val();
+    const price = $('#Price').val();
 
     const data = JSON.stringify({
       bo_id: bo_id,
@@ -167,18 +168,17 @@ $(document).ready(function () {
     });
 
     $.ajax(`${HOST_NAME}/v1/admin/bus/create`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json;charset=utf-8",
-        Authorization: "Bearer " + token,
+        'Content-Type': 'application/json;charset=utf-8',
+        Authorization: 'Bearer ' + token,
       },
       data: data,
       success: function (data) {
-        console.log("data", data);
         window.location.href = `/pages/bus`;
       },
       error: function (error) {
-        console.log("error", error);
+        console.log('error', error);
       },
     });
   });

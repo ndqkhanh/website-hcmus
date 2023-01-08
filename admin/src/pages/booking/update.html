@@ -110,7 +110,7 @@
                           <select class="form-select" id="status">
                             <option selected>Select Status</option>
                             <option value="0">Booked</option>
-                            <option value="1">Paied</option>
+                            <option value="1">Paid</option>
                             <option value="2">Canceled</option>
                           </select>
                         </div>
@@ -189,8 +189,8 @@
 
   <script src="@@webRoot/assets/js/booking-update.js"></script>
   <script>
-    $("#user-email").text(
-      JSON.parse(localStorage.getItem("userInfo")).user.email
+    $('#user-email').text(
+      JSON.parse(localStorage.getItem('userInfo')).user.email
     );
   </script>
 </html>
