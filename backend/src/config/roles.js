@@ -7,25 +7,15 @@ const allRoles = {
     'cloneBus',
     'deleteTicket',
     'updateTicket',
-    'bookingList',
     'bookingGet',
     'bookingUpdate',
-  ],
-
-  admin: [
-    'getBOByID',
-    'viewBO',
-    'cloneBus',
-    'createBO',
-    'updateBO',
-    'deteleBO',
-    'bookingGet',
-    'bookingUpdate',
-    'getBus',
     'createBus',
     'deleteBus',
     'updateBus',
+    'getBus',
   ],
+
+  admin: ['getBOByID', 'viewBO', 'createBO', 'updateBO', 'deteleBO'],
 };
 
 allRoles.bus_operator = [...allRoles.bus_operator, ...allRoles.user];

@@ -123,6 +123,11 @@ const busList = async (page, limit, req) => {
         },
       },
     },
+    orderBy: [
+      {
+        start_time: 'desc',
+      },
+    ],
   });
 
   return { data };

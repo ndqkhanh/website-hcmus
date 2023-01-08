@@ -164,15 +164,15 @@ const sendEmail = async (req) => {
       text: '\nPlease enter your code ' + user_verification.code,
     };
 
-    // await transporter.sendMail(mailOptions, function (error, info) {
-    //   if (error) {
-    //     console.log(error);
-    //     return false;
-    //   } else {
-    //     console.log('Email sent ' + info.response);
-    //     return true;
-    //   }
-    // });
+    await transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error);
+        return false;
+      } else {
+        console.log('Email sent ' + info.response);
+        return true;
+      }
+    });
   } catch (error) {
     console.log('email not sent');
     console.log(error);
