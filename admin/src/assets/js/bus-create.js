@@ -149,7 +149,7 @@ $(document).ready(function () {
     const type = $('#Type').val();
     const start_time = $('#Start-Time').val();
     const end_time = $('#End-Time').val();
-    const image_url = 'dfasdf';
+    const image_url = $('#Image').val();
     const policy = $('#Policy').val();
     const num_of_seats = $('#Number-Of-Seats').val();
     const price = $('#Price').val();
