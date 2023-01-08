@@ -9,6 +9,7 @@ const httpStatus = require('http-status');
 const { PrismaClient } = require('@prisma/client');
 const { ERROR_MESSAGE } = require('../constants/ticket.constant');
 const ApiError = require('../utils/ApiError');
+const path = require('path');
 
 const prisma = new PrismaClient();
 
@@ -335,7 +336,7 @@ const createTicketByNumOfSeats = async (email, userId, busId, name, phone, numOf
       statusTmp,
       seatPositions,
     },
-    path: './src/output/ticket-information.pdf',
+    path: path.join(__dirname, './src/output/ticket-information.pdf'),
     type: '',
   };
 
@@ -367,7 +368,7 @@ const createTicketByNumOfSeats = async (email, userId, busId, name, phone, numOf
       attachments: [
         {
           filename: 'ticket-information.pdf',
-          path: './src/output/ticket-information.pdf',
+          path: path.join(__dirname, './src/output/ticket-information.pdf'),
           contentType: 'application/pdf',
         },
       ],
