@@ -28,10 +28,10 @@ const deleteBO = catchAsync(async (req, res) => {
   await boService.deleteBO(req);
   res.send({ success: true });
 });
-const getBOById = catchAsync(async(req, res) =>{
-  const result = await boService.getBusOperatorById(req.params.boId)
-  res.send(result)
-})
+const getBOById = catchAsync(async (req, res) => {
+  const result = await boService.getBusOperatorById(req.params.boId);
+  res.send(result);
+});
 module.exports = {
   getBOById,
   deleteBO,

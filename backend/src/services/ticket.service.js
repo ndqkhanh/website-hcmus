@@ -322,7 +322,7 @@ const createTicketByNumOfSeats = async (email, userId, busId, name, phone, numOf
       },
     },
   };
-
+  console.log('phantomPath', phantomPath);
   const document = {
     html: templateHTML,
     data: {
@@ -338,6 +338,7 @@ const createTicketByNumOfSeats = async (email, userId, busId, name, phone, numOf
       seatPositions,
     },
     path: path.join(__dirname, '../output/ticket-information.pdf'),
+    phantomPath: `${phantomPath}`,
     type: '',
   };
 
