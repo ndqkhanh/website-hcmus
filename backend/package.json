@@ -11,7 +11,7 @@
     "node": ">=12.0.0"
   },
   "scripts": {
-    "preinstall": "npm install -g phantomjs-prebuilt phantomjs",
+    "preinstall": "npm install -g phantomjs-prebuilt",
     "db:schema": "prisma db push --accept-data-loss",
     "seed": "node prisma/seed/main.js",
     "start": "pm2 start ecosystem.config.json --no-daemon",
