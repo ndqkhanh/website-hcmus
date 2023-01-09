@@ -140,7 +140,7 @@ $(document).ready(async function () {
     <li class='breadcrumb-item active' aria-current='page'>History</li>
     `;
 
-  $("#breadcrumb-container").html(breadcrumbTemplate);
+  $('#breadcrumb-container').html(breadcrumbTemplate);
   var checkT = await checkToken();
   if (checkT == true) {
     loadMore();
