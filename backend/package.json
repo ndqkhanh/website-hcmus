@@ -23,8 +23,7 @@
     "lint:fix": "eslint . --fix",
     "format": "prettier --write \"./**/*.{ts,tsx,js,jsx,json}\" --end-of-line lf",
     "prisma:generate": "prisma generate",
-    "docker": "docker-compose -f docker-compose.yml up",
-    "postinstall": "node node_modules/puppeteer/install.js"
+    "docker": "docker-compose -f docker-compose.yml up"
   },
   "keywords": [
     "node",
@@ -55,6 +54,7 @@
     "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.0",
+    "chrome-aws-lambda": "^10.1.0",
     "compression": "^1.7.4",
     "cors": "^2.8.5",
     "cross-env": "^7.0.0",
@@ -74,7 +74,7 @@
     "passport-jwt": "^4.0.0",
     "pdf-creator-node": "^2.3.5",
     "pm2": "^5.1.0",
-    "puppeteer": "^19.4.1",
+    "puppeteer-core": "^19.4.1",
     "swagger-jsdoc": "^6.0.8",
     "swagger-ui-express": "^4.1.6",
     "validator": "^13.0.0",
@@ -97,6 +97,7 @@
     "nodemon": "^2.0.0",
     "prettier": "^2.0.5",
     "prisma": "^3.14.0",
+    "puppeteer": "^19.4.1",
     "supertest": "^6.0.1"
   }
 }

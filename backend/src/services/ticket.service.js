@@ -4,7 +4,19 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable no-await-in-loop */
 const phantomPath = require('witch')('phantomjs-prebuilt', 'phantomjs');
-const puppeteer = require('puppeteer');
+// import chromium from 'chrome-aws-lambda';
+// const chromium = require('chrome-aws-lambda');
+let chrome = {};
+let puppeteer;
+if (process.env.AWS_LAMBDA_FUNCTION_VERSION) {
+  // running on the Vercel platform.
+  chrome = require('chrome-aws-lambda');
+  puppeteer = require('puppeteer-core');
+} else {
+  chrome = require('chrome-aws-lambda');
+  // running locally.
+  puppeteer = require('puppeteer');
+}
 const pdf = require('pdf-creator-node');
 const nodemailer = require('nodemailer');
 const httpStatus = require('http-status');
@@ -347,7 +359,13 @@ const createTicketByNumOfSeats = async (email, userId, busId, name, phone, numOf
     console.log('test 0');
 
     // Create browser instance
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({
+      args: [...chrome.args, '--hide-scrollbars', '--disable-web-security'],
+      defaultViewport: chrome.defaultViewport,
+      executablePath: await chrome.executablePath,
+      headless: true,
+      ignoreHTTPSErrors: true,
+    });
     console.log('test 1');
 
     // Create a new page
