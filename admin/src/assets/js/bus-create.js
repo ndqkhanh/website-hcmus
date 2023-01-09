@@ -60,7 +60,7 @@ $(document).ready(function () {
       let boListString = `<select class="form-select" id="Bus-Operator">
       <option>Select Bus Operator</option>`;
       boList.forEach((item) => {
-        if (item.id != userInfo.user.boid) return;
+        if (userInfo.user.role === 1 && item.id != userInfo.user.boid) return;
         boListString += `<option value='${item.id}'>${item.name}</option>`;
       });
       boListString += '</select>';
@@ -149,7 +149,7 @@ $(document).ready(function () {
     const type = $('#Type').val();
     const start_time = $('#Start-Time').val();
     const end_time = $('#End-Time').val();
-    const image_url = $('#Image').val();
+    const image_url = $('#Image-Bus').val();
     const policy = $('#Policy').val();
     const num_of_seats = $('#Number-Of-Seats').val();
     const price = $('#Price').val();

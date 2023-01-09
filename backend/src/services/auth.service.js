@@ -147,6 +147,7 @@ const sendEmail = async (req) => {
   console.log(user_verification);
 
   try {
+    console.log('test 1');
     const transporter = nodemailer.createTransport({
       host: 'smtp.sendgrid.net',
       port: 465,
@@ -156,6 +157,7 @@ const sendEmail = async (req) => {
         pass: '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',
       },
     });
+    console.log('test 2');
 
     const mailOptions = {
       from: 'Web-HCMUS <group9notification@gmail.com>',
@@ -163,19 +165,12 @@ const sendEmail = async (req) => {
       subject: 'Verify email',
       text: '\nPlease enter your code ' + user_verification.code,
     };
+    console.log('test 3');
 
-    await transporter.sendMail(mailOptions, function (error, info) {
-      if (error) {
-        console.log(error);
-        return false;
-      } else {
-        console.log('Email sent ' + info.response);
-        return true;
-      }
-    });
+    const info = await transporter.sendMail(mailOptions);
+    console.log('test 4', info.response);
   } catch (error) {
-    console.log('email not sent');
-    console.log(error);
+    console.log('email not sent', error);
     return false;
   }
   return true;
