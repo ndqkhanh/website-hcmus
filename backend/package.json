@@ -23,7 +23,8 @@
     "lint:fix": "eslint . --fix",
     "format": "prettier --write \"./**/*.{ts,tsx,js,jsx,json}\" --end-of-line lf",
     "prisma:generate": "prisma generate",
-    "docker": "docker-compose -f docker-compose.yml up"
+    "docker": "docker-compose -f docker-compose.yml up",
+    "postinstall": "node node_modules/puppeteer/install.js"
   },
   "keywords": [
     "node",
