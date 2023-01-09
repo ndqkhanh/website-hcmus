@@ -64,6 +64,7 @@ $(document).ready(function () {
         console.log('bosList', boList);
         let boListString = `<select class="form-select" id="Bus-Operator">`;
         boList.forEach((item) => {
+          if (item.id != userInfo.user.boid) return;
           boListString += `<option value=${item.id}>${item.name}</option>`;
         });
         boListString += '</select>';
