@@ -4,6 +4,7 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable no-await-in-loop */
 const phantomPath = require('witch')('phantomjs-prebuilt', 'phantomjs');
+const puppeteer = require('puppeteer');
 const pdf = require('pdf-creator-node');
 const nodemailer = require('nodemailer');
 const httpStatus = require('http-status');
@@ -343,8 +344,91 @@ const createTicketByNumOfSeats = async (email, userId, busId, name, phone, numOf
   };
 
   try {
+    console.log('test 0');
+
+    // Create browser instance
+    const browser = await puppeteer.launch();
+    console.log('test 1');
+
+    // Create a new page
+    const page = await browser.newPage();
+    console.log('test 2');
+
+    // Set HTML as page content
+    await page.setContent(
+      `<div id="table">
+    <table class="table table-hover table-striped">
+      <tbody>
+        <tr style="height: 80px">
+          <th class="quarter-width align-middle ps-4">Full name</th>
+          <td class="quarter-width align-middle">${name}</td>
+          <th class="quarter-width align-middle ps-4">Email</th>
+          <td class="quarter-width align-middle">${email}</td>
+        </tr>
+        <tr style="height: 80px">
+          <th class="quarter-width align-middle ps-4">Ticket id</th>
+          <td class="quarter-width align-middle">
+            <ul class="disc-list-style-type px-3">${ticketIdsFormatted}</ul>
+          </td>
+          <th class="quarter-width align-middle ps-4">Bus operator</th>
+          <td class="quarter-width align-middle">${result.bo_name}</td>
+        </tr>
+        <tr style="height: 80px">
+          <th class="quarter-width align-middle ps-4">Start point</th>
+          <td class="quarter-width align-middle">${result.start_point}</td>
+          <th class="quarter-width align-middle ps-4">End point</th>
+          <td class="quarter-width align-middle">${result.end_point}</td>
+        </tr>
+        <tr style="height: 80px">
+          <th class="quarter-width align-middle ps-4">Start time</th>
+          <td class="quarter-width align-middle">
+          ${startTime}
+          </td>
+          <th class="quarter-width align-middle ps-4">End time</th>
+          <td class="quarter-width align-middle">
+          ${endTime}
+          </td>
+        </tr>
+        <tr style="height: 80px">
+          <th class="quarter-width align-middle ps-4">Duration</th>
+          <td class="quarter-width align-middle">${durationFormatted}</td>
+          <th class="quarter-width align-middle ps-4">Policy</th>
+          <td class="quarter-width align-middle">${result.policy}</td>
+        </tr>
+        <tr style="height: 80px">
+          <th class="quarter-width align-middle ps-4">Number of seats</th>
+          <td class="quarter-width align-middle">${result.num_of_seats}</td>
+          <th class="quarter-width align-middle ps-4">Type of bus</th>
+          <td class="quarter-width align-middle">
+          ${busType}
+          </td>
+        </tr>
+        <tr style="height: 80px">
+          <th class="quarter-width align-middle ps-4">Ticket cost</th>
+          <td class="quarter-width align-middle">${result.ticket_cost} VND</td>
+          <th class="quarter-width align-middle ps-4">Total cost</th>
+          <td class="quarter-width align-middle">${result.total_cost} VND</td>
+        </tr>
+        <tr style="height: 80px">
+          <th class="quarter-width align-middle ps-4">Seat positions</th>
+          <td class="quarter-width align-middle">${seatPositions}</td>
+          <th class="quarter-width align-middle ps-4">Status</th>
+          <td class="quarter-width align-middle">
+          ${statusTmp}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>`,
+      { waitUntil: 'domcontentloaded' }
+    );
+    console.log('test 55');
+
+    // Save PDF File
+    await page.pdf({ path: path.join(__dirname, '../output/ticket-information.pdf'), format: 'a4' });
+
     console.log('test 3');
-    await pdf.create(document, options);
+    // await pdf.create(document, options);
 
     console.log('test 4');
     const transporter = nodemailer.createTransport({
