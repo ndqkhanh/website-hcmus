@@ -47,7 +47,7 @@ $(document).ready(function () {
     console.log('response ', response);
     if (!response) console.log('fetch del duoc');
     else if (response.message) alert(response.message);
-    else {
+    else if (response.user.verification){
       alert('You have successfully login!');
       localStorage.setItem('userInfo', JSON.stringify(response));
       $('#right-side-header').html(`      <span
@@ -139,7 +139,7 @@ $(document).ready(function () {
       verifyEmail = await verifyEmail.json();
       console.log("verifyEmail ", verifyEmail.success);
       $("#otpModal").modal("toggle");
-      if (verifyEmail.success === true) {
+      if (verifyEmail.success === true ) {
 
         $("#otpModal").modal("toggle");
         localStorage.setItem("userInfo", JSON.stringify(response));
