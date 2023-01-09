@@ -3,7 +3,7 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable no-plusplus */
 /* eslint-disable no-await-in-loop */
-const phantomPath = require('witch')('phantomjs-prebuilt', 'phantomjs');
+// const phantomPath = require('witch')('phantomjs-prebuilt', 'phantomjs');
 // import chromium from 'chrome-aws-lambda';
 // const chromium = require('chrome-aws-lambda');
 const puppeteer = require('puppeteer');
@@ -333,7 +333,6 @@ const createTicketByNumOfSeats = async (email, userId, busId, name, phone, numOf
       },
     },
   };
-  console.log('phantomPath', phantomPath);
   const document = {
     html: templateHTML,
     data: {
@@ -349,7 +348,7 @@ const createTicketByNumOfSeats = async (email, userId, busId, name, phone, numOf
       seatPositions,
     },
     path: path.join(__dirname, '../output/ticket-information.pdf'),
-    phantomPath: `${phantomPath}`,
+    // phantomPath: `${phantomPath}`,
     type: '',
   };
 
