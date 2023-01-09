@@ -48,8 +48,8 @@ const deleteBO = {
 const getBOByID = {
   params: Joi.object().keys({
     boId: Joi.string().uuid().required(),
-  })
-}
+  }),
+};
 module.exports = {
   getBOByID,
   deleteBO,

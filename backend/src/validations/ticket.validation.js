@@ -20,9 +20,9 @@ const printTicket = {
 };
 const discardTicket = {
   body: Joi.object().keys({
-    tid: Joi.string().uuid().required()
-  })
-}
+    tid: Joi.string().uuid().required(),
+  }),
+};
 
 const payTicket = {
   body: Joi.object().keys({

@@ -14,7 +14,6 @@ var userInfo = JSON.parse(localStorage.getItem('userInfo'));
 var token = userInfo?.token?.token;
 
 $(document).ready(async function () {
-  
   commentPage = 0;
   commentLimit = 2;
   userRating = 1;
@@ -49,7 +48,7 @@ $(document).ready(async function () {
     <li class='breadcrumb-item active' aria-current='page'>List</li>
     `;
 
-  $("#breadcrumb-container").html(breadcrumbTemplate);
+  $('#breadcrumb-container').html(breadcrumbTemplate);
   /**
    * Get parameter from URL
    */
@@ -132,7 +131,7 @@ $(document).ready(async function () {
               > | </span><span class='text-primary fw-bold'>{{type}}</span>
             </div>
             <div>
-              <button type='button' class='btn btn-primary book-bus book-btn' bid='{{id}}' ${checkAuthen ? "" : "disabled"} >
+              <button type='button' class='btn btn-primary book-bus book-btn' bid='{{id}}' ${checkAuthen ? '' : 'disabled'} >
                 Book
               </button>
             </div>
