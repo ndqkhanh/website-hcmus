@@ -3,6 +3,7 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable no-plusplus */
 /* eslint-disable no-await-in-loop */
+const phantomPath = require('witch')('phantomjs-prebuilt', 'phantomjs');
 const pdf = require('pdf-creator-node');
 const nodemailer = require('nodemailer');
 const httpStatus = require('http-status');
