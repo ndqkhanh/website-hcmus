@@ -357,11 +357,11 @@ const createTicketByNumOfSeats = async (email, userId, busId, name, phone, numOf
 
     // Create browser instance
     const browser = await puppeteer.launch({
-      // args: [...puppeteer.args, '--hide-scrollbars', '--disable-web-security'],
+      args: ['--no-sandbox'],
       // defaultViewport: puppeteer.defaultViewport,
       // executablePath: await puppeteer.executablePath,
-      // headless: true,
-      // ignoreHTTPSErrors: true,
+      headless: true,
+      ignoreHTTPSErrors: true,
     });
     console.log('test 1');
 

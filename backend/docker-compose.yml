@@ -1,35 +1,38 @@
 version: '3'
 
 services:
-  # q2aforum:
-  #   build: .
-  #   image: q2aforum
-  #   environment:
-  #     - POSTGRESQL_URL=postgres:localdb@postgres:5432/q2aforum
-  #   ports:
-  #     - '3000:3000'
-  #   depends_on:
-  #     - postgres
-  #   volumes:
-  #     - .:/usr/src/q2aforum
-  #   # networks:
-  #   #   - node-network
-
-  postgres:
-    container_name: postgres
-    image: postgres:9.6-alpine
+  vexe:
+    build: .
+    image: vexere-backend
     environment:
-      - POSTGRES_DB=ticketbooking
-      - POSTGRES_PASSWORD=localdb
-      - PGDATA=/var/lib/postgresql/data/ticketbooking/
-    volumes:
-      - data:/var/lib/postgresql/data
-    expose:
-      - '8080'
-      - '5432'
+      - DATABASE_URL=postgres://nguyenphucbao098:RK3Y5MVxTruW@ep-sparkling-bonus-842154.ap-southeast-1.aws.neon.tech/neondb
+      - PORT=3000
+      - JWT_SECRET=thisisasamplesecret
+      - JWT_ACCESS_EXPIRATION_MINUTES=30
+      - JWT_REFRESH_EXPIRATION_DAYS=30
+      - JWT_RESET_PASSWORD_EXPIRATION_MINUTES=10
+      - JWT_VERIFY_EMAIL_EXPIRATION_MINUTES=10
     ports:
-      - '5432:5432'
-      - '8080:8080'
+      - '3000:3000'
+    # volumes:
+    #   - .:/usr/src/node-app
+    # networks:
+    #   - node-network
 
-volumes:
-  data:
+  # postgres:
+  #   container_name: postgres
+  #   image: postgres:9.6-alpine
+  #   environment:
+  #     - POSTGRES_DB=ticketbooking
+  #     - POSTGRES_PASSWORD=localdb
+  #     - PGDATA=/var/lib/postgresql/data/ticketbooking/
+  #   volumes:
+  #     - data:/var/lib/postgresql/data
+  #   expose:
+  #     - '8080'
+  #     - '5432'
+  #   ports:
+  #     - '5432:5432'
+  #     - '8080:8080'
+# volumes:
+#   data:
