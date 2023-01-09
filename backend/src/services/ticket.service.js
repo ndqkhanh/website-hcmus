@@ -15,7 +15,7 @@ const puppeteer = require('puppeteer');
 //   // running locally.
 
 // }
-const pdf = require('pdf-creator-node');
+// const pdf = require('pdf-creator-node');
 const nodemailer = require('nodemailer');
 const httpStatus = require('http-status');
 const { PrismaClient } = require('@prisma/client');

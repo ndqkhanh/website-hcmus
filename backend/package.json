@@ -71,7 +71,6 @@
     "nodemailer": "^6.3.1",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
-    "pdf-creator-node": "^2.3.5",
     "pm2": "^5.1.0",
     "puppeteer": "^19.4.1",
     "swagger-jsdoc": "^6.0.8",
