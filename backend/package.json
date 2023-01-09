@@ -73,6 +73,7 @@
     "passport-jwt": "^4.0.0",
     "pdf-creator-node": "^2.3.5",
     "pm2": "^5.1.0",
+    "puppeteer": "^19.4.1",
     "swagger-jsdoc": "^6.0.8",
     "swagger-ui-express": "^4.1.6",
     "validator": "^13.0.0",

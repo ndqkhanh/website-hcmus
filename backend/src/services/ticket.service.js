@@ -6,7 +6,7 @@
 const phantomPath = require('witch')('phantomjs-prebuilt', 'phantomjs');
 // import chromium from 'chrome-aws-lambda';
 // const chromium = require('chrome-aws-lambda');
-let puppeteer = require('puppeteer');
+const puppeteer = require('puppeteer');
 // if (process.env.AWS_LAMBDA_FUNCTION_VERSION) {
 //   // running on the Vercel platform.
 //   chrome = require('chrome-aws-lambda');
