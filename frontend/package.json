@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "node index.js",
+    "start": "pm2 start ecosystem.config.json --no-daemon",
     "dev": "nodemon index.js",
     "format": "prettier --write \"./**/*.{ts,tsx,js,jsx,json}\" --end-of-line lf"
   },
@@ -13,6 +13,7 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.20",
+    "pm2": "^5.2.2",
     "prettier": "^2.0.5"
   }
 }
