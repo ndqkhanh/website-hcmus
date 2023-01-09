@@ -9,7 +9,9 @@ const ApiError = require('../utils/ApiError');
 const prisma = new PrismaClient();
 
 const getBusStations = async () => {
+  console.log('vui');
   const data = await prisma.bus_stations.findMany({});
+  console.log('vui 2');
   return { data };
 };
 
