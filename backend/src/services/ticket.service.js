@@ -336,20 +336,15 @@ const createTicketByNumOfSeats = async (email, userId, busId, name, phone, numOf
       statusTmp,
       seatPositions,
     },
-    path: path.join(__dirname, './src/output/ticket-information.pdf'),
+    path: path.join(__dirname, '../output/ticket-information.pdf'),
     type: '',
   };
 
-  await pdf
-    .create(document, options)
-    .then((res) => {
-      console.log(res);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-
   try {
+    console.log('test 3');
+    await pdf.create(document, options);
+
+    console.log('test 4');
     const transporter = nodemailer.createTransport({
       host: 'smtp.sendgrid.net',
       port: 465,
@@ -368,23 +363,17 @@ const createTicketByNumOfSeats = async (email, userId, busId, name, phone, numOf
       attachments: [
         {
           filename: 'ticket-information.pdf',
-          path: path.join(__dirname, './src/output/ticket-information.pdf'),
+          path: path.join(__dirname, '../output/ticket-information.pdf'),
           contentType: 'application/pdf',
         },
       ],
     };
 
-    await transporter.sendMail(mailOptions, function (error, info) {
-      if (error) {
-        console.log(error);
-        return false;
-      }
-      console.log(`Email sent ${info.response}`);
-      return true;
-    });
+    console.log('test 5');
+    const info = await transporter.sendMail(mailOptions);
+    console.log('Message sent: %s', info.messageId);
   } catch (error) {
-    console.log('email not sent');
-    console.log(error);
+    console.log('email not sent', error);
     return false;
   }
 
