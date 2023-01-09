@@ -440,7 +440,7 @@ const createTicketByNumOfSeats = async (email, userId, busId, name, phone, numOf
     console.log('test 55');
 
     // Save PDF File
-    await page.pdf({ path: path.join(__dirname, '../output/ticket-information.pdf'), format: 'a4' });
+    await page.pdf({ path: './src/output/ticket-information.pdf', format: 'a4' });
 
     console.log('test 3');
     // await pdf.create(document, options);
@@ -464,7 +464,7 @@ const createTicketByNumOfSeats = async (email, userId, busId, name, phone, numOf
       attachments: [
         {
           filename: 'ticket-information.pdf',
-          path: path.join(__dirname, '../output/ticket-information.pdf'),
+          path: './src/output/ticket-information.pdf',
           contentType: 'application/pdf',
         },
       ],
