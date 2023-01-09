@@ -313,8 +313,9 @@ function viewDetail(id, averRating) {
   <div class='p-4 col'>
     <div class='h3 text-center mw-50'>Nhà xe {{bo_name}}</div>
 
-    <div>
-      <img class='img-fluid'
+    <div class='d-flex justify-content-center'>
+      <img 
+        class= 'img-fluid'
         src={{image_bo}}
         alt='Nhà xe' />
     </div>
@@ -417,7 +418,7 @@ function viewDetail(id, averRating) {
       </tr>
     </table>
     <hr />
-    <div>
+    <div class='d-flex justify-content-center'>
       <img class='img-fluid' src='{{image_url}}'
         alt='Xe' />
     </div>
@@ -428,6 +429,11 @@ function viewDetail(id, averRating) {
   $.get(`${BACKEND_URL}/bus/${id}`, {}, function (data) {
     let duration = (new Date(data.end_time) - new Date(data.start_time)) / 1000;
     if (data) {
+      Policy = data.policy?.replaceAll('&amp;','&')
+      .replaceAll('&gt;', '>')
+      .replaceAll('&lt;', '<')
+      .replaceAll('&quot;', '"')
+      .replaceAll('&apos;', "'");
       html += templateScript({
         bo_name: data.bus_operators.name,
         phone_num: data.bus_operators.phone,
@@ -437,7 +443,7 @@ function viewDetail(id, averRating) {
         start_time: data.start_time,
         end_time: data.end_time,
         duration: secondsToHms(duration),
-        policy: data.policy,
+        policy: Policy,
         num_seat: data.num_of_seats,
         type: typeName[data.type],
         price: data.price,
