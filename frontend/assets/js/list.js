@@ -168,6 +168,7 @@ $(document).ready(async function () {
         startTime: date,
       },
       function (data) {
+        loadingContent = false;
         if (data.data.length === 0 && reset === false) {
           $('#load-more').hide();
           return;
@@ -230,12 +231,14 @@ $(document).ready(async function () {
 
   //   }
   // });
-
+  let loadingContent = false;
   $(window).on('scroll', function () {
     if (
       $(window).scrollTop() >=
       $('#list-of-buses-div').offset().top + $('#list-of-buses-div').outerHeight() - window.innerHeight
     ) {
+      if (loadingContent) return;
+      loadingContent = true;
       page++;
       loadMore();
     }
@@ -429,11 +432,12 @@ function viewDetail(id, averRating) {
   $.get(`${BACKEND_URL}/bus/${id}`, {}, function (data) {
     let duration = (new Date(data.end_time) - new Date(data.start_time)) / 1000;
     if (data) {
-      Policy = data.policy?.replaceAll('&amp;','&')
-      .replaceAll('&gt;', '>')
-      .replaceAll('&lt;', '<')
-      .replaceAll('&quot;', '"')
-      .replaceAll('&apos;', "'");
+      Policy = data.policy
+        ?.replaceAll('&amp;', '&')
+        .replaceAll('&gt;', '>')
+        .replaceAll('&lt;', '<')
+        .replaceAll('&quot;', '"')
+        .replaceAll('&apos;', "'");
       html += templateScript({
         bo_name: data.bus_operators.name,
         phone_num: data.bus_operators.phone,

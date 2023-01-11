@@ -20,14 +20,11 @@ const exitHandler = () => {
       process.exit(1);
     });
   } else {
-    console.log('vui');
     process.exit(1);
   }
 };
 
 const unexpectedErrorHandler = (error) => {
-  console.log('vui 2', error);
-
   logger.error('vui: ' + error);
 
   exitHandler();
