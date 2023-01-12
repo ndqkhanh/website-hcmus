@@ -185,7 +185,7 @@ $(document).ready(async function () {
             start_point_name: item.start_point.name,
             end_point_time: new Date(item.end_time).getHours() + ':' + new Date(item.end_time).getSeconds(),
             end_point_date: new Date(item.end_time).toISOString().split('T')[0],
-            end_point_name: item.start_point.name,
+            end_point_name: item.end_point.name,
             left_seats: item.left_seats,
             price: numberWithThoundsand(item.price),
             duration: secondsToHms(duration),
