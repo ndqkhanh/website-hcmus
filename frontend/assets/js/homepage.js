@@ -270,7 +270,7 @@ $(document).ready(function () {
             </li>
             <li><a class="dropdown-item" href="#" id="logOutBtn">Logout</a></li>
           </ul>`);
-            localStorage.setItem('userInfo', JSON.stringify(response));
+            // localStorage.setItem('userInfo', JSON.stringify(response));
 
             $('#logOutBtn').click(() => {
               localStorage.setItem('userInfo', null);
