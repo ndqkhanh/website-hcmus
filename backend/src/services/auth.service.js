@@ -154,7 +154,7 @@ const sendEmail = async (req) => {
       secure: true,
       auth: {
         user: 'apikey',
-        pass: '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',
+        pass: '',
       },
     });
     console.log('test 2');
